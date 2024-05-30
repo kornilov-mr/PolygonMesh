@@ -1,6 +1,5 @@
 package primitive.faces;
 
-import javafx.util.Pair;
 import org.json.JSONObject;
 import primitive.Point;
 import primitive.Primitive;
@@ -35,9 +34,10 @@ public class Face implements Primitive {
         this.coordinateForm = new CoordinateForm(normalVector,D);
     }
     @Override
-    public Pair<Point, Color> getIntersection(Line line) {
-        Point IntersectionWithPlane = coordinateForm.getPointOnIntersection(line);
-        return new Pair<>(IntersectionWithPlane,color);
+    public Point getIntersection(Line line) {
+        Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
+        intersectionWithPlane.setColor(color);
+        return intersectionWithPlane;
     }
 
     @Override

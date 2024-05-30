@@ -1,7 +1,6 @@
 package core.render.camera;
 
 import core.render.RenderConfig;
-import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
@@ -52,14 +51,6 @@ public class Camera {
         calculateNewVectors();
     }
 
-    protected void changeHorizontalAngle(double angle){
-        this.horizontalAngle+=angle;
-        calculateNewVectors();
-    }
-    protected void changeVerticalAngle(double angle){
-        this.verticalAngle+=angle;
-        calculateNewVectors();
-    }
     private void calculateNewVectors(){
         Vector3D frontVector = new Vector3D(0,0,1);
         frontVector=frontVector.rotateX(horizontalAngle);
@@ -85,7 +76,7 @@ public class Camera {
     protected void moveCameraFront(double distance){
         this.cameraPosition=cameraPosition.add(frontVector.Multiply(distance));
     }
-    protected Vector3D getCameraPosition() {
+    public Vector3D getCameraPosition() {
         return cameraPosition;
     }
 
@@ -96,4 +87,5 @@ public class Camera {
     public double getVerticalAngle() {
         return verticalAngle;
     }
+
 }

@@ -1,6 +1,5 @@
 package primitive;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import primitive.faces.Face;
 import primitive.faces.Polygon;

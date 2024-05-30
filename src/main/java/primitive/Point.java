@@ -3,18 +3,25 @@ package primitive;
 import org.json.JSONObject;
 import utils.vectors.Vector3D;
 
+import java.awt.*;
+
 public class Point {
 
     private final double x;
     private final double y;
     private final double z;
-    public Point(Vector3D vector){
-        this(vector.getX(), vector.getY(), vector.getZ());
+    private Color color;
+    public Point(double x, double y, double z){
+        this(x,y,z,new Color(0,0,0));
     }
-    public Point(double x, double y, double z) {
+    public Point(Vector3D vector){
+        this(vector.getX(), vector.getY(), vector.getZ(), new Color(0,0,0));
+    }
+    public Point(double x, double y, double z,Color color) {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.color=color;
     }
 
     public double getX() {
@@ -27,6 +34,14 @@ public class Point {
 
     public double getZ() {
         return z;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public JSONObject toJSON(){

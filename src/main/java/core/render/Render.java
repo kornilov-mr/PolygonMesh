@@ -2,7 +2,6 @@ package core.render;
 
 import core.render.camera.Camera;
 import core.scene.Scene;
-import javafx.util.Pair;
 import primitive.Point;
 import primitive.Primitive;
 import utils.Calculation;
@@ -10,7 +9,6 @@ import utils.line.Line;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.concurrent.CancellationException;
 
 public class Render {
 
@@ -38,14 +36,14 @@ public class Render {
         return getColorOfFirstIntersection(rayLine,scene);
     }
     private Color getColorOfFirstIntersection(Line rayLine, Scene scene){
-        ArrayList<Pair<Point, Color>> points= getAllCollision(rayLine,scene);
+        ArrayList<Point> points= getAllCollision(rayLine,scene);
         double minDistance = Double.MAX_VALUE;
         Color nearestColor= null;
-        for(Pair<Point,Color> pointWithColor : points){
-            double distance = Calculation.getLengthBetweenTwoPoints(new Point(0,0,0),pointWithColor.getKey());
+        for(Point point : points){
+            double distance = Calculation.getLengthBetweenTwoPoints(new Point(camera.getCameraPosition()),point);
             if(minDistance> distance){
                 minDistance=distance;
-                nearestColor=pointWithColor.getValue();
+                nearestColor=point.getColor();
             }
         }
         if (nearestColor == null) {
@@ -53,10 +51,10 @@ public class Render {
         }
         return nearestColor;
     }
-    private ArrayList<Pair<Point, Color>> getAllCollision(Line rayLine, Scene scene) {
-        ArrayList<Pair<Point, Color>> points = new ArrayList<>();
+    private ArrayList<Point> getAllCollision(Line rayLine, Scene scene) {
+        ArrayList<Point> points = new ArrayList<>();
         for (Primitive primitive : scene.getFaces()) {
-            Pair<Point, Color> intersectionPointWithColor = primitive.getIntersection(rayLine);
+            Point intersectionPointWithColor = primitive.getIntersection(rayLine);
             if (intersectionPointWithColor != null) {
                 points.add(intersectionPointWithColor);
             }

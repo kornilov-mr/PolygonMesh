@@ -25,6 +25,7 @@ public class Window {
         windowFrame.add(mainPanel);
 
         setWindowSettings(windowFrame);
+        windowFrame.addKeyListener(cameraController);
     }
     private void setWindowSettings(JFrame window){
         window.setSize(width+200,height);

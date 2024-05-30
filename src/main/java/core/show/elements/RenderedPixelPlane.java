@@ -23,7 +23,6 @@ public class RenderedPixelPlane extends JPanel {
     public RenderedPixelPlane(int width, int height, CameraController cameraController){
         this.width=width;
         this.height=height;
-        addKeyListener(cameraController);
         addMouseMotionListener(cameraController);
         this.canvas = newEmptyFrame();
     }

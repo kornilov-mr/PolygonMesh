@@ -1,6 +1,5 @@
 package primitive.faces;
 
-import javafx.util.Pair;
 import org.json.JSONObject;
 import primitive.Point;
 import primitive.Primitive;
@@ -36,11 +35,12 @@ public class Polygon implements Primitive {
     }
 
     @Override
-    public Pair<Point, Color> getIntersection(Line line) {
-        Point IntersectionWithPlane = coordinateForm.getPointOnIntersection(line);
+    public Point getIntersection(Line line) {
+        Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
 
-        if (IntersectionWithPlane != null && Calculation.ifPointInTriangle(IntersectionWithPlane, pointA, pointB, pointC)) {
-            return new Pair<>(IntersectionWithPlane, color);
+        if (intersectionWithPlane != null && Calculation.ifPointInTriangle(intersectionWithPlane, pointA, pointB, pointC)) {
+            intersectionWithPlane.setColor(color);
+            return intersectionWithPlane;
         }
         return null;
     }
