@@ -1,19 +1,16 @@
-package core.show;
+package core.show.elements;
 
-import core.render.camera.Camera;
 import core.render.camera.CameraController;
 import utils.Calculation;
 import utils.vectors.Vector3D;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class CameraPositionInfo extends JLabel {
 
     private final CameraController cameraController;
     public CameraPositionInfo(CameraController cameraController){
         this.cameraController=cameraController;
-
         setText("test");
     }
     public void updateCameraInfo(){

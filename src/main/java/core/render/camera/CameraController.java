@@ -66,9 +66,6 @@ public class CameraController implements KeyListener, MouseMotionListener {
         double newHorizontalAngle = (lastNotDraggedMousePosition.getY()-e.getY())/renderConfig.resolution[0]*Math.PI/2 + lastCameraHorizontalAngle;
         camera.setHorizontalAngle(newHorizontalAngle);
         camera.setVerticalAngle(newVerticalAngle);
-        System.out.println("sample");
-        System.out.println("pre"+lastNotDraggedMousePosition);
-        System.out.println("for"+new Vector2D(e.getX(),e.getY()));
 
     }
     @Override
@@ -76,7 +73,6 @@ public class CameraController implements KeyListener, MouseMotionListener {
         this.lastNotDraggedMousePosition = new Vector2D(e.getX(),e.getY());
         this.lastCameraHorizontalAngle=camera.getHorizontalAngle();
         this.lastCameraVerticalAngle= camera.getVerticalAngle();
-        System.out.println("skip");
     }
 
     public Vector3D getCameraPosition(){

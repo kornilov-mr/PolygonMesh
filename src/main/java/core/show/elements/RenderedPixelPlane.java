@@ -1,12 +1,13 @@
-package core.show;
+package core.show.elements;
 
 import core.render.Frame;
+import core.render.camera.CameraController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class DirectDrawer extends JPanel {
+public class RenderedPixelPlane extends JPanel {
     public BufferedImage canvas;
     private final int width;
     private final int height;
@@ -19,9 +20,11 @@ public class DirectDrawer extends JPanel {
         g2.drawImage(canvas, null, null);
     }
 
-    public DirectDrawer(int width, int height){
+    public RenderedPixelPlane(int width, int height, CameraController cameraController){
         this.width=width;
         this.height=height;
+        addKeyListener(cameraController);
+        addMouseMotionListener(cameraController);
         this.canvas = newEmptyFrame();
     }
     public BufferedImage newEmptyFrame(){
