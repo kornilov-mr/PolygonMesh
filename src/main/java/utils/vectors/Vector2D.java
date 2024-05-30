@@ -1,5 +1,7 @@
 package utils.vectors;
 
+import utils.Calculation;
+
 public class Vector2D {
     private final double x;
     private final double y;
@@ -8,6 +10,9 @@ public class Vector2D {
         this.x = x;
         this.y = y;
     }
+    public Vector2D add(Vector2D vector){
+        return  new Vector2D(this.x+ vector.x, this.y + vector.y);
+    }
     public Vector2D division(Vector2D vector){
         return new Vector2D(this.x/ vector.x,this.y/ vector.y);
     }
@@ -15,10 +20,10 @@ public class Vector2D {
     public Vector2D division(double factor){
         return new Vector2D(this.x/factor,this.y/factor);
     }
-    public Vector2D Multiply(double factor){
+    public Vector2D multiply(double factor){
         return new Vector2D(this.x*factor, this.y*factor);
     }
-    public Vector2D Multiply(Vector2D otherVector){
+    public Vector2D multiply(Vector2D otherVector){
         return new Vector2D(this.x*otherVector.x,this.y*otherVector.y);
     }
     public Vector3D addZ(double z){
@@ -38,5 +43,22 @@ public class Vector2D {
 
     public double getY() {
         return y;
+    }
+    public boolean vectorEquals(Vector2D otherVector){
+        if(!Calculation.CompareWithRound(x,otherVector.getX(),5)){
+            return false;
+        }
+        if(!Calculation.CompareWithRound(y,otherVector.getY(),5)){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Vector2D{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

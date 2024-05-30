@@ -1,6 +1,7 @@
 package utils;
 
 import primitive.Point;
+import utils.quaternion.Quaternion;
 import utils.vectors.Vector3D;
 
 import java.math.BigDecimal;
@@ -36,6 +37,24 @@ public class Calculation {
 
     public static double getLengthBetweenTwoPoints(Point pointA,Point pointB){
         return VectorBetweenTwoPoints(pointA,pointB).getLength();
+    }
+    public static Vector3D rotateVectorAroundCertainAxis(Vector3D pointVector, Vector3D axisVector,double angle){
+        angle = angle/2;
+        axisVector=axisVector.normalized();
+        Quaternion pointQuaternion= new Quaternion(pointVector);
+        Quaternion axisQuaternion= (new Quaternion(Math.cos(angle),axisVector.Multiply(Math.sin(angle))));
+
+        Quaternion pointDelta = axisQuaternion.crossMultiply(pointQuaternion);
+        Quaternion reversed= axisQuaternion.reversed();
+        Quaternion endPoint= pointDelta.crossMultiply(reversed);
+
+        return endPoint.getQuaternionVector();
+    }
+    public static boolean CompareWithRound(double a,double b,int digits){
+        if(round(a,digits)==round(b,digits)){
+            return true;
+        }
+        return false;
     }
 
 }

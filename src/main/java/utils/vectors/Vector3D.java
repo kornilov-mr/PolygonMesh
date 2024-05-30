@@ -1,12 +1,16 @@
 package utils.vectors;
 
 import primitive.Point;
+import utils.Calculation;
 
 public class Vector3D {
     private final double x;
     private final double y;
     private final double z;
 
+    public Vector3D(Vector3D vector){
+        this(vector.getX(),vector.getY(), vector.getZ());
+    }
     public Vector3D(Point point) {
         this(point.getX(), point.getY(), point.getZ());
     }
@@ -57,8 +61,8 @@ public class Vector3D {
 
     public Vector3D rotateZ(double angle) {
         return new Vector3D(this.x * Math.cos(angle) - this.y * Math.sin(angle),
-                this.x * Math.sin(angle) - this.y * Math.cos(angle),
-                this.x);
+                this.x * Math.sin(angle) + this.y * Math.cos(angle),
+                this.z);
     }
 
     public double getLength() {
@@ -79,5 +83,27 @@ public class Vector3D {
 
     public double getZ() {
         return z;
+    }
+
+    public boolean vectorEquals(Vector3D otherVector){
+        if(!Calculation.CompareWithRound(x,otherVector.getX(),5)){
+            return false;
+        }
+        if(!Calculation.CompareWithRound(y,otherVector.getY(),5)){
+            return false;
+        }
+        if(!Calculation.CompareWithRound(z,otherVector.getZ(),5)){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Vector3D{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 }

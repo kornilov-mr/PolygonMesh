@@ -1,5 +1,6 @@
 package primitive;
 
+import org.json.JSONObject;
 import utils.vectors.Vector3D;
 
 public class Point {
@@ -26,5 +27,13 @@ public class Point {
 
     public double getZ() {
         return z;
+    }
+
+    public JSONObject toJSON(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("x",x);
+        jsonObject.put("y",y);
+        jsonObject.put("z",z);
+        return jsonObject;
     }
 }

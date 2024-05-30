@@ -3,6 +3,8 @@ package core;
 import core.render.Frame;
 import core.render.Render;
 import core.render.RenderConfig;
+import core.render.camera.Camera;
+import core.render.camera.CameraController;
 import core.scene.Scene;
 import core.show.Window;
 
@@ -19,8 +21,10 @@ public class RenderController {
     }
     public RenderController(RenderConfig renderConfig) {
         this.renderConfig = renderConfig;
-        this.render=new Render(renderConfig);
-        this.window=new Window(renderConfig.resolution[0],renderConfig.resolution[1]);
+        Camera camera = new Camera(renderConfig);
+        CameraController cameraController = new CameraController(camera,renderConfig);
+        this.render=new Render(renderConfig,camera);
+        this.window=new Window(renderConfig.resolution[0],renderConfig.resolution[1],cameraController);
     }
 
     public void setScene(Scene scene) {

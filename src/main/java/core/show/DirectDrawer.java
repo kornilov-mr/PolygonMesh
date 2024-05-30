@@ -22,6 +22,7 @@ public class DirectDrawer extends JPanel {
     public DirectDrawer(int width, int height){
         this.width=width;
         this.height=height;
+        this.canvas = newEmptyFrame();
     }
     public BufferedImage newEmptyFrame(){
         return new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);

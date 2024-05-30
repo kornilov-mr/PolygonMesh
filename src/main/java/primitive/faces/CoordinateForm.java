@@ -1,4 +1,4 @@
-package primitive.face;
+package primitive.faces;
 
 import primitive.Point;
 import utils.line.Line;
@@ -37,6 +37,9 @@ public class CoordinateForm {
         free += D;
 
         r = (-1*free) / r;
+        if(r<0){
+            return null;
+        }
         return new Point(line.directionVector.Multiply(r).add(line.pointVector));
 
     }
