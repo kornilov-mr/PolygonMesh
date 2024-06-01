@@ -40,7 +40,7 @@ public class Render {
         double minDistance = Double.MAX_VALUE;
         Color nearestColor= null;
         for(Point point : points){
-            double distance = Calculation.getLengthBetweenTwoPoints(new Point(camera.getCameraPosition()),point);
+            double distance = Calculation.getLengthBetweenTwoPoints(new Point(camera.getPosition()),point);
             if(minDistance> distance){
                 minDistance=distance;
                 nearestColor=point.getColor();

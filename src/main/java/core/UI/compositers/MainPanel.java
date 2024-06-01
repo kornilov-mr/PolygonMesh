@@ -1,7 +1,7 @@
-package core.show.compositers;
+package core.UI.compositers;
 
-import core.show.elements.CameraPositionInfo;
-import core.show.elements.RenderedPixelPlane;
+import core.UI.elements.CameraPositionInfo;
+import core.UI.elements.RenderedPixelPlane;
 
 import javax.swing.*;
 

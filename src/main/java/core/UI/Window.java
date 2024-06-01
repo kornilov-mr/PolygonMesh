@@ -1,10 +1,10 @@
-package core.show;
+package core.UI;
 
 import core.render.Frame;
 import core.render.camera.CameraController;
-import core.show.compositers.MainPanel;
-import core.show.elements.CameraPositionInfo;
-import core.show.elements.RenderedPixelPlane;
+import core.UI.compositers.MainPanel;
+import core.UI.elements.CameraPositionInfo;
+import core.UI.elements.RenderedPixelPlane;
 
 import javax.swing.*;
 
@@ -17,7 +17,7 @@ public class Window {
         this.width = width;
         this.height = height;
         this.renderedPixelPlane =new RenderedPixelPlane(width,height,cameraController);
-        this.cameraInfo = new CameraPositionInfo(cameraController);
+        this.cameraInfo = new CameraPositionInfo(cameraController.getCamera());
 
         JFrame windowFrame = new JFrame("3D render demo");
 

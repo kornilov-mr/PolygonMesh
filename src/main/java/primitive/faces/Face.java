@@ -36,6 +36,9 @@ public class Face implements Primitive {
     @Override
     public Point getIntersection(Line line) {
         Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
+        if(intersectionWithPlane==null){
+            return null;
+        }
         intersectionWithPlane.setColor(color);
         return intersectionWithPlane;
     }

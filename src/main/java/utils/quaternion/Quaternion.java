@@ -3,7 +3,6 @@ package utils.quaternion;
 import utils.Calculation;
 import utils.vectors.Vector3D;
 
-import java.util.Queue;
 
 public class Quaternion {
     private final double s;
@@ -14,7 +13,7 @@ public class Quaternion {
     }
 
     public Quaternion(Vector3D vector) {
-        this(0, vector);
+        this(0, new Vector3D(vector));
     }
 
     public Quaternion(double s, Vector3D vector) {

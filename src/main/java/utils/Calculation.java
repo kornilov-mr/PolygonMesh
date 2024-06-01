@@ -38,7 +38,9 @@ public class Calculation {
     public static double getLengthBetweenTwoPoints(Point pointA,Point pointB){
         return VectorBetweenTwoPoints(pointA,pointB).getLength();
     }
-    public static Vector3D rotateVectorAroundCertainAxis(Vector3D pointVector, Vector3D axisVector,double angle){
+    public static Vector3D rotateVectorAroundCertainAxis(Vector3D pointVector1, Vector3D axisVector1,double angle){
+        Vector3D pointVector = new Vector3D(pointVector1);
+        Vector3D axisVector = new Vector3D(axisVector1);
         angle = angle/2;
         axisVector=axisVector.normalized();
         Quaternion pointQuaternion= new Quaternion(pointVector);

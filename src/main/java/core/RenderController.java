@@ -6,7 +6,7 @@ import core.render.RenderConfig;
 import core.render.camera.Camera;
 import core.render.camera.CameraController;
 import core.scene.Scene;
-import core.show.Window;
+import core.UI.Window;
 
 
 public class RenderController {
@@ -14,6 +14,8 @@ public class RenderController {
     private final RenderConfig renderConfig;
     private final Render render;
     private final Window window;
+    private final Camera camera;
+    private final CameraController cameraController;
     private Scene scene;
 
     public RenderController(){
@@ -21,8 +23,8 @@ public class RenderController {
     }
     public RenderController(RenderConfig renderConfig) {
         this.renderConfig = renderConfig;
-        Camera camera = new Camera(renderConfig);
-        CameraController cameraController = new CameraController(camera,renderConfig);
+        this.camera = new Camera(renderConfig);
+        this.cameraController = new CameraController(camera,renderConfig);
         this.render=new Render(renderConfig,camera);
         this.window=new Window(renderConfig.resolution[0],renderConfig.resolution[1],cameraController);
     }
@@ -40,6 +42,7 @@ public class RenderController {
         while(true){
             Frame frame = render.ProcessFrame(scene);
             window.showOneFrame(frame);
+            cameraController.applyNewCameraPosition();
         }
     }
 }
