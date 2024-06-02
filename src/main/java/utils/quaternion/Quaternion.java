@@ -27,13 +27,13 @@ public class Quaternion {
     }
 
     public Quaternion multiply(double p) {
-        return new Quaternion(s * p,quaternionVector.Multiply(p));
+        return new Quaternion(s * p,quaternionVector.multiply(p));
     }
     public Quaternion division(double p){
         return new Quaternion(s/p,quaternionVector.division(p));
     }
     public Quaternion multiply(Quaternion other) {
-        return new Quaternion(s * other.s, quaternionVector.Multiply(other.quaternionVector));
+        return new Quaternion(s * other.s, quaternionVector.multiply(other.quaternionVector));
     }
 
     public Vector3D getQuaternionVector() {
@@ -41,9 +41,9 @@ public class Quaternion {
     }
 
     public Quaternion crossMultiply(Quaternion other) {
-        return new Quaternion(s*other.s - quaternionVector.Multiply(other.quaternionVector).getSum(),
-                other.quaternionVector.Multiply(s)
-                        .add(quaternionVector.Multiply(other.s))
+        return new Quaternion(s*other.s - quaternionVector.multiply(other.quaternionVector).getSum(),
+                other.quaternionVector.multiply(s)
+                        .add(quaternionVector.multiply(other.s))
                         .add(quaternionVector.crossMultiply(other.quaternionVector)));
     }
     public Quaternion reversed(){
@@ -57,7 +57,7 @@ public class Quaternion {
         return Math.sqrt(Math.pow(s,2)+Math.pow(quaternionVector.getLength(),2));
     }
     public Quaternion reverseQuaternionVector(){
-        return new Quaternion(s,quaternionVector.Multiply(-1));
+        return new Quaternion(s,quaternionVector.multiply(-1));
     }
     public boolean quaternionEquals(Quaternion otherQuaternion){
         if(!Calculation.CompareWithRound(s,otherQuaternion.s,5)){

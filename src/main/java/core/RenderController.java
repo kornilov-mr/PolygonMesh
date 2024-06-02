@@ -4,7 +4,8 @@ import core.render.Frame;
 import core.render.Render;
 import core.render.RenderConfig;
 import core.render.camera.Camera;
-import core.render.camera.CameraController;
+import core.render.camera.cameraControl.CameraKeyListener;
+import core.render.camera.cameraControl.CameraMouseListener;
 import core.scene.Scene;
 import core.UI.Window;
 
@@ -15,7 +16,8 @@ public class RenderController {
     private final Render render;
     private final Window window;
     private final Camera camera;
-    private final CameraController cameraController;
+    private final CameraKeyListener cameraKeyListener;
+    private final CameraMouseListener cameraMouseListener;
     private Scene scene;
 
     public RenderController(){
@@ -24,9 +26,10 @@ public class RenderController {
     public RenderController(RenderConfig renderConfig) {
         this.renderConfig = renderConfig;
         this.camera = new Camera(renderConfig);
-        this.cameraController = new CameraController(camera,renderConfig);
+        this.cameraKeyListener = new CameraKeyListener(camera,renderConfig);
+        this.cameraMouseListener = new CameraMouseListener(camera,renderConfig);
         this.render=new Render(renderConfig,camera);
-        this.window=new Window(renderConfig.resolution[0],renderConfig.resolution[1],cameraController);
+        this.window=new Window(renderConfig.resolution[0],renderConfig.resolution[1], cameraKeyListener,cameraMouseListener);
     }
 
     public void setScene(Scene scene) {
@@ -42,7 +45,8 @@ public class RenderController {
         while(true){
             Frame frame = render.ProcessFrame(scene);
             window.showOneFrame(frame);
-            cameraController.applyNewCameraPosition();
+            cameraKeyListener.update();
+            cameraMouseListener.update();
         }
     }
 }

@@ -44,7 +44,7 @@ public class Calculation {
         angle = angle/2;
         axisVector=axisVector.normalized();
         Quaternion pointQuaternion= new Quaternion(pointVector);
-        Quaternion axisQuaternion= (new Quaternion(Math.cos(angle),axisVector.Multiply(Math.sin(angle))));
+        Quaternion axisQuaternion= (new Quaternion(Math.cos(angle),axisVector.multiply(Math.sin(angle))));
 
         Quaternion pointDelta = axisQuaternion.crossMultiply(pointQuaternion);
         Quaternion reversed= axisQuaternion.reversed();

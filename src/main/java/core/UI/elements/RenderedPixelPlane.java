@@ -1,7 +1,7 @@
 package core.UI.elements;
 
 import core.render.Frame;
-import core.render.camera.CameraController;
+import core.render.camera.cameraControl.CameraMouseListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,10 +20,10 @@ public class RenderedPixelPlane extends JPanel {
         g2.drawImage(canvas, null, null);
     }
 
-    public RenderedPixelPlane(int width, int height, CameraController cameraController){
+    public RenderedPixelPlane(int width, int height, CameraMouseListener cameraMouseListener){
         this.width=width;
         this.height=height;
-        addMouseMotionListener(cameraController);
+        addMouseMotionListener(cameraMouseListener);
         this.canvas = newEmptyFrame();
     }
     public BufferedImage newEmptyFrame(){

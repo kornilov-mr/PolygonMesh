@@ -25,11 +25,11 @@ public class Vector3D {
         return new Vector3D(this.x + vector3D.x, this.y + vector3D.y, this.z + vector3D.z);
     }
 
-    public Vector3D Multiply(double factor) {
+    public Vector3D multiply(double factor) {
         return new Vector3D(this.x * factor, this.y * factor, this.z * factor);
     }
 
-    public Vector3D Multiply(Vector3D otherVector) {
+    public Vector3D multiply(Vector3D otherVector) {
         return new Vector3D(this.x * otherVector.x, this.y * otherVector.y, this.z * otherVector.z);
     }
 

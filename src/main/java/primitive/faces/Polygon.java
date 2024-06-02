@@ -30,7 +30,7 @@ public class Polygon implements Primitive {
 
         this.normalVector = directionVector1.crossMultiply(directionVector2);
 
-        double D = -1 * normalVector.Multiply(new Vector3D(pointA)).getSum();
+        double D = -1 * normalVector.multiply(new Vector3D(pointA)).getSum();
         this.coordinateForm = new CoordinateForm(normalVector, D);
     }
 

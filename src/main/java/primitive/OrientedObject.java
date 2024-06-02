@@ -20,13 +20,13 @@ public abstract class OrientedObject {
         calculateVectorFromAngles(horizontalAngle,verticalAngle);
     }
     public void moveCameraUp(double distance){
-        position=position.add(aboveVector.Multiply(distance));
+        position=position.add(aboveVector.multiply(distance));
     }
     public void moveCameraRight(double distance){
-        position=position.add(rightVector.Multiply(distance));
+        position=position.add(rightVector.multiply(distance));
     }
     public void moveCameraFront(double distance){
-        position=position.add(frontVector.Multiply(distance));
+        position=position.add(frontVector.multiply(distance));
     }
 
     public void moveAroundSphereOnVerticalAngle(double verticalAngle){

@@ -25,10 +25,10 @@ public class Camera extends OrientedObject {
         Vector3D ray= new Vector3D(frontVector);
 
         double fraction = ((double) j / renderConfig.resolution[1] - 0.5);
-        ray=ray.add(aboveVector.Multiply(fraction*renderConfig.pseudoRectangleHeight));
+        ray=ray.add(aboveVector.multiply(fraction*renderConfig.pseudoRectangleHeight));
 
         fraction = ((double) i / renderConfig.resolution[0] - 0.5);
-        ray=ray.add(rightVector.Multiply(fraction*renderConfig.pseudoRectangleWidth));
+        ray=ray.add(rightVector.multiply(fraction*renderConfig.pseudoRectangleWidth));
 
         return new Line(vu, ray);
     }

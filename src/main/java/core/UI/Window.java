@@ -1,10 +1,11 @@
 package core.UI;
 
 import core.render.Frame;
-import core.render.camera.CameraController;
+import core.render.camera.cameraControl.CameraKeyListener;
 import core.UI.compositers.MainPanel;
 import core.UI.elements.CameraPositionInfo;
 import core.UI.elements.RenderedPixelPlane;
+import core.render.camera.cameraControl.CameraMouseListener;
 
 import javax.swing.*;
 
@@ -13,11 +14,11 @@ public class Window {
     private final int width;
     private final int height;
     private final RenderedPixelPlane renderedPixelPlane;
-    public Window(int width, int height, CameraController cameraController) {
+    public Window(int width, int height, CameraKeyListener cameraKeyListener, CameraMouseListener cameraMouseListener) {
         this.width = width;
         this.height = height;
-        this.renderedPixelPlane =new RenderedPixelPlane(width,height,cameraController);
-        this.cameraInfo = new CameraPositionInfo(cameraController.getCamera());
+        this.renderedPixelPlane =new RenderedPixelPlane(width,height,cameraMouseListener);
+        this.cameraInfo = new CameraPositionInfo(cameraKeyListener.getCamera());
 
         JFrame windowFrame = new JFrame("3D render demo");
 
@@ -25,7 +26,7 @@ public class Window {
         windowFrame.add(mainPanel);
 
         setWindowSettings(windowFrame);
-        windowFrame.addKeyListener(cameraController);
+        windowFrame.addKeyListener(cameraKeyListener);
     }
     private void setWindowSettings(JFrame window){
         window.setSize(width+200,height);

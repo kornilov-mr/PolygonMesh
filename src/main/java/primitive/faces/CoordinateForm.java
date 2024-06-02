@@ -40,7 +40,7 @@ public class CoordinateForm {
         if(r<0){
             return null;
         }
-        return new Point(line.directionVector.Multiply(r).add(line.pointVector));
+        return new Point(line.directionVector.multiply(r).add(line.pointVector));
 
     }
 
