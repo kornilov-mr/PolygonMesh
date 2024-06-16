@@ -1,5 +1,7 @@
 package utils.vectors;
 
+import core.render.GPU.structs.VectorStruct;
+import org.jocl.struct.Struct;
 import primitive.Point;
 import utils.Calculation;
 
@@ -105,5 +107,8 @@ public class Vector3D {
                 ", y=" + y +
                 ", z=" + z +
                 '}';
+    }
+    public VectorStruct toStruct(){
+        return new VectorStruct(x,y,z);
     }
 }

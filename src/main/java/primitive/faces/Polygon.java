@@ -1,7 +1,10 @@
 package primitive.faces;
 
+import core.render.GPU.structs.VectorStruct;
+import org.jocl.struct.Struct;
 import org.json.JSONObject;
 import primitive.Point;
+import core.render.GPU.structs.PolygonStruct;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
@@ -16,13 +19,18 @@ public class Polygon{
 
     public final Vector3D normalVector;
     public final CoordinateForm coordinateForm;
-    public final Color color;
+    public final Color mainColor;
+    public final Color contourColor;
 
-    public Polygon(Point pointA, Point pointB, Point pointC, Color color) {
+    public Polygon(Point pointA, Point pointB, Point pointC, Color mainColor){
+        this(pointA,pointB,pointC,mainColor,new Color(32,32,32));
+    }
+    public Polygon(Point pointA, Point pointB, Point pointC, Color mainColor,Color contourColor) {
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
-        this.color = color;
+        this.contourColor=contourColor;
+        this.mainColor = mainColor;
 
         Vector3D directionVector1 = Calculation.VectorBetweenTwoPoints(pointA, pointB);
         Vector3D directionVector2 = Calculation.VectorBetweenTwoPoints(pointA, pointC);
@@ -37,7 +45,7 @@ public class Polygon{
         Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
 
         if (intersectionWithPlane != null && Calculation.ifPointInTriangle(intersectionWithPlane, pointA, pointB, pointC)) {
-            intersectionWithPlane.setColor(color);
+            intersectionWithPlane.setColor(mainColor);
             return intersectionWithPlane;
         }
         return null;
@@ -48,8 +56,16 @@ public class Polygon{
         obj.put("point1", pointA.toJSON());
         obj.put("point2", pointB.toJSON());
         obj.put("point3", pointC.toJSON());
-        obj.put("color", color.getRGB());
+        obj.put("mainColor", mainColor.getRGB());
+        obj.put("contourColor", contourColor.getRGB());
         return obj;
-
+    }
+    public PolygonStruct toStruct(){
+        return new PolygonStruct(new VectorStruct(pointA),
+                new VectorStruct(pointB),
+                new VectorStruct(pointC),
+                                coordinateForm.toStruct(),
+                                mainColor.getRGB(),
+                                contourColor.getRGB());
     }
 }

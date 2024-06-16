@@ -1,6 +1,7 @@
 package core.render.GPU.shaders;
 
 import core.camera.Camera;
+import core.render.GPU.shaders.ShaderRunner;
 import core.render.RenderConfig;
 import org.jocl.*;
 import utils.line.Line;
@@ -9,6 +10,7 @@ import utils.vectors.Vector3D;
 import java.io.*;
 
 import static org.jocl.CL.*;
+import static org.jocl.CL.clCreateCommandQueueWithProperties;
 
 public class VectorCalculationShader extends ShaderRunner {
 
@@ -31,9 +33,9 @@ public class VectorCalculationShader extends ShaderRunner {
         super(shaderFile);
         this.camera = camera;
         this.renderConfig = renderConfig;
-        this.xPoint= new double[renderConfig.resolution[0]*renderConfig.resolution[1]];
-        this.yPoint= new double[renderConfig.resolution[0]*renderConfig.resolution[1]];
-        this.zPoint= new double[renderConfig.resolution[0]*renderConfig.resolution[1]];
+        this.xPoint= new double[renderConfig.pixelCount];
+        this.yPoint= new double[renderConfig.pixelCount];
+        this.zPoint= new double[renderConfig.pixelCount];
         this.xPointPt=  Pointer.to(xPoint);
         this.yPointPt=  Pointer.to(yPoint);
         this.zPointPt=  Pointer.to(zPoint);

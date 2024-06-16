@@ -1,14 +1,16 @@
 package primitive.faces;
 
+import org.jocl.struct.Struct;
 import primitive.Point;
+import core.render.GPU.structs.CoordinateFormStruct;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
 public class CoordinateForm {
-    public final double A;
-    public final double B;
-    public final double C;
-    public final double D;
+    private final double A;
+    private final double B;
+    private final double C;
+    private final double D;
 
 
     public CoordinateForm(Vector3D vector, double d) {
@@ -42,6 +44,9 @@ public class CoordinateForm {
         }
         return new Point(line.directionVector.multiply(r).add(line.pointVector));
 
+    }
+    public CoordinateFormStruct toStruct(){
+        return new CoordinateFormStruct(A,B,C,D);
     }
 
 }

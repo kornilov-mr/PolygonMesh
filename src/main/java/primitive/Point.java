@@ -1,6 +1,8 @@
 package primitive;
 
+import org.jocl.struct.Struct;
 import org.json.JSONObject;
+import core.render.GPU.structs.PointStruct;
 import utils.vectors.Vector3D;
 
 import java.awt.*;
@@ -50,5 +52,8 @@ public class Point {
         jsonObject.put("y",y);
         jsonObject.put("z",z);
         return jsonObject;
+    }
+    public PointStruct toStruct(){
+        return new PointStruct(x,y,z);
     }
 }
