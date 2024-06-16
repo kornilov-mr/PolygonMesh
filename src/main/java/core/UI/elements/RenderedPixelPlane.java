@@ -1,7 +1,7 @@
 package core.UI.elements;
 
 import core.render.Frame;
-import core.render.camera.cameraControl.CameraMouseListener;
+import core.camera.cameraControl.CameraMouseListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +34,7 @@ public class RenderedPixelPlane extends JPanel {
 
         for(int i=0;i<width;i++){
             for(int j=0;j<height;j++){
-                canvas.setRGB(i,j,frame.colors.get(i).get(j).getRGB());
+                canvas.setRGB(i,j,frame.colors[i][j].getRGB());
             }
         }
         repaint();

@@ -2,22 +2,21 @@ package primitive.faces;
 
 import org.json.JSONObject;
 import primitive.Point;
-import primitive.Primitive;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
 import java.awt.Color;
 
-public class Polygon implements Primitive {
+public class Polygon{
 
-    private final Point pointA;
-    private final Point pointB;
-    private final Point pointC;
+    public final Point pointA;
+    public final Point pointB;
+    public final Point pointC;
 
-    private final Vector3D normalVector;
-    private final CoordinateForm coordinateForm;
-    private final Color color;
+    public final Vector3D normalVector;
+    public final CoordinateForm coordinateForm;
+    public final Color color;
 
     public Polygon(Point pointA, Point pointB, Point pointC, Color color) {
         this.pointA = pointA;
@@ -34,7 +33,6 @@ public class Polygon implements Primitive {
         this.coordinateForm = new CoordinateForm(normalVector, D);
     }
 
-    @Override
     public Point getIntersection(Line line) {
         Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
 
@@ -44,8 +42,6 @@ public class Polygon implements Primitive {
         }
         return null;
     }
-
-    @Override
     public JSONObject objectInSavingFormat() {
         JSONObject obj = new JSONObject();
         obj.put("Class", "Polygon");

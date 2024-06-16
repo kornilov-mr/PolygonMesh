@@ -1,7 +1,7 @@
-package core.render.camera.cameraControl;
+package core.camera.cameraControl;
 
 import core.render.RenderConfig;
-import core.render.camera.Camera;
+import core.camera.Camera;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,4 +1,4 @@
-package core.render.camera;
+package core.camera;
 
 import core.render.RenderConfig;
 import primitive.OrientedObject;
@@ -19,7 +19,6 @@ public class Camera extends OrientedObject {
         super(cameraPosition,horizontalAngle,verticalAngle);
         this.renderConfig=renderConfig;
     }
-
     public Line getRayLine(int i, int j) {
         Vector3D vu = new Vector3D(position);
         Vector3D ray= new Vector3D(frontVector);
@@ -32,6 +31,4 @@ public class Camera extends OrientedObject {
 
         return new Line(vu, ray);
     }
-
-
 }

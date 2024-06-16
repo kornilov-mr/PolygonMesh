@@ -1,11 +1,11 @@
 package core.UI;
 
 import core.render.Frame;
-import core.render.camera.cameraControl.CameraKeyListener;
+import core.camera.cameraControl.CameraKeyListener;
 import core.UI.compositers.MainPanel;
 import core.UI.elements.CameraPositionInfo;
 import core.UI.elements.RenderedPixelPlane;
-import core.render.camera.cameraControl.CameraMouseListener;
+import core.camera.cameraControl.CameraMouseListener;
 
 import javax.swing.*;
 

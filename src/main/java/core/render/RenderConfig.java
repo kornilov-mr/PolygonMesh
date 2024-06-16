@@ -6,6 +6,7 @@ public class RenderConfig {
     public final double heightPow=Math.PI/2;
     public final double pseudoRectangleWidth= Math.tan(widthPow/2)*2;
     public final double pseudoRectangleHeight= Math.tan(heightPow/2)*2;
+    public final int pixelCount= resolution[1]*resolution[0];
 
 
 }

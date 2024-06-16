@@ -2,27 +2,25 @@ package core.scene;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import primitive.Primitive;
 import primitive.PrimitiveFactory;
 import primitive.faces.Polygon;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Scene {
 
-    private ArrayList<Primitive> primitives = new ArrayList<>();
+    private ArrayList<Polygon> polygons = new ArrayList<>();
     private final File pathToSceneFolder = new File("src/main/Scenes");
 
     public Scene() {
 
     }
 
-    public void addPrimitive(Primitive polygon) {
-        primitives.add(polygon);
+    public void addPolygon(Polygon polygon) {
+        polygons.add(polygon);
     }
 
     public void saveScene() {
@@ -30,8 +28,8 @@ public class Scene {
         try {
             PrintWriter printWriter = new PrintWriter(saveFile);
             JSONArray jsonArray = new JSONArray();
-            for (Primitive primitive : primitives) {
-                jsonArray.put(primitive.objectInSavingFormat());
+            for (Polygon polygon : polygons) {
+                jsonArray.put(polygon.objectInSavingFormat());
             }
             printWriter.println(jsonArray.toString());
             printWriter.flush();
@@ -59,8 +57,8 @@ public class Scene {
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
             JSONArray jsonArray = new JSONArray(content);
             for(int i=0;i<jsonArray.length();i++){
-                Primitive primitive =primitiveFactory.createPrimitiveFromJson((JSONObject) jsonArray.get(i));
-                primitives.add(primitive);
+                Polygon polygon =primitiveFactory.createPrimitiveFromJson((JSONObject) jsonArray.get(i));
+                polygons.add(polygon);
             }
         } catch (IOException e) {
             System.out.println("problem with reading from load file");
@@ -68,7 +66,7 @@ public class Scene {
         }
     }
 
-    public ArrayList<Primitive> getFaces() {
-        return primitives;
+    public ArrayList<Polygon> getPolygons() {
+        return polygons;
     }
 }

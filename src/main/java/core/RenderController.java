@@ -3,9 +3,9 @@ package core;
 import core.render.Frame;
 import core.render.Render;
 import core.render.RenderConfig;
-import core.render.camera.Camera;
-import core.render.camera.cameraControl.CameraKeyListener;
-import core.render.camera.cameraControl.CameraMouseListener;
+import core.camera.Camera;
+import core.camera.cameraControl.CameraKeyListener;
+import core.camera.cameraControl.CameraMouseListener;
 import core.scene.Scene;
 import core.UI.Window;
 

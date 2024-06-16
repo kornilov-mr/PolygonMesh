@@ -1,7 +1,6 @@
 package primitive;
 
 import org.json.JSONObject;
-import primitive.faces.Face;
 import primitive.faces.Polygon;
 
 import java.awt.*;
@@ -11,11 +10,11 @@ public class PrimitiveFactory {
     public PrimitiveFactory(){
 
     }
-    public Primitive createPrimitiveFromJson(JSONObject data){
-        Primitive primitive=null;
-        if(Objects.equals(data.get("Class"),"Face")){
-            primitive = createFace(data);
-        }
+    public Polygon createPrimitiveFromJson(JSONObject data){
+        Polygon primitive=null;
+//        if(Objects.equals(data.get("Class"),"Face")){
+//            primitive = createFace(data);
+//        }
         if(Objects.equals(data.get("Class"),"Polygon")){
             primitive = createPolygon(data);
         }
@@ -25,15 +24,15 @@ public class PrimitiveFactory {
         }
         return primitive;
     }
-    private Primitive createFace(JSONObject data){
-        Primitive face = new Face(createPoint((JSONObject) data.get("point1")),
-                createPoint((JSONObject) data.get("point2")),
-                createPoint((JSONObject) data.get("point3")),
-                createColor((int) data.get("color")));
-        return face;
-    }
-    private Primitive createPolygon(JSONObject data){
-        Primitive face = new Polygon(createPoint((JSONObject) data.get("point1")),
+//    private Primitive createFace(JSONObject data){
+//        Primitive face = new Face(createPoint((JSONObject) data.get("point1")),
+//                createPoint((JSONObject) data.get("point2")),
+//                createPoint((JSONObject) data.get("point3")),
+//                createColor((int) data.get("color")));
+//        return face;
+//    }
+    private Polygon createPolygon(JSONObject data){
+        Polygon face = new Polygon(createPoint((JSONObject) data.get("point1")),
                 createPoint((JSONObject) data.get("point2")),
                 createPoint((JSONObject) data.get("point3")),
                 createColor((int) data.get("color")));
