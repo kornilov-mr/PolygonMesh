@@ -43,6 +43,7 @@ public class RenderController {
             return;
         }
         while(true){
+
             Frame frame = render.ProcessFrame(scene);
             window.showOneFrame(frame);
             cameraKeyListener.update();
