@@ -1,10 +1,8 @@
 package primitive.faces;
 
-import core.render.GPU.structs.VectorStruct;
 import org.jocl.struct.Struct;
 import org.json.JSONObject;
 import primitive.Point;
-import core.render.GPU.structs.PolygonStruct;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
@@ -59,13 +57,5 @@ public class Polygon{
         obj.put("mainColor", mainColor.getRGB());
         obj.put("contourColor", contourColor.getRGB());
         return obj;
-    }
-    public PolygonStruct toStruct(){
-        return new PolygonStruct(new VectorStruct(pointA),
-                new VectorStruct(pointB),
-                new VectorStruct(pointC),
-                                coordinateForm.toStruct(),
-                                mainColor.getRGB(),
-                                contourColor.getRGB());
     }
 }

@@ -1,57 +1,52 @@
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
-struct Vector {
-  double x;
-  double y;
-  double z;
-};
-
-struct CoordinateForm{
-  double A;
-  double B;
-  double C;
-  double D;
-};
-struct Polygon{
-    struct Vector PointA;
-    struct Vector PointB;
-    struct Vector PointC;
-    struct CoordinateForm coordinateForm;
-    int mainColor;
-    int contourColor;
-};
-
-double getDistance(const struct Vector vector)
+double square_root(double x)
 {
-    return sqrt(pow(vector.x,2)+pow(vector.y,2)+pow(vector.z,2));
+    return sqrt(x);
 }
 
-
-double getDistanceFromTwoPoints(const struct Vector vector1,
-                                const struct Vector vector2){
-        struct Vector vector ={vector1.x-vector2.x,vector1.x-vector2.x,vector1.x-vector2.x};
-        return getDistance(vector);
-}
-double crossProduct(const struct Vector vector1,
-                    const struct Vector vector2)
+double getDistance(
+        const double x,
+        const double y,
+        const double z)
 {
-          struct Vector vector ={vector1.y*vector2.z-vector1.z*vector2.y,
-                                           vector1.z*vector2.x-vector1.x*vector2.z,
-                                           vector1.x*vector2.y-vector1.y*vector2.x};
+    return square_root(x*x+y*y+z*z);
+}
 
-          return  getDistance(vector);
+double getDistanceFromTwoPoints(const double x1,
+                                const double y1,
+                                const double z1,
+
+                                const double x2,
+                                const double y2,
+                                const double z2){
+        return getDistance(x1-x2,y1-y2,z1-z2);
 }
-struct Vector VectorDivision(const struct Vector vector1,
-                             const struct Vector vector2)
+double crossProduct(
+                     const double x1,
+                     const double y1,
+                     const double z1,
+
+                     const double x2,
+                     const double y2,
+                     const double z2)
 {
-      struct Vector vector ={vector1.x-vector2.x,vector1.y-vector2.y,vector1.z-vector2.z};
-      return vector;
+          return   getDistance(y1*z2-z1*y2,z1*x2-x1*z2,x1*y2-y1*x2);
 }
+
 double areaOfTriangle(
-                   const struct Vector vector1,
-                   const struct Vector vector2,
-                   const struct Vector vector3)
+                    const double x1,
+                    const double y1,
+                    const double z1,
+
+                    const double x2,
+                    const double y2,
+                    const double z2,
+
+                    const double x3,
+                    const double y3,
+                    const double z3)
 {
-    return crossProduct(VectorDivision(vector2,vector1),VectorDivision(vector3,vector1))/2;
+    return crossProduct(x2-x1,y2-y1,z2-z1,x3-x1,y3-y1,z3-z1)/2;
 }
 int roundNo(float num)
 {
@@ -59,104 +54,137 @@ int roundNo(float num)
 }
 
 bool ifPointInTriangle(
-                    const struct Vector vector1,
-                    const struct Vector vector2,
-                    const struct Vector vector3,
+                    const double x1,
+                    const double y1,
+                    const double z1,
 
-                    const struct Vector pointVector,
-                    int mainColor,
-                    int contourColor,
-                    int *color)
+                    const double x2,
+                    const double y2,
+                    const double z2,
+
+                    const double x3,
+                    const double y3,
+                    const double z3,
+
+                    const double xPoint,
+                    const double yPoint,
+                    const double zPoint)
 {
-    double mainArea = areaOfTriangle(vector1,vector2,vector3);
-    double area1 = areaOfTriangle(pointVector,vector2,vector3);
-    double area2 = areaOfTriangle(vector1,pointVector,vector3);
-    double area3 = areaOfTriangle(vector1,vector2,pointVector);
+    double mainArea = areaOfTriangle(x1,y1,z1,x2,y2,z2,x3,y3,z3);
+    double area1 = areaOfTriangle(xPoint,yPoint,zPoint,x2,y2,z2,x3,y3,z3);
+    double area2 = areaOfTriangle(x1,y1,z1,xPoint,yPoint,zPoint,x3,y3,z3);
+    double area3 = areaOfTriangle(x1,y1,z1,x2,y2,z2,xPoint,yPoint,zPoint);
 
 
-    double mainAreaTemp= roundNo(mainArea*100000);
-    double newAreaTemp= roundNo((area1+area2+area3)*100000);
-    if(mainAreaTemp==newAreaTemp){
-        *color=mainColor;
-        return true;
-    }
-    mainArea= roundNo(mainArea);
-    double newArea= roundNo((area1+area2+area3));
+    mainArea= roundNo(mainArea*10000);
+    double newArea= roundNo((area1+area2+area3)*10000);
     if(mainArea==newArea){
-        *color=contourColor;
         return true;
     }
     return false;
 }
 
 bool getIntersectionWithPane(
-                        const struct CoordinateForm coordinateForm,
-                        const struct Vector cameraPosition,
-                        const struct Vector ray,
+                        const double ACoordinateFrom,
+                        const double BCoordinateFrom,
+                        const double CCoordinateFrom,
+                        const double DCoordinateFrom,
 
-                        struct Vector *Point
+                         const double xCameraPosition,
+                         const double yCameraPosition,
+                         const double zCameraPosition,
+
+                         const double xRay,
+                         const double yRay,
+                         const double zRay,
+
+                         double *xPoint,
+                         double *yPoint,
+                         double *zPoint
                         ){
-        double r = 0;
-        r += ray.x * coordinateForm.A;
-        r += ray.y * coordinateForm.B;
-        r += ray.z * coordinateForm.C;
+        __private  double r = 0;
+        r += xRay * ACoordinateFrom;
+        r += yRay * BCoordinateFrom;
+        r += zRay * CCoordinateFrom;
         if(r==0){
              return false;
         }
-        double free = 0;
-        free += cameraPosition.x *  coordinateForm.A;
-        free += cameraPosition.y *  coordinateForm.B;
-        free += cameraPosition.z *  coordinateForm.C;
-        free +=  coordinateForm.D;
+        __private  double free = 0;
+        free += xCameraPosition * ACoordinateFrom;
+        free += yCameraPosition * BCoordinateFrom;
+        free += zCameraPosition * CCoordinateFrom;
+        free += DCoordinateFrom;
 
         r = (-1*free) / r;
         if(r<0){
               return false;
         }
-        struct Vector tempVector = {ray.x*r+cameraPosition.x,ray.y*r+cameraPosition.y,ray.z*r+cameraPosition.z};
-        *Point=tempVector;
+        *xPoint=xRay*r+xCameraPosition;
+        *yPoint=yRay*r+yCameraPosition;
+        *zPoint=zRay*r+zCameraPosition;
         return true;
 }
 __kernel void calculatePointVector(
-                    __global struct Vector *cameraPosition,
-                    __global struct Vector *rays,
-                    __global struct Polygon *polygons,
+                     double xCameraPosition,
+                     double yCameraPosition,
+                     double zCameraPosition,
+
+                    __global  double *xRay,
+                    __global  double *yRay,
+                    __global  double *zRay,
+
+                    __global  double *ACoordinateFrom,
+                    __global  double *BCoordinateFrom,
+                    __global  double *CCoordinateFrom,
+                    __global  double *DCoordinateFrom,
+                    __global  int *PolygonColor,
 
                     const int polygonCount,
+
+                    __global  double *x1,
+                    __global  double *y1,
+                    __global  double *z1,
+
+                    __global  double *x2,
+                    __global  double *y2,
+                    __global  double *z2,
+
+                    __global  double *x3,
+                    __global  double *y3,
+                    __global  double *z3,
 
                     __global int *RGB)
 {
     int index = get_global_id(0);
 
-    int RGBForPoint=-1;
+    __private int RGBForPoint=-1;
 
-    double minDistance=-1;
+    __private double minDistance=-1;
 
-    int color=0;
-
-    struct Vector point;
+    __private double xPoint;
+    __private double yPoint;
+    __private double zPoint;
     for(int i =0;i<polygonCount;i++){
-        bool result = getIntersectionWithPane(polygons[i].coordinateForm,
-                                            cameraPosition[0],
-                                            rays[index],
-                                            &point);
+        bool result = getIntersectionWithPane(ACoordinateFrom[i],BCoordinateFrom[i],CCoordinateFrom[i],DCoordinateFrom[i],
+                                            xCameraPosition,yCameraPosition,zCameraPosition,
+                                            xRay[index],yRay[index],zRay[index],
+                                            &xPoint,&yPoint,&zPoint);
         if(result==false){
             continue;
         }
 
-        result = ifPointInTriangle(polygons[i].PointA,
-                                   polygons[i].PointB,
-                                   polygons[i].PointC,
-                                   point,polygons[i].mainColor,
-                                   polygons[i].contourColor,&color);
+        result = ifPointInTriangle(x1[i],y1[i],z1[i],
+                                   x2[i],y2[i],z2[i],
+                                   x3[i],y3[i],z3[i],
+                                   xPoint,yPoint,zPoint);
         if(result == false){
             continue;
         }
-        double distance= getDistanceFromTwoPoints(cameraPosition[0],
-                                                   point);
+        __private double distance= getDistanceFromTwoPoints(xCameraPosition,yCameraPosition,zCameraPosition,
+                                                   xPoint,yPoint,zPoint);
         if(distance<minDistance || minDistance==-1){
             minDistance=distance;
-            RGBForPoint=color;
+            RGBForPoint=PolygonColor[i];
         }
     }
     RGB[index]=RGBForPoint;

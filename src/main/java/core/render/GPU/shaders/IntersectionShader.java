@@ -74,7 +74,7 @@ public class IntersectionShader extends ShaderRunner{
             BCoordinateFrom[i]=polygon.coordinateForm.B;
             CCoordinateFrom[i]=polygon.coordinateForm.C;
             DCoordinateFrom[i]=polygon.coordinateForm.D;
-            polygonColor[i]=polygon.color.getRGB();
+            polygonColor[i]=polygon.mainColor.getRGB();
 
             x1[i]=polygon.pointA.getX();
             y1[i]=polygon.pointA.getY();
