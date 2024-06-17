@@ -18,8 +18,15 @@ public class FPSTracker {
         MPP.put("all",allFpm);
         FPS=1000/allFpm;
     }
-    public void reset(){
+    public static void reset(){
         MPP.clear();
     }
 
+    public static Map<String, Double> getMPP() {
+        return MPP;
+    }
+
+    public static double getFPS() {
+        return FPS;
+    }
 }

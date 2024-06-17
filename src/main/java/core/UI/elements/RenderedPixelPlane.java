@@ -34,7 +34,7 @@ public class RenderedPixelPlane extends JPanel {
 
         for(int i=0;i<width;i++){
             for(int j=0;j<height;j++){
-                canvas.setRGB(i,j,frame.colors[i][j].getRGB());
+                canvas.setRGB(i,j,frame.colors[i*height+j]);
             }
         }
         repaint();

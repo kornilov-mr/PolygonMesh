@@ -32,20 +32,20 @@ public class IntersectionShader extends ShaderRunner{
                 CL_MEM_WRITE_ONLY,
                 (long) Sizeof.cl_int * renderConfig.pixelCount, null, null);
     }
-    public Color[][] colors(Line[][] lines, Scene scene){
+    public int[] colors(Scene scene){
 
 
-        double[] xRay = new double[renderConfig.pixelCount];
-        double[] yRay = new double[renderConfig.pixelCount];
-        double[] zRay = new double[renderConfig.pixelCount];
-
-        for(int i=0;i<renderConfig.resolution[0];i++){
-            for(int j=0;j<renderConfig.resolution[1];j++){
-                xRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getX();
-                yRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getY();
-                zRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getZ();
-            }
-        }
+//        double[] xRay = new double[renderConfig.pixelCount];
+//        double[] yRay = new double[renderConfig.pixelCount];
+//        double[] zRay = new double[renderConfig.pixelCount];
+//
+//        for(int i=0;i<renderConfig.resolution[0];i++){
+//            for(int j=0;j<renderConfig.resolution[1];j++){
+//                xRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getX();
+//                yRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getY();
+//                zRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getZ();
+//            }
+//        }
 
 
 
@@ -89,15 +89,6 @@ public class IntersectionShader extends ShaderRunner{
             z3[i]=polygon.pointC.getZ();
         }
 
-        cl_mem xRayMem = clCreateBuffer(context,
-                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                (long) Sizeof.cl_double * renderConfig.pixelCount, Pointer.to(xRay), null);
-        cl_mem yRayMem = clCreateBuffer(context,
-                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                (long) Sizeof.cl_double * renderConfig.pixelCount, Pointer.to(yRay), null);
-        cl_mem zRayMem = clCreateBuffer(context,
-                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                (long) Sizeof.cl_double * renderConfig.pixelCount, Pointer.to(zRay), null);
 
         cl_mem ACoordinateFromMem = clCreateBuffer(context,
                 CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -145,14 +136,29 @@ public class IntersectionShader extends ShaderRunner{
                 CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
                 (long) Sizeof.cl_double * polygonCount, Pointer.to(z3), null);
 
+
         int a = 0;
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getFrontVector().getX()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getFrontVector().getY()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getFrontVector().getZ()}));
+
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getAboveVector().getX()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getAboveVector().getY()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getAboveVector().getZ()}));
+
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getRightVector().getX()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getRightVector().getY()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getRightVector().getZ()}));
+
+        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{renderConfig.resolution[0]}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{renderConfig.resolution[1]}));
+
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{renderConfig.pseudoRectangleWidth}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{renderConfig.pseudoRectangleHeight}));
+
         clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getPosition().getX()}));
         clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getPosition().getY()}));
         clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getPosition().getZ()}));
-
-        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(xRayMem));
-        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(yRayMem));
-        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(zRayMem));
 
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(ACoordinateFromMem));
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(BCoordinateFromMem));
@@ -184,24 +190,11 @@ public class IntersectionShader extends ShaderRunner{
                 global_work_size, null, 0, null, null);
         clEnqueueReadBuffer(commandQueue, RGBColorsMem, CL_TRUE, 0,
                 (long) Sizeof.cl_int * renderConfig.pixelCount, RGBColorsPt, 0, null, null);
-
-        Color[][] colors = new Color[renderConfig.resolution[0]][renderConfig.resolution[1]];
-
-        for(int pixel =0;pixel<renderConfig.pixelCount;pixel++){
-            int i = pixel/renderConfig.resolution[1];
-            int j = pixel%renderConfig.resolution[1];
-            colors[i][j]= new Color(RGBColors[pixel]);
-        }
-
         clReleaseMemObject(ACoordinateFromMem);
         clReleaseMemObject(BCoordinateFromMem);
         clReleaseMemObject(CCoordinateFromMem);
         clReleaseMemObject(DCoordinateFromMem);
         clReleaseMemObject(polygonColorMem);
-
-        clReleaseMemObject(xRayMem);
-        clReleaseMemObject(yRayMem);
-        clReleaseMemObject(zRayMem);
 
         clReleaseMemObject(x1Mem);
         clReleaseMemObject(y1Mem);
@@ -214,6 +207,7 @@ public class IntersectionShader extends ShaderRunner{
         clReleaseMemObject(x3Mem);
         clReleaseMemObject(y3Mem);
         clReleaseMemObject(z3Mem);
-        return colors;
+
+        return RGBColors;
     }
 }

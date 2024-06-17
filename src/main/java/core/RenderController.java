@@ -8,6 +8,9 @@ import core.camera.cameraControl.CameraKeyListener;
 import core.camera.cameraControl.CameraMouseListener;
 import core.scene.Scene;
 import core.UI.Window;
+import core.statistic.FPSTracker;
+
+import java.util.Date;
 
 
 public class RenderController {
@@ -43,11 +46,30 @@ public class RenderController {
             return;
         }
         while(true){
-
-            Frame frame = render.ProcessFrame(scene);
-            window.showOneFrame(frame);
-            cameraKeyListener.update();
-            cameraMouseListener.update();
+            FPSTracker.reset();
+            Frame frame = getProcessedFrame();
+            updateUI(frame);
+            updateKeyListeners();
+            FPSTracker.endWriting();
+            System.out.print("FPS:");
+            System.out.println(FPSTracker.getFPS());
         }
+    }
+    public Frame getProcessedFrame(){
+        long deltaTime = new Date().getTime();
+        Frame frame = render.ProcessFrame(scene);
+        FPSTracker.addComponent("Processing frame",new Date().getTime()-deltaTime);
+        return frame;
+    }
+    public void updateUI(Frame frame){
+        long deltaTime = new Date().getTime();
+        window.showOneFrame(frame);
+        FPSTracker.addComponent("UI update",new Date().getTime()-deltaTime);
+    }
+    public void updateKeyListeners(){
+        long deltaTime = new Date().getTime();
+        cameraKeyListener.update();
+        cameraMouseListener.update();
+        FPSTracker.addComponent("Listener update",new Date().getTime()-deltaTime);
     }
 }

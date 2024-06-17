@@ -124,14 +124,81 @@ bool getIntersectionWithPane(
         *zPoint=zRay*r+zCameraPosition;
         return true;
 }
+
+
+
+
+void calculateRayVector(
+                     const double xFront,
+                     const double yFront,
+                     const double zFront,
+
+                     const double xAbove,
+                     const double yAbove,
+                     const double zAbove,
+
+                     const double xRight,
+                     const double yRight,
+                     const double zRight,
+
+                     const int screenWidth,
+                     const int screenHeight,
+
+                     const double pseudoWidth,
+                     const double pseudoHeight,
+
+                    double *xRay,
+                    double *yRay,
+                    double *zRay)
+{
+
+        int i = get_global_id(0)/screenHeight;
+        int j = get_global_id(0)%screenHeight;
+
+
+        double fraction = (double)j / (double)screenHeight - 0.5;
+
+        double xTemp = xFront;
+        double yTemp = yFront;
+        double zTemp = zFront;
+
+        xTemp+= xAbove*fraction*pseudoHeight;
+        yTemp+= yAbove*fraction*pseudoHeight;
+        zTemp+= zAbove*fraction*pseudoHeight;
+
+        fraction = (double)i / (double)screenWidth - 0.5;
+
+        xTemp+= xRight*fraction*pseudoWidth;
+        yTemp+= yRight*fraction*pseudoWidth;
+        zTemp+= zRight*fraction*pseudoWidth;
+
+        xRay[0]=xTemp;
+        yRay[0]=yTemp;
+        zRay[0]=zTemp;
+}
+
 __kernel void calculatePointVector(
+                     const double xFront,
+                     const double yFront,
+                     const double zFront,
+
+                     const double xAbove,
+                     const double yAbove,
+                     const double zAbove,
+
+                     const double xRight,
+                     const double yRight,
+                     const double zRight,
+
+                     const int screenWidth,
+                     const int screenHeight,
+
+                     const double pseudoWidth,
+                     const double pseudoHeight,
+
                      double xCameraPosition,
                      double yCameraPosition,
                      double zCameraPosition,
-
-                    __global  double *xRay,
-                    __global  double *yRay,
-                    __global  double *zRay,
 
                     __global  double *ACoordinateFrom,
                     __global  double *BCoordinateFrom,
@@ -155,7 +222,18 @@ __kernel void calculatePointVector(
 
                     __global int *RGB)
 {
+
     int index = get_global_id(0);
+    double xRay;
+    double yRay;
+    double zRay;
+
+    calculateRayVector(xFront,yFront,zFront,
+    xAbove,yAbove,zAbove,
+    xRight,yRight,zRight,
+    screenWidth,screenHeight,
+    pseudoWidth,pseudoHeight,
+    &xRay,&yRay,&zRay);
 
     __private int RGBForPoint=-1;
 
@@ -167,7 +245,7 @@ __kernel void calculatePointVector(
     for(int i =0;i<polygonCount;i++){
         bool result = getIntersectionWithPane(ACoordinateFrom[i],BCoordinateFrom[i],CCoordinateFrom[i],DCoordinateFrom[i],
                                             xCameraPosition,yCameraPosition,zCameraPosition,
-                                            xRay[index],yRay[index],zRay[index],
+                                            xRay,yRay,zRay,
                                             &xPoint,&yPoint,&zPoint);
         if(result==false){
             continue;
