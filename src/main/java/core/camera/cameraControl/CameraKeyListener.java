@@ -59,9 +59,9 @@ public class CameraKeyListener implements KeyListener, Updatable {
     }
     @Override
     public void update() {
-        camera.moveCameraFront(dx);
-        camera.moveCameraRight(dy);
-        camera.moveCameraUp(dz);
+        camera.moveFront(dx);
+        camera.moveRight(dy);
+        camera.moveUp(dz);
         dx=0; dy=0; dz=0;
     }
 

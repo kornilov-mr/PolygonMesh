@@ -51,8 +51,8 @@ public class RenderController {
             updateUI(frame);
             updateKeyListeners();
             FPSTracker.endWriting();
-            System.out.print("FPS:");
-            System.out.println(FPSTracker.getFPS());
+//            System.out.print("FPS:");
+//            System.out.println(FPSTracker.getFPS());
         }
     }
     public Frame getProcessedFrame(){

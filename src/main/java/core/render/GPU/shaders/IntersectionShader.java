@@ -35,20 +35,6 @@ public class IntersectionShader extends ShaderRunner{
     public int[] colors(Scene scene){
 
 
-//        double[] xRay = new double[renderConfig.pixelCount];
-//        double[] yRay = new double[renderConfig.pixelCount];
-//        double[] zRay = new double[renderConfig.pixelCount];
-//
-//        for(int i=0;i<renderConfig.resolution[0];i++){
-//            for(int j=0;j<renderConfig.resolution[1];j++){
-//                xRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getX();
-//                yRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getY();
-//                zRay[i*renderConfig.resolution[1]+j]=lines[i][j].directionVector.getZ();
-//            }
-//        }
-
-
-
         double[] ACoordinateFrom = new double[scene.getPolygons().size()];
         double[] BCoordinateFrom = new double[scene.getPolygons().size()];
         double[] CCoordinateFrom = new double[scene.getPolygons().size()];
@@ -146,9 +132,11 @@ public class IntersectionShader extends ShaderRunner{
         clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getAboveVector().getY()}));
         clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getAboveVector().getZ()}));
 
-        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getRightVector().getX()}));
-        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getRightVector().getY()}));
-        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{camera.getRightVector().getZ()}));
+        Vector3D cameraRightVector= new Vector3D(camera.getRightVector().getX(),0,camera.getRightVector().getZ()).normalized();
+
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{cameraRightVector.getX()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{cameraRightVector.getY()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_double, Pointer.to(new double[]{cameraRightVector.getZ()}));
 
         clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{renderConfig.resolution[0]}));
         clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{renderConfig.resolution[1]}));

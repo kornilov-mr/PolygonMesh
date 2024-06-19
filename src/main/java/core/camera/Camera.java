@@ -12,7 +12,7 @@ public class Camera extends OrientedObject {
     private final RenderConfig renderConfig;
 
     public Camera(RenderConfig renderConfig) {
-        this(new Vector3D(0,0,0), Math.PI/2, Math.PI/2,renderConfig);
+        this(new Vector3D(0,0,0), 0, 0,renderConfig);
     }
 
     public Camera(Vector3D cameraPosition, double horizontalAngle, double verticalAngle, RenderConfig renderConfig) {
@@ -26,8 +26,9 @@ public class Camera extends OrientedObject {
         double fraction = ((double) j / renderConfig.resolution[1] - 0.5);
         ray=ray.add(aboveVector.multiply(fraction*renderConfig.pseudoRectangleHeight));
 
+        Vector3D cameraRightVector= new Vector3D(this.rightVector.getX(),0,this.rightVector.getZ()).normalized();
         fraction = ((double) i / renderConfig.resolution[0] - 0.5);
-        ray=ray.add(rightVector.multiply(fraction*renderConfig.pseudoRectangleWidth));
+        ray=ray.add(cameraRightVector.multiply(fraction*renderConfig.pseudoRectangleWidth));
 
         return new Line(vu, ray);
     }

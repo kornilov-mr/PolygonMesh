@@ -17,22 +17,8 @@ public class Runner {
                 new Point(1,10,0),
                 new Point(1,10,10),
                 new Color(255,255,0)));
-        scene.addPolygon(new Polygon(new Point(1,0,10),
-                new Point(1,10,0),
-                new Point(1,10,10),
-                new Color(255,255,0)));
-        scene.addPolygon(new Polygon(new Point(1,0,10),
-                new Point(1,10,0),
-                new Point(1,10,10),
-                new Color(255,255,0)));
-        scene.addPolygon(new Polygon(new Point(1,0,10),
-                new Point(1,10,0),
-                new Point(1,10,10),
-                new Color(255,255,0)));
-        scene.addPolygon(new Polygon(new Point(1,0,10),
-                new Point(1,10,0),
-                new Point(1,10,10),
-                new Color(255,255,0)));
+
+
 //        scene.saveScene();
         RenderController renderController = new RenderController();
         renderController.setScene(scene);

@@ -17,15 +17,15 @@ public abstract class OrientedObject {
         this.position = position;
         this.horizontalAngle = horizontalAngle;
         this.verticalAngle = verticalAngle;
-        calculateVectorFromAngles(horizontalAngle,verticalAngle);
+        setVectorsFromAngles(horizontalAngle,verticalAngle);
     }
-    public void moveCameraUp(double distance){
+    public void moveUp(double distance){
         position=position.add(aboveVector.multiply(distance));
     }
-    public void moveCameraRight(double distance){
+    public void moveRight(double distance){
         position=position.add(rightVector.multiply(distance));
     }
-    public void moveCameraFront(double distance){
+    public void moveFront(double distance){
         position=position.add(frontVector.multiply(distance));
     }
 
@@ -48,28 +48,18 @@ public abstract class OrientedObject {
         setAnglesFromFrontVector();
     }
 
-    private void calculateVectorFromAngles(double horizontalAngle, double verticalAngle){
-        this.frontVector = new Vector3D(0,0,1);
-        this.aboveVector = new Vector3D(1,0,0);
-        this.rightVector = new Vector3D(0,1,0);
+    public void setVectorsFromAngles(double horizontalAngle, double verticalAngle){
+        this.frontVector = new Vector3D(1,0,0);
+        this.aboveVector = new Vector3D(0,-1,0);
+        this.rightVector = new Vector3D(0,0,-1);
         moveAroundSphereOnHorizontalAngle(horizontalAngle);
         moveAroundSphereOnVerticalAngle(verticalAngle);
     }
-
     private void setAnglesFromFrontVector(){
         this.horizontalAngle = Math.atan(frontVector.getY()/frontVector.getX());
         this.verticalAngle = Math.acos(frontVector.getZ()/frontVector.getLength());
     }
-    public void setHorizontalAngle(double horizontalAngle) {
-        this.horizontalAngle = horizontalAngle;
-        calculateVectorFromAngles(horizontalAngle,verticalAngle);
-    }
 
-    public void setVerticalAngle(double verticalAngle) {
-        this.verticalAngle = verticalAngle;
-        calculateVectorFromAngles(horizontalAngle,verticalAngle);
-
-    }
     public double getHorizontalAngle() {
         return horizontalAngle;
     }
