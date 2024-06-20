@@ -56,8 +56,8 @@ public abstract class OrientedObject {
         moveAroundSphereOnVerticalAngle(verticalAngle);
     }
     private void setAnglesFromFrontVector(){
-        this.horizontalAngle = Math.atan(frontVector.getY()/frontVector.getX());
-        this.verticalAngle = Math.acos(frontVector.getZ()/frontVector.getLength());
+        this.verticalAngle = Math.atan(frontVector.getY()/frontVector.getX());
+        this.horizontalAngle = Math.acos(frontVector.getZ()/frontVector.getLength());
     }
 
     public double getHorizontalAngle() {

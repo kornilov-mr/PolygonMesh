@@ -32,7 +32,7 @@ public class RenderController {
         this.cameraKeyListener = new CameraKeyListener(camera,renderConfig);
         this.cameraMouseListener = new CameraMouseListener(camera,renderConfig);
         this.render=new Render(renderConfig,camera);
-        this.window=new Window(renderConfig.resolution[0],renderConfig.resolution[1], cameraKeyListener,cameraMouseListener);
+        this.window=new Window(renderConfig, cameraKeyListener,cameraMouseListener);
     }
 
     public void setScene(Scene scene) {
@@ -48,11 +48,16 @@ public class RenderController {
         while(true){
             FPSTracker.reset();
             Frame frame = getProcessedFrame();
-            updateUI(frame);
+            UIUpdateWorker uiUpdateWorker = new UIUpdateWorker(frame, window);
+            try {
+                uiUpdateWorker.doInBackground();
+            } catch (Exception e) {
+                System.out.println("A problem accrued during UI update");
+                throw new RuntimeException(e);
+            }
             updateKeyListeners();
             FPSTracker.endWriting();
-//            System.out.print("FPS:");
-//            System.out.println(FPSTracker.getFPS());
+            window.updateInfoLabels();
         }
     }
     public Frame getProcessedFrame(){

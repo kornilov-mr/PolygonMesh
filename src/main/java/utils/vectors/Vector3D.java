@@ -100,10 +100,10 @@ public class Vector3D {
 
     @Override
     public String toString() {
-        return "Vector3D{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
+        return "{" +
+                "x=" + String.format("%.4g%n", x) +
+                ", y=" + String.format("%.4g%n", y) +
+                ", z=" + String.format("%.4g%n", z) +
                 '}';
     }
 }

@@ -3,41 +3,37 @@ package core.UI;
 import core.render.Frame;
 import core.camera.cameraControl.CameraKeyListener;
 import core.UI.compositers.MainPanel;
-import core.UI.elements.CameraPositionInfo;
-import core.UI.elements.RenderedPixelPlane;
 import core.camera.cameraControl.CameraMouseListener;
+import core.render.RenderConfig;
 
 import javax.swing.*;
 
 public class Window {
-    private final CameraPositionInfo cameraInfo;
-    private final int width;
-    private final int height;
-    private final RenderedPixelPlane renderedPixelPlane;
-    public Window(int width, int height, CameraKeyListener cameraKeyListener, CameraMouseListener cameraMouseListener) {
-        this.width = width;
-        this.height = height;
-        this.renderedPixelPlane =new RenderedPixelPlane(width,height,cameraMouseListener);
-        this.cameraInfo = new CameraPositionInfo(cameraKeyListener.getCamera());
+    private final RenderConfig renderConfig;
+    private final MainPanel mainPanel;
+    public Window(RenderConfig renderConfig, CameraKeyListener cameraKeyListener, CameraMouseListener cameraMouseListener) {
+        this.renderConfig=renderConfig;
+        this.mainPanel =new MainPanel(renderConfig,cameraKeyListener.getCamera(),cameraMouseListener);
 
         JFrame windowFrame = new JFrame("3D render demo");
 
-        MainPanel mainPanel =new MainPanel(cameraInfo,renderedPixelPlane);
         windowFrame.add(mainPanel);
 
         setWindowSettings(windowFrame);
         windowFrame.addKeyListener(cameraKeyListener);
     }
     private void setWindowSettings(JFrame window){
-        window.setSize(width+200,height);
+        window.setSize(renderConfig.resolution[0]+200,renderConfig.resolution[1]);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        window.setResizable(true);
         window.setVisible(true);
-    }
+   }
     public void showOneFrame(Frame frame){
-        renderedPixelPlane.showFrame(frame);
-        cameraInfo.updateCameraInfo();
-
+        mainPanel.showOneFrame(frame);
     }
+    public void updateInfoLabels(){
+        mainPanel.updateInfoLabels();
+    }
+
 
 }

@@ -5,28 +5,29 @@ import java.util.Map;
 
 public class FPSTracker {
 
-    private static Map<String, Double> MPP = new HashMap<>(); //milliseconds per process
+    private static Map<String, Double> MPF = new HashMap<>(); //milliseconds per process
     private static double FPS;
     public static void addComponent(String name, double fpm){
-        MPP.put(name,fpm);
+        MPF.put(name,fpm);
     }
     public static void endWriting(){
         double allFpm=0;
-        for(double fpm: MPP.values()){
+        for(double fpm: MPF.values()){
             allFpm+=fpm;
         }
-        MPP.put("all",allFpm);
+        MPF.put("all",allFpm);
         FPS=1000/allFpm;
     }
     public static void reset(){
-        MPP.clear();
+        MPF.clear();
     }
 
-    public static Map<String, Double> getMPP() {
-        return MPP;
-    }
-
-    public static double getFPS() {
-        return FPS;
+    public static String toHTMLString(){
+        String htmlString = "Milliseconds:<br>";
+        for(String name: MPF.keySet()){
+            htmlString += name+"-"+String.format("%.4g%n",MPF.get(name))+"<br>";
+        }
+        htmlString+="FPS:"+String.format("%.4g%n",FPS)+"<br>";
+        return htmlString;
     }
 }
