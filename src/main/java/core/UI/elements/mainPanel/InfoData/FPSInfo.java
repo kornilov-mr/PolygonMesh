@@ -10,9 +10,6 @@ public class FPSInfo implements InfoData {
 
     public FPSInfo(){
     }
-
-
-
     @Override
     public String createNewLabelText() {
         String label ="MPF info<br>";

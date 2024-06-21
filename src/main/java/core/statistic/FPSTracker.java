@@ -1,33 +1,35 @@
 package core.statistic;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class FPSTracker {
 
-    private static Map<String, Double> MPF = new HashMap<>(); //milliseconds per process
-    private static double FPS;
+    private static Map<String, LinkedList<Double>> MPF = new HashMap<>(); //milliseconds per process
     public static void addComponent(String name, double fpm){
-        MPF.put(name,fpm);
-    }
-    public static void endWriting(){
-        double allFpm=0;
-        for(double fpm: MPF.values()){
-            allFpm+=fpm;
+        if(MPF.get(name)==null){
+            MPF.put(name,new LinkedList<Double>());
         }
-        MPF.put("all",allFpm);
-        FPS=1000/allFpm;
+        MPF.get(name).add(fpm);
+        if(MPF.get(name).size()>=61){
+            MPF.get(name).remove(0);
+        }
     }
-    public static void reset(){
-        MPF.clear();
-    }
+
 
     public static String toHTMLString(){
         String htmlString = "Milliseconds:<br>";
+        double millisecondsAverageSum=0;
         for(String name: MPF.keySet()){
-            htmlString += name+"-"+String.format("%.4g%n",MPF.get(name))+"<br>";
+            Iterator<Double> it = MPF.get(name).iterator();
+            double millisecondsSum=0;
+            while(it.hasNext()){
+                millisecondsSum+= it.next();
+            }
+            double millisecondsAverage= millisecondsSum/MPF.get(name).size();
+            millisecondsAverageSum+=millisecondsAverage;
+            htmlString += name+"-"+String.format("%.4g%n",millisecondsAverage)+"<br>";
         }
-        htmlString+="FPS:"+String.format("%.4g%n",FPS)+"<br>";
+        htmlString+="FPS:"+String.format("%.4g%n",1000/millisecondsAverageSum)+"<br>";
         return htmlString;
     }
 }

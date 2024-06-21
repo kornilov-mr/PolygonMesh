@@ -1,14 +1,18 @@
 package core.camera;
 
 import core.render.RenderConfig;
+import core.scene.Scene;
 import primitive.OrientedObject;
+import primitive.Point;
+import primitive.Primitive;
+import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
 public class Camera extends OrientedObject {
 
 
-
+    private Scene scene;
     private final RenderConfig renderConfig;
 
     public Camera(RenderConfig renderConfig) {
@@ -31,5 +35,29 @@ public class Camera extends OrientedObject {
         ray=ray.add(cameraRightVector.multiply(fraction*renderConfig.pseudoRectangleWidth));
 
         return new Line(vu, ray);
+    }
+    public void setScene(Scene scene){
+        this.scene=scene;
+    }
+    public Primitive getPrimitiveOnPixel(int i, int j){
+        if(scene==null){
+            return null;
+        }
+        Line rayLine= getRayLine(i,j);
+        double minDistance =-1;
+        Primitive closesPrimitive = null;
+        for(int h=0;h<scene.getPrimitives().size();h++){
+            Primitive primitive = scene.getPrimitives().get(h);
+            Point point = primitive.getIntersection(rayLine);
+            if(point==null){
+                continue;
+            }
+            double distance = Calculation.getLengthBetweenTwoPoints(point,new Point(position));
+            if(distance<minDistance||minDistance==-1){
+                minDistance=distance;
+                closesPrimitive=primitive;
+            }
+        }
+        return closesPrimitive;
     }
 }

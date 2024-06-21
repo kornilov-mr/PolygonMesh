@@ -2,6 +2,7 @@ package core.scene;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import primitive.Primitive;
 import primitive.PrimitiveFactory;
 import primitive.faces.Polygon;
 
@@ -12,15 +13,15 @@ import java.util.ArrayList;
 
 public class Scene {
 
-    private ArrayList<Polygon> polygons = new ArrayList<>();
+    private ArrayList<Primitive> primitives = new ArrayList<>();
     private final File pathToSceneFolder = new File("src/main/Scenes");
 
     public Scene() {
 
     }
 
-    public void addPolygon(Polygon polygon) {
-        polygons.add(polygon);
+    public void addPrimitive(Primitive primitive) {
+        primitives.add(primitive);
     }
 
     public void saveScene() {
@@ -28,8 +29,8 @@ public class Scene {
         try {
             PrintWriter printWriter = new PrintWriter(saveFile);
             JSONArray jsonArray = new JSONArray();
-            for (Polygon polygon : polygons) {
-                jsonArray.put(polygon.objectInSavingFormat());
+            for (Primitive primitive : primitives) {
+                jsonArray.put(primitive.objectInSavingFormat());
             }
             printWriter.println(jsonArray.toString());
             printWriter.flush();
@@ -57,8 +58,8 @@ public class Scene {
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
             JSONArray jsonArray = new JSONArray(content);
             for(int i=0;i<jsonArray.length();i++){
-                Polygon polygon =primitiveFactory.createPrimitiveFromJson((JSONObject) jsonArray.get(i));
-                polygons.add(polygon);
+                Primitive primitive =primitiveFactory.createPrimitiveFromJson((JSONObject) jsonArray.get(i));
+                primitives.add(primitive);
             }
         } catch (IOException e) {
             System.out.println("problem with reading from load file");
@@ -66,7 +67,7 @@ public class Scene {
         }
     }
 
-    public ArrayList<Polygon> getPolygons() {
-        return polygons;
+    public ArrayList<Primitive> getPrimitives() {
+        return primitives;
     }
 }

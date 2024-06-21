@@ -1,5 +1,6 @@
 package core.UI.elements.mainPanel;
 
+import core.UI.elements.toolPanel.pointer.PointMouseListener;
 import core.render.Frame;
 import core.camera.cameraControl.CameraMouseListener;
 
@@ -22,11 +23,12 @@ public class MainRenderPlane extends JPanel {
         setOpaque(false);
     }
 
-    public MainRenderPlane(int width, int height, CameraMouseListener cameraMouseListener){
+    public MainRenderPlane(int width, int height, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener){
         this.width=width;
         this.height=height;
         this.canvas = newEmptyFrame();
         addMouseMotionListener(cameraMouseListener);
+        addMouseListener(pointMouseListener);
         setBounds(0,0,width,height);
     }
     public BufferedImage newEmptyFrame(){

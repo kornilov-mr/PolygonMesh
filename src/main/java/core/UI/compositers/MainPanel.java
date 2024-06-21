@@ -4,6 +4,7 @@ import core.UI.elements.mainPanel.InfoData.CameraPositionInfo;
 import core.UI.elements.mainPanel.InfoData.FPSInfo;
 import core.UI.elements.mainPanel.InfoPanel;
 import core.UI.elements.mainPanel.MainRenderPlane;
+import core.UI.elements.toolPanel.pointer.PointMouseListener;
 import core.camera.Camera;
 import core.camera.cameraControl.CameraMouseListener;
 import core.render.Frame;
@@ -16,9 +17,9 @@ public class MainPanel extends JLayeredPane {
 
     private final MainRenderPlane mainRenderPlane;
     private final InfoPanel infoPanel;
-    public MainPanel(RenderConfig renderConfig, Camera camera, CameraMouseListener cameraMouseListener){
+    public MainPanel(RenderConfig renderConfig, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener){
         this.renderConfig=renderConfig;
-        this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],cameraMouseListener);
+        this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],cameraMouseListener,pointMouseListener);
 
         this.infoPanel = new InfoPanel(camera);
 
@@ -35,7 +36,6 @@ public class MainPanel extends JLayeredPane {
     @Override
     public void invalidate() {
         super.invalidate();
-//        overlay.invalidateLayout(this);
     }
     public void showOneFrame(Frame frame){
         mainRenderPlane.showFrame(frame);

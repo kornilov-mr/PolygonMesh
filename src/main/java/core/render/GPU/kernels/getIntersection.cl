@@ -200,25 +200,25 @@ __kernel void calculatePointVector(
                      double yCameraPosition,
                      double zCameraPosition,
 
-                    __global  double *ACoordinateFrom,
-                    __global  double *BCoordinateFrom,
-                    __global  double *CCoordinateFrom,
-                    __global  double *DCoordinateFrom,
-                    __global  int *PolygonColor,
+                    __constant   double *ACoordinateFrom,
+                    __constant   double *BCoordinateFrom,
+                    __constant   double *CCoordinateFrom,
+                    __constant   double *DCoordinateFrom,
+                    __constant   int *PolygonColor,
 
                     const int polygonCount,
 
-                    __global  double *x1,
-                    __global  double *y1,
-                    __global  double *z1,
+                    __constant   double *x1,
+                    __constant   double *y1,
+                    __constant   double *z1,
 
-                    __global  double *x2,
-                    __global  double *y2,
-                    __global  double *z2,
+                    __constant   double *x2,
+                    __constant   double *y2,
+                    __constant   double *z2,
 
-                    __global  double *x3,
-                    __global  double *y3,
-                    __global  double *z3,
+                    __constant   double *x3,
+                    __constant   double *y3,
+                    __constant   double *z3,
 
                     __global int *RGB)
 {

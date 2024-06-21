@@ -3,13 +3,14 @@ package primitive.faces;
 import org.jocl.struct.Struct;
 import org.json.JSONObject;
 import primitive.Point;
+import primitive.Primitive;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
 import java.awt.Color;
 
-public class Polygon{
+public class Polygon implements Primitive {
 
     public final Point pointA;
     public final Point pointB;
@@ -38,7 +39,7 @@ public class Polygon{
         double D = -1 * normalVector.multiply(new Vector3D(pointA)).getSum();
         this.coordinateForm = new CoordinateForm(normalVector, D);
     }
-
+    @Override
     public Point getIntersection(Line line) {
         Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
 

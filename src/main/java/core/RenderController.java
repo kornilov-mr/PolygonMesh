@@ -4,8 +4,6 @@ import core.render.Frame;
 import core.render.Render;
 import core.render.RenderConfig;
 import core.camera.Camera;
-import core.camera.cameraControl.CameraKeyListener;
-import core.camera.cameraControl.CameraMouseListener;
 import core.scene.Scene;
 import core.UI.Window;
 import core.statistic.FPSTracker;
@@ -19,23 +17,13 @@ public class RenderController {
     private final Render render;
     private final Window window;
     private final Camera camera;
-    private final CameraKeyListener cameraKeyListener;
-    private final CameraMouseListener cameraMouseListener;
-    private Scene scene;
+    private final Scene scene;
 
-    public RenderController(){
-        this(new RenderConfig());
-    }
-    public RenderController(RenderConfig renderConfig) {
+    protected RenderController(RenderConfig renderConfig, Render render, Window window, Camera camera, Scene scene) {
         this.renderConfig = renderConfig;
-        this.camera = new Camera(renderConfig);
-        this.cameraKeyListener = new CameraKeyListener(camera,renderConfig);
-        this.cameraMouseListener = new CameraMouseListener(camera,renderConfig);
-        this.render=new Render(renderConfig,camera);
-        this.window=new Window(renderConfig, cameraKeyListener,cameraMouseListener);
-    }
-
-    public void setScene(Scene scene) {
+        this.render = render;
+        this.window = window;
+        this.camera = camera;
         this.scene = scene;
     }
 
@@ -46,7 +34,6 @@ public class RenderController {
             return;
         }
         while(true){
-            FPSTracker.reset();
             Frame frame = getProcessedFrame();
             UIUpdateWorker uiUpdateWorker = new UIUpdateWorker(frame, window);
             try {
@@ -55,8 +42,7 @@ public class RenderController {
                 System.out.println("A problem accrued during UI update");
                 throw new RuntimeException(e);
             }
-            updateKeyListeners();
-            FPSTracker.endWriting();
+            window.updateKeyListeners();
             window.updateInfoLabels();
         }
     }
@@ -66,15 +52,5 @@ public class RenderController {
         FPSTracker.addComponent("Processing frame",new Date().getTime()-deltaTime);
         return frame;
     }
-    public void updateUI(Frame frame){
-        long deltaTime = new Date().getTime();
-        window.showOneFrame(frame);
-        FPSTracker.addComponent("UI update",new Date().getTime()-deltaTime);
-    }
-    public void updateKeyListeners(){
-        long deltaTime = new Date().getTime();
-        cameraKeyListener.update();
-        cameraMouseListener.update();
-        FPSTracker.addComponent("Listener update",new Date().getTime()-deltaTime);
-    }
+
 }

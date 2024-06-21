@@ -29,33 +29,33 @@ public class IntersectionShader extends ShaderRunner{
         this.RGBColors= new int[renderConfig.pixelCount];
         this.RGBColorsPt=  Pointer.to(RGBColors);
         this.RGBColorsMem= clCreateBuffer(context,
-                CL_MEM_WRITE_ONLY,
+                CL_MEM_WRITE_ONLY|CL_MEM_ALLOC_HOST_PTR ,
                 (long) Sizeof.cl_int * renderConfig.pixelCount, null, null);
     }
     public int[] colors(Scene scene){
 
+        int polygonCount = scene.getPrimitives().size();
 
-        double[] ACoordinateFrom = new double[scene.getPolygons().size()];
-        double[] BCoordinateFrom = new double[scene.getPolygons().size()];
-        double[] CCoordinateFrom = new double[scene.getPolygons().size()];
-        double[] DCoordinateFrom = new double[scene.getPolygons().size()];
-        int[] polygonColor = new int[scene.getPolygons().size()];
+        double[] ACoordinateFrom = new double[polygonCount];
+        double[] BCoordinateFrom = new double[polygonCount];
+        double[] CCoordinateFrom = new double[polygonCount];
+        double[] DCoordinateFrom = new double[polygonCount];
+        int[] polygonColor = new int[polygonCount];
 
-        double[] x1 = new double[scene.getPolygons().size()];
-        double[] y1 = new double[scene.getPolygons().size()];
-        double[] z1 = new double[scene.getPolygons().size()];
+        double[] x1 = new double[polygonCount];
+        double[] y1 = new double[polygonCount];
+        double[] z1 = new double[polygonCount];
 
-        double[] x2 = new double[scene.getPolygons().size()];
-        double[] y2 = new double[scene.getPolygons().size()];
-        double[] z2 = new double[scene.getPolygons().size()];
+        double[] x2 = new double[polygonCount];
+        double[] y2 = new double[polygonCount];
+        double[] z2 = new double[polygonCount];
 
-        double[] x3 = new double[scene.getPolygons().size()];
-        double[] y3 = new double[scene.getPolygons().size()];
-        double[] z3 = new double[scene.getPolygons().size()];
+        double[] x3 = new double[polygonCount];
+        double[] y3 = new double[polygonCount];
+        double[] z3 = new double[polygonCount];
 
-        int polygonCount = scene.getPolygons().size();
         for(int i=0;i<polygonCount;i++){
-            Polygon polygon = scene.getPolygons().get(i);
+            Polygon polygon = (Polygon) scene.getPrimitives().get(i);
             ACoordinateFrom[i]=polygon.coordinateForm.A;
             BCoordinateFrom[i]=polygon.coordinateForm.B;
             CCoordinateFrom[i]=polygon.coordinateForm.C;
@@ -154,7 +154,7 @@ public class IntersectionShader extends ShaderRunner{
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(DCoordinateFromMem));
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(polygonColorMem));
 
-        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{scene.getPolygons().size()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{scene.getPrimitives().size()}));
 
 
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(x1Mem));
@@ -173,9 +173,9 @@ public class IntersectionShader extends ShaderRunner{
 
 
         long global_work_size[] = new long[]{renderConfig.pixelCount};
-
         clEnqueueNDRangeKernel(commandQueue, kernel, 1, null,
                 global_work_size, null, 0, null, null);
+        clFinish(commandQueue);
         clEnqueueReadBuffer(commandQueue, RGBColorsMem, CL_TRUE, 0,
                 (long) Sizeof.cl_int * renderConfig.pixelCount, RGBColorsPt, 0, null, null);
         clReleaseMemObject(ACoordinateFromMem);
