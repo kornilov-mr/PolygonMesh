@@ -1,6 +1,7 @@
 package core.UI.elements.mainPanel;
 
 import core.UI.elements.toolPanel.pointer.PointMouseListener;
+import core.camera.cameraControl.CameraKeyListener;
 import core.render.Frame;
 import core.camera.cameraControl.CameraMouseListener;
 

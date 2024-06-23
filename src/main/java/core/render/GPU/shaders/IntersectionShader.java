@@ -56,23 +56,23 @@ public class IntersectionShader extends ShaderRunner{
 
         for(int i=0;i<polygonCount;i++){
             Polygon polygon = (Polygon) scene.getPrimitives().get(i);
-            ACoordinateFrom[i]=polygon.coordinateForm.A;
-            BCoordinateFrom[i]=polygon.coordinateForm.B;
-            CCoordinateFrom[i]=polygon.coordinateForm.C;
-            DCoordinateFrom[i]=polygon.coordinateForm.D;
+            ACoordinateFrom[i]=polygon.getCoordinateForm().A;
+            BCoordinateFrom[i]=polygon.getCoordinateForm().B;
+            CCoordinateFrom[i]=polygon.getCoordinateForm().C;
+            DCoordinateFrom[i]=polygon.getCoordinateForm().D;
             polygonColor[i]=polygon.mainColor.getRGB();
 
-            x1[i]=polygon.pointA.getX();
-            y1[i]=polygon.pointA.getY();
-            z1[i]=polygon.pointA.getZ();
+            x1[i]=polygon.getPointA().getX();
+            y1[i]=polygon.getPointA().getY();
+            z1[i]=polygon.getPointA().getZ();
 
-            x2[i]=polygon.pointB.getX();
-            y2[i]=polygon.pointB.getY();
-            z2[i]=polygon.pointB.getZ();
+            x2[i]=polygon.getPointB().getX();
+            y2[i]=polygon.getPointB().getY();
+            z2[i]=polygon.getPointB().getZ();
 
-            x3[i]=polygon.pointC.getX();
-            y3[i]=polygon.pointC.getY();
-            z3[i]=polygon.pointC.getZ();
+            x3[i]=polygon.getPointC().getX();
+            y3[i]=polygon.getPointC().getY();
+            z3[i]=polygon.getPointC().getZ();
         }
 
 

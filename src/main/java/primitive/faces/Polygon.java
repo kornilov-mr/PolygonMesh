@@ -12,14 +12,15 @@ import java.awt.Color;
 
 public class Polygon implements Primitive {
 
-    public final Point pointA;
-    public final Point pointB;
-    public final Point pointC;
+    private Point pointA;
+    private Point pointB;
+    private Point pointC;
 
-    public final Vector3D normalVector;
-    public final CoordinateForm coordinateForm;
-    public final Color mainColor;
-    public final Color contourColor;
+    private Vector3D normalVector;
+    protected CoordinateForm coordinateForm;
+    public Color mainColor;
+    private Color contourColor;
+
 
     public Polygon(Point pointA, Point pointB, Point pointC, Color mainColor){
         this(pointA,pointB,pointC,mainColor,new Color(32,32,32));
@@ -31,6 +32,9 @@ public class Polygon implements Primitive {
         this.contourColor=contourColor;
         this.mainColor = mainColor;
 
+        calculateNormalVector();
+    }
+    public void calculateNormalVector(){
         Vector3D directionVector1 = Calculation.VectorBetweenTwoPoints(pointA, pointB);
         Vector3D directionVector2 = Calculation.VectorBetweenTwoPoints(pointA, pointC);
 
@@ -59,4 +63,45 @@ public class Polygon implements Primitive {
         obj.put("contourColor", contourColor.getRGB());
         return obj;
     }
+
+    public Point getPointA() {
+        return pointA;
+    }
+
+    public Point getPointB() {
+        return pointB;
+    }
+
+    public Point getPointC() {
+        return pointC;
+    }
+
+    public void setPointA(Point pointA) {
+        this.pointA = pointA;
+        calculateNormalVector();
+    }
+
+    public void setPointB(Point pointB) {
+        this.pointB = pointB;
+        calculateNormalVector();
+    }
+
+    public void setPointC(Point pointC) {
+        this.pointC = pointC;
+        calculateNormalVector();
+    }
+
+    public CoordinateForm getCoordinateForm() {
+        return coordinateForm;
+    }
+    public void setRed(int red){
+        this.mainColor = new Color(red,mainColor.getGreen(),mainColor.getBlue());
+    }
+    public void setGreen(int green){
+        this.mainColor = new Color(mainColor.getRed(),green,mainColor.getBlue());
+    }
+    public void setBlue(int blue){
+        this.mainColor = new Color(mainColor.getRed(),mainColor.getGreen(),blue);
+    }
+
 }

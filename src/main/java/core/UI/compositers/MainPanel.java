@@ -6,6 +6,7 @@ import core.UI.elements.mainPanel.InfoPanel;
 import core.UI.elements.mainPanel.MainRenderPlane;
 import core.UI.elements.toolPanel.pointer.PointMouseListener;
 import core.camera.Camera;
+import core.camera.cameraControl.CameraKeyListener;
 import core.camera.cameraControl.CameraMouseListener;
 import core.render.Frame;
 import core.render.RenderConfig;
@@ -25,7 +26,6 @@ public class MainPanel extends JLayeredPane {
 
         OverlayLayout overlayLayout = new OverlayLayout(this);
         setLayout(overlayLayout);
-
         add(infoPanel,JLayeredPane.PALETTE_LAYER);
         add(mainRenderPlane,JLayeredPane.DEFAULT_LAYER);
         infoPanel.setAlignmentX(0.2f);

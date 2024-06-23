@@ -8,10 +8,10 @@ import java.awt.*;
 
 public class Point {
 
-    private final double x;
-    private final double y;
-    private final double z;
-    private Color color;
+    public double x;
+    public double y;
+    public double z;
+    public Color color;
     public Point(double x, double y, double z){
         this(x,y,z,new Color(0,0,0));
     }
