@@ -1,12 +1,9 @@
 package core.UI.compositers;
 
-import core.UI.elements.mainPanel.InfoData.CameraPositionInfo;
-import core.UI.elements.mainPanel.InfoData.FPSInfo;
 import core.UI.elements.mainPanel.InfoPanel;
 import core.UI.elements.mainPanel.MainRenderPlane;
-import core.UI.elements.toolPanel.pointer.PointMouseListener;
+import core.tools.selecting.PointMouseListener;
 import core.camera.Camera;
-import core.camera.cameraControl.CameraKeyListener;
 import core.camera.cameraControl.CameraMouseListener;
 import core.render.Frame;
 import core.render.RenderConfig;

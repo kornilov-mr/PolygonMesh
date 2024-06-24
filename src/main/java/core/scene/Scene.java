@@ -1,5 +1,6 @@
 package core.scene;
 
+import core.tools.selecting.SelectedObjectManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import primitive.Point;
@@ -12,7 +13,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.List;
 
 public class Scene {
 
@@ -23,8 +23,10 @@ public class Scene {
     private final Map<Point, ArrayList<Polygon>> pointsToPolygon = new HashMap<>();
     private final File pathToSceneFolder = new File("src/main/Scenes");
 
-    public Scene() {
+    public final SelectedObjectManager selectedObjectManager;
 
+    public Scene() {
+        this.selectedObjectManager= new SelectedObjectManager();
     }
     public void createPolygons(ArrayList<Point> points,ArrayList<String> pointsID,Color color){
         for(String Id: pointsID){

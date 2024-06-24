@@ -259,7 +259,7 @@ __kernel void calculatePointVector(
                     __constant double *ySphere,
                     __constant double *zSphere,
                     __constant double *size,
-                    __constant double *sphereColor,
+                    __constant int *sphereColor,
 
                     const int pointCount,
 

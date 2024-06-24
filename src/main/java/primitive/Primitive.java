@@ -4,7 +4,14 @@ import org.json.JSONObject;
 import utils.line.Line;
 
 
-public interface Primitive {
-    public Point getIntersection(Line line);
-    public JSONObject objectInSavingFormat();
+public abstract class Primitive {
+    public boolean selected=false;
+    public abstract Point getIntersection(Line line);
+    public abstract JSONObject objectInSavingFormat();
+    public void setSelected(Boolean selected){
+        this.selected = selected;
+    }
+    public void changeSelection(){
+        this.selected= !selected;
+    }
 }

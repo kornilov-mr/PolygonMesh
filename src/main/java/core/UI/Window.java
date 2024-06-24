@@ -1,7 +1,7 @@
 package core.UI;
 
 import core.UI.compositers.ToolBar;
-import core.UI.elements.toolPanel.pointer.PointMouseListener;
+import core.tools.selecting.PointMouseListener;
 import core.UI.managers.FocusTabManager;
 import core.camera.Camera;
 import core.render.Frame;

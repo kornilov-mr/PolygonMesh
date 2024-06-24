@@ -63,7 +63,7 @@ public class IntersectionShader extends ShaderRunner{
             BCoordinateFrom[i]=polygon.getCoordinateForm().B;
             CCoordinateFrom[i]=polygon.getCoordinateForm().C;
             DCoordinateFrom[i]=polygon.getCoordinateForm().D;
-            polygonColor[i]=polygon.mainColor.getRGB();
+            polygonColor[i]=polygon.getMainColorForRendering().getRGB();
 
             x1[i]=polygon.getPointA().getX();
             y1[i]=polygon.getPointA().getY();
@@ -87,6 +87,7 @@ public class IntersectionShader extends ShaderRunner{
 
         int[] SphereColor = new int[pointCount];
 
+
         Iterator<Point> it = scene.getPoints().values().iterator();
         for(int i=0;i<pointCount;i++){
             Point point = it.next();
@@ -97,6 +98,9 @@ public class IntersectionShader extends ShaderRunner{
             zSphere[i]= sphere.z;
             SphereSize[i]= sphere.size;
             SphereColor[i]=sphere.getColor().getRGB();
+            if(SphereColor[i]==-16746281){
+                System.out.println("test");
+            }
         }
 
         cl_mem ACoordinateFromMem = clCreateBuffer(context,

@@ -1,6 +1,5 @@
 package primitive;
 
-import org.jocl.struct.Struct;
 import org.json.JSONObject;
 import utils.Calculation;
 import utils.line.Line;
@@ -8,7 +7,7 @@ import utils.vectors.Vector3D;
 
 import java.awt.*;
 
-public class Point implements Primitive{
+public class Point extends Primitive {
 
     public double x;
     public double y;
@@ -68,6 +67,8 @@ public class Point implements Primitive{
         return jsonObject;
     }
 
+
+
     @Override
     public Point getIntersection(Line line) {
         Point pointT = Calculation.closestPointToLine(this,line);
@@ -84,4 +85,7 @@ public class Point implements Primitive{
         return resultPoint;
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
 }

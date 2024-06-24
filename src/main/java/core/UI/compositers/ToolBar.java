@@ -1,10 +1,9 @@
 package core.UI.compositers;
 
 import core.UI.elements.toolPanel.pointer.ObjectPanel;
-import core.UI.elements.toolPanel.pointer.PointMouseListener;
+import core.tools.selecting.PointMouseListener;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ToolBar extends JPanel {
     private final PointMouseListener pointMouseListener;

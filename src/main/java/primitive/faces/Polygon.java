@@ -10,7 +10,7 @@ import utils.vectors.Vector3D;
 
 import java.awt.Color;
 
-public class Polygon implements Primitive {
+public class Polygon extends Primitive {
 
     private Point pointA;
     private Point pointB;
@@ -18,7 +18,7 @@ public class Polygon implements Primitive {
 
     private Vector3D normalVector;
     protected CoordinateForm coordinateForm;
-    public Color mainColor;
+    private Color mainColor;
     private Color contourColor;
 
     public Polygon(Point pointA, Point pointB, Point pointC){
@@ -62,6 +62,8 @@ public class Polygon implements Primitive {
         return obj;
     }
 
+
+
     public Point getPointA() {
         return pointA;
     }
@@ -82,6 +84,18 @@ public class Polygon implements Primitive {
     public void setPointB(Point pointB) {
         this.pointB = pointB;
         calculateNormalVector();
+    }
+
+    public Color getMainColorForRendering() {
+        if(selected){
+            return new Color(0,120,215) ;
+
+        }
+        return mainColor;
+    }
+
+    public Color getMainColor() {
+        return mainColor;
     }
 
     public void setPointC(Point pointC) {

@@ -156,7 +156,7 @@ public class ObjectPanelFactory {
         return jPanel;
     }
     private JPanel createColorPanel(Polygon polygon){
-        Color mainColor = polygon.mainColor;
+        Color mainColor = polygon.getMainColor();
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel,BoxLayout.Y_AXIS));
         titlePanel.add(new JLabel("Color"));
