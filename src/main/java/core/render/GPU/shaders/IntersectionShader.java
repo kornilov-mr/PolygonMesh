@@ -7,6 +7,7 @@ import org.jocl.Pointer;
 import org.jocl.Sizeof;
 import org.jocl.cl_mem;
 import primitive.Point;
+import primitive.Sphere;
 import primitive.faces.Polygon;
 import utils.line.Line;
 import utils.vectors.Vector3D;
@@ -89,12 +90,13 @@ public class IntersectionShader extends ShaderRunner{
         Iterator<Point> it = scene.getPoints().values().iterator();
         for(int i=0;i<pointCount;i++){
             Point point = it.next();
+            Sphere sphere = new Sphere(point);
 
-            xSphere[i]= point.x;
-            ySphere[i]= point.y;
-            zSphere[i]= point.z;
-            SphereSize[i]= point.size;
-            SphereColor[i]=point.getColor().getRGB();
+            xSphere[i]= sphere.x;
+            ySphere[i]= sphere.y;
+            zSphere[i]= sphere.z;
+            SphereSize[i]= sphere.size;
+            SphereColor[i]=sphere.getColor().getRGB();
         }
 
         cl_mem ACoordinateFromMem = clCreateBuffer(context,
