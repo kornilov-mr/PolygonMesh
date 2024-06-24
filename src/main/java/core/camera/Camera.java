@@ -33,12 +33,17 @@ public class Camera extends OrientedObject {
         Vector3D cameraRightVector= new Vector3D(this.rightVector.getX(),0,this.rightVector.getZ()).normalized();
         fraction = ((double) i / renderConfig.resolution[0] - 0.5);
         ray=ray.add(cameraRightVector.multiply(fraction*renderConfig.pseudoRectangleWidth));
-
+        ray=ray.normalized();
         return new Line(vu, ray);
     }
     public void setScene(Scene scene){
         this.scene=scene;
     }
+
+    public Scene getScene() {
+        return scene;
+    }
+
     public Primitive getPrimitiveOnPixel(int i, int j){
         if(scene==null){
             return null;

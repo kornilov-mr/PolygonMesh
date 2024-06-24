@@ -21,15 +21,13 @@ public class Polygon implements Primitive {
     public Color mainColor;
     private Color contourColor;
 
-
-    public Polygon(Point pointA, Point pointB, Point pointC, Color mainColor){
-        this(pointA,pointB,pointC,mainColor,new Color(32,32,32));
+    public Polygon(Point pointA, Point pointB, Point pointC){
+        this(pointA,pointB,pointC,new Color(0,0,0));
     }
-    public Polygon(Point pointA, Point pointB, Point pointC, Color mainColor,Color contourColor) {
+    public Polygon(Point pointA, Point pointB, Point pointC, Color mainColor) {
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
-        this.contourColor=contourColor;
         this.mainColor = mainColor;
 
         calculateNormalVector();
@@ -56,9 +54,9 @@ public class Polygon implements Primitive {
     public JSONObject objectInSavingFormat() {
         JSONObject obj = new JSONObject();
         obj.put("Class", "Polygon");
-        obj.put("point1", pointA.toJSON());
-        obj.put("point2", pointB.toJSON());
-        obj.put("point3", pointC.toJSON());
+        obj.put("point1", pointA.objectInSavingFormat());
+        obj.put("point2", pointB.objectInSavingFormat());
+        obj.put("point3", pointC.objectInSavingFormat());
         obj.put("mainColor", mainColor.getRGB());
         obj.put("contourColor", contourColor.getRGB());
         return obj;

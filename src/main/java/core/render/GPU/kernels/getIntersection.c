@@ -11,6 +11,14 @@ double getDistance(
 {
     return square_root(x*x+y*y+z*z);
 }
+void normalizeCus(double *x,
+               double *y,
+               double *z){
+    double distance = getDistance(*x,*y,*z);
+    *x=*x/distance;
+    *y=*y/distance;
+    *z=*z/distance;
+}
 
 double getDistanceFromTwoPoints(const double x1,
                                 const double y1,
@@ -125,7 +133,47 @@ bool getIntersectionWithPane(
         return true;
 }
 
+bool getIntersectionWithSphere(
+                        const double xSphere,
+                        const double ySphere,
+                        const double zSphere,
+                        const double size,
 
+                         const double xCameraPosition,
+                         const double yCameraPosition,
+                         const double zCameraPosition,
+
+                         const double xRay,
+                         const double yRay,
+                         const double zRay,
+
+                         double *xPoint,
+                         double *yPoint,
+                         double *zPoint
+                        ){
+        double xPointT;
+        double yPointT;
+        double zPointT;
+        double factorD=-1*(xSphere*xRay+ySphere*yRay+zSphere*zRay);
+        bool result = getIntersectionWithPane(xRay,yRay,zRay,factorD,
+                                                    xCameraPosition,yCameraPosition,zCameraPosition,
+                                                    xRay,yRay,zRay,
+                                                    &xPointT,&yPointT,&zPointT);
+        if(result==false){
+            return false;
+        }
+        double distanceST=getDistanceFromTwoPoints(xSphere,ySphere,zSphere,xPointT,yPointT,zPointT);
+        double distance = size*2-distanceST*2;
+        if(distance<0){
+            return false;
+        }
+        double distanceT =sqrt(distance)*-1;
+
+        *xPoint=xRay*distanceT+xPointT;
+        *yPoint=yRay*distanceT+yPointT;
+        *zPoint=zRay*distanceT+zPointT;
+        return true;
+}
 
 
 void calculateRayVector(
@@ -171,12 +219,11 @@ void calculateRayVector(
         xTemp+= xRight*fraction*pseudoWidth;
         yTemp+= yRight*fraction*pseudoWidth;
         zTemp+= zRight*fraction*pseudoWidth;
-
+        normalizeCus(&xTemp,&yTemp,&zTemp);
         xRay[0]=xTemp;
         yRay[0]=yTemp;
         zRay[0]=zTemp;
 }
-
 __kernel void calculatePointVector(
                      const double xFront,
                      const double yFront,
@@ -207,6 +254,14 @@ __kernel void calculatePointVector(
                     __constant   int *PolygonColor,
 
                     const int polygonCount,
+
+                    __constant double *xSphere,
+                    __constant double *ySphere,
+                    __constant double *zSphere,
+                    __constant double *size,
+                    __constant double *sphereColor,
+
+                    const int pointCount,
 
                     __constant   double *x1,
                     __constant   double *y1,
@@ -265,6 +320,22 @@ __kernel void calculatePointVector(
             RGBForPoint=PolygonColor[i];
         }
     }
+    for(int i =0;i<pointCount;i++){
+            bool result = getIntersectionWithSphere(xSphere[i],ySphere[i],zSphere[i],size[i],
+                                                xCameraPosition,yCameraPosition,zCameraPosition,
+                                                xRay,yRay,zRay,
+                                                &xPoint,&yPoint,&zPoint);
+            if(result==false){
+                continue;
+            }
+
+            __private double distance= getDistanceFromTwoPoints(xCameraPosition,yCameraPosition,zCameraPosition,
+                                                       xPoint,yPoint,zPoint);
+            if(distance<minDistance || minDistance==-1){
+                minDistance=distance;
+                RGBForPoint=sphereColor[i];
+            }
+        }
     RGB[index]=RGBForPoint;
     return;
 }

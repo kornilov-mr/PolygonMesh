@@ -23,7 +23,7 @@ public class CoordinateForm {
         this(new Vector3D(a,b,c),d);
     }
 
-    protected Point getPointOnIntersection(Line line) {
+    public Point getPointOnIntersection(Line line) {
         double r = 0;
         r += line.directionVector.getX() * A;
         r += line.directionVector.getY() * B;

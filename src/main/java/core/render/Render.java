@@ -17,7 +17,7 @@ public class Render {
     public Render(RenderConfig renderConfig, Camera camera) {
         this.renderConfig = renderConfig;
         this.camera=camera;
-        this.intersectionShader= new IntersectionShader(new File("src/main/java/core/render/GPU/kernels/getIntersection.cl"),renderConfig,camera);
+        this.intersectionShader= new IntersectionShader(new File("src/main/java/core/render/GPU/kernels/getIntersection.c"),renderConfig,camera);
     }
 
     public Frame ProcessFrame(Scene scene){

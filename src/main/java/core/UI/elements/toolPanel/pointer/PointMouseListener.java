@@ -2,6 +2,7 @@ package core.UI.elements.toolPanel.pointer;
 
 import core.UI.managers.FocusTabManager;
 import core.camera.Camera;
+import core.scene.Scene;
 import primitive.Primitive;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class PointMouseListener implements MouseListener {
 
     public PointMouseListener(Camera camera, FocusTabManager focusTabManager) {
         this.camera = camera;
-        this.objectPanelFactory=new ObjectPanelFactory(focusTabManager);
+        this.objectPanelFactory=new ObjectPanelFactory(focusTabManager,camera.getScene());
     }
 
     public void setObjectPanel(ObjectPanel objectPanel) {

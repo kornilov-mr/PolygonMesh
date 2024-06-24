@@ -1,6 +1,8 @@
 package utils;
 
 import primitive.Point;
+import primitive.faces.CoordinateForm;
+import utils.line.Line;
 import utils.quaternion.Quaternion;
 import utils.vectors.Vector3D;
 
@@ -57,6 +59,13 @@ public class Calculation {
             return true;
         }
         return false;
+    }
+    public static Point closestPointToLine(Point point, Line line){
+        CoordinateForm coordinateForm = new CoordinateForm(line.directionVector,
+                new Vector3D(point).multiply(line.directionVector).multiply(-1).getSum());
+        Point pointT = coordinateForm.getPointOnIntersection(line);
+
+        return pointT;
     }
 
 }

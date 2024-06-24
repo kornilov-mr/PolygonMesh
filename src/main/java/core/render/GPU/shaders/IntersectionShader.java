@@ -6,6 +6,7 @@ import core.scene.Scene;
 import org.jocl.Pointer;
 import org.jocl.Sizeof;
 import org.jocl.cl_mem;
+import primitive.Point;
 import primitive.faces.Polygon;
 import utils.line.Line;
 import utils.vectors.Vector3D;
@@ -13,6 +14,7 @@ import utils.vectors.Vector3D;
 import java.awt.*;
 import java.io.File;
 import java.util.Date;
+import java.util.Iterator;
 
 import static org.jocl.CL.*;
 
@@ -34,7 +36,7 @@ public class IntersectionShader extends ShaderRunner{
     }
     public int[] colors(Scene scene){
 
-        int polygonCount = scene.getPrimitives().size();
+        int polygonCount = scene.getPolygons().size();
 
         double[] ACoordinateFrom = new double[polygonCount];
         double[] BCoordinateFrom = new double[polygonCount];
@@ -55,7 +57,7 @@ public class IntersectionShader extends ShaderRunner{
         double[] z3 = new double[polygonCount];
 
         for(int i=0;i<polygonCount;i++){
-            Polygon polygon = (Polygon) scene.getPrimitives().get(i);
+            Polygon polygon = scene.getPolygons().get(i);
             ACoordinateFrom[i]=polygon.getCoordinateForm().A;
             BCoordinateFrom[i]=polygon.getCoordinateForm().B;
             CCoordinateFrom[i]=polygon.getCoordinateForm().C;
@@ -75,6 +77,25 @@ public class IntersectionShader extends ShaderRunner{
             z3[i]=polygon.getPointC().getZ();
         }
 
+        int pointCount = scene.getPoints().size();
+
+        double[] xSphere = new double[pointCount];
+        double[] ySphere = new double[pointCount];
+        double[] zSphere = new double[pointCount];
+        double[] SphereSize = new double[pointCount];
+
+        int[] SphereColor = new int[pointCount];
+
+        Iterator<Point> it = scene.getPoints().values().iterator();
+        for(int i=0;i<pointCount;i++){
+            Point point = it.next();
+
+            xSphere[i]= point.x;
+            ySphere[i]= point.y;
+            zSphere[i]= point.z;
+            SphereSize[i]= point.size;
+            SphereColor[i]=point.getColor().getRGB();
+        }
 
         cl_mem ACoordinateFromMem = clCreateBuffer(context,
                 CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -91,6 +112,22 @@ public class IntersectionShader extends ShaderRunner{
         cl_mem polygonColorMem = clCreateBuffer(context,
                 CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
                 (long) Sizeof.cl_int * polygonCount, Pointer.to(polygonColor), null);
+
+        cl_mem xSphereMem = clCreateBuffer(context,
+                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+                (long) Sizeof.cl_double * pointCount, Pointer.to(xSphere), null);
+        cl_mem ySphereMem = clCreateBuffer(context,
+                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+                (long) Sizeof.cl_double * pointCount, Pointer.to(ySphere), null);
+        cl_mem zSphereMem = clCreateBuffer(context,
+                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+                (long) Sizeof.cl_double * pointCount, Pointer.to(zSphere), null);
+        cl_mem SphereSizeMem = clCreateBuffer(context,
+                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+                (long) Sizeof.cl_double * pointCount, Pointer.to(SphereSize), null);
+        cl_mem SphereColorMem = clCreateBuffer(context,
+                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+                (long) Sizeof.cl_int * pointCount, Pointer.to(SphereColor), null);
 
         cl_mem x1Mem = clCreateBuffer(context,
                 CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -154,8 +191,15 @@ public class IntersectionShader extends ShaderRunner{
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(DCoordinateFromMem));
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(polygonColorMem));
 
-        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{scene.getPrimitives().size()}));
+        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{polygonCount}));
 
+        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(xSphereMem));
+        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(ySphereMem));
+        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(zSphereMem));
+        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(SphereSizeMem));
+        clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(SphereColorMem));
+
+        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{pointCount}));
 
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(x1Mem));
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(y1Mem));
