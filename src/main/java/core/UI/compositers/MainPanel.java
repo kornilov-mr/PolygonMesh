@@ -7,6 +7,7 @@ import core.camera.Camera;
 import core.camera.cameraControl.CameraMouseListener;
 import core.render.Frame;
 import core.render.RenderConfig;
+import core.tools.selecting.SelectedMovementMouseMotionListener;
 
 import javax.swing.*;
 
@@ -17,7 +18,8 @@ public class MainPanel extends JLayeredPane {
     private final InfoPanel infoPanel;
     public MainPanel(RenderConfig renderConfig, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener){
         this.renderConfig=renderConfig;
-        this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],cameraMouseListener,pointMouseListener);
+        this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],
+                cameraMouseListener,pointMouseListener, new SelectedMovementMouseMotionListener(camera,camera.getScene().selectedObjectManager));
 
         this.infoPanel = new InfoPanel(camera);
 

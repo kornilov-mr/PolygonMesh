@@ -30,6 +30,11 @@ public class PointMouseListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println(e.getButton());
+        if(e.getButton()==MouseEvent.BUTTON3){
+            camera.getScene().selectedObjectManager.clearSelection();
+            return;
+        }
         if(e.getButton()==MouseEvent.BUTTON1) {
             if (objectPanel != null) {
 

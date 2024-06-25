@@ -70,9 +70,6 @@ public class Point extends Primitive {
         jsonObject.put("color",color.getRGB());
         return jsonObject;
     }
-
-
-
     @Override
     public Point getIntersection(Line line) {
         Point pointT = Calculation.closestPointToLine(this,line);
@@ -91,5 +88,10 @@ public class Point extends Primitive {
 
     public boolean isSelected() {
         return selected;
+    }
+    public void movePointToOtherPointCoordinates(Point point){
+        this.x=point.x;
+        this.y=point.y;
+        this.z=point.z;
     }
 }

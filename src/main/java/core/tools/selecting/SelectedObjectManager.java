@@ -1,59 +1,56 @@
 package core.tools.selecting;
 
+import primitive.Point;
 import primitive.Primitive;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SelectedObjectManager {
-    private final Map<Primitive,Boolean> selected = new HashMap<>();
+    private final Set<Primitive> selected = new HashSet<>();
     public void setAsSelected(Primitive primitive){
         primitive.setSelected(true);
-        if(selected.containsKey(primitive)){
-            selected.remove(primitive);
-            selected.put(primitive,true);
-        }else{
-            selected.put(primitive,true);
-        }
+        selected.add(primitive);
     }
     public void setAsUnSelected(Primitive primitive){
         primitive.setSelected(false);
-        if(selected.containsKey(primitive)){
-            selected.remove(primitive);
-            selected.put(primitive,false);
-        }else{
-            selected.put(primitive,false);
-        }
+        selected.remove(primitive);
     }
     public void changeSelection(Primitive primitive){
         primitive.changeSelection();
-        if(selected.containsKey(primitive)){
-            boolean temp = selected.get(primitive);
+        if(selected.contains(primitive)){
             selected.remove(primitive);
-            selected.put(primitive,!temp);
         }else{
-            selected.put(primitive,true);
+            selected.add(primitive);
 
         }
     }
     public void changeSelectionWithRemove(Primitive primitive){
-        if(selected.containsKey(primitive)){
-            boolean temp = selected.get(primitive);
+        if(selected.contains(primitive)){
             clearSelection();
-            selected.put(primitive,!temp);
-            primitive.setSelected(!temp);
         }else{
             clearSelection();
-            primitive.setSelected(true);
-            selected.put(primitive,true);
+            setAsSelected(primitive);
 
         }
     }
-    private void clearSelection(){
-        for(Primitive primitive: selected.keySet()){
-            primitive.setSelected(false);
+    public void clearSelection(){
+        Iterator<Primitive> it = selected.iterator();
+        while(it.hasNext()){
+            it.next().setSelected(false);
         }
         selected.clear();
     }
 
+    public Set<Primitive> getSelected() {
+        return selected;
+    }
+    public boolean isSelectedOnlyOnePoint(){
+        if(selected.size()==1){
+            Iterator<Primitive> it = selected.iterator();
+            if(it.next() instanceof Point){
+                return true;
+            }
+        }
+        return false;
+    }
 }

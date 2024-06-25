@@ -29,6 +29,9 @@ public class Window {
         this.cameraKeyListener = new CameraKeyListener(camera,renderConfig);
         this.cameraMouseListener = new CameraMouseListener(camera,renderConfig);
         SelectedKeyListener selectedKeyListener = new SelectedKeyListener();
+
+
+
         this.focusTabManager=new FocusTabManager();
 
         focusTabManager.setMainWindow(windowFrame);

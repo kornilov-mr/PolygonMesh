@@ -14,6 +14,7 @@ public class CameraMouseListener implements MouseMotionListener,Updatable {
     private double cameraVerticalAngle;
     private final RenderConfig renderConfig;
     private final Camera camera;
+    private boolean working = true;
 
     public CameraMouseListener(Camera camera, RenderConfig renderConfig) {
         this.camera = camera;
@@ -23,6 +24,9 @@ public class CameraMouseListener implements MouseMotionListener,Updatable {
     }
     @Override
     public void mouseDragged(MouseEvent e) {
+        if(!working){
+            return;
+        }
         double newVerticalAngle = (lastMousePosition.getY()-e.getY())/renderConfig.resolution[1]*Math.PI/2;
         double newHorizontalAngle = (lastMousePosition.getX()-e.getX())/renderConfig.resolution[0]*Math.PI/2;
         this.lastMousePosition = new Vector2D(e.getX(),e.getY());
@@ -40,5 +44,13 @@ public class CameraMouseListener implements MouseMotionListener,Updatable {
     }
     public Camera getCamera() {
         return camera;
+    }
+
+    public boolean isWorking() {
+        return working;
+    }
+
+    public void setWorking(boolean working) {
+        this.working = working;
     }
 }
