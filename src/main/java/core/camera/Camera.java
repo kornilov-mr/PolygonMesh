@@ -9,6 +9,8 @@ import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
+import java.util.Iterator;
+
 public class Camera extends OrientedObject {
 
 
@@ -51,8 +53,9 @@ public class Camera extends OrientedObject {
         Line rayLine= getRayLine(i,j);
         double minDistance =-1;
         Primitive closesPrimitive = null;
-        for(int h=0;h<scene.getPrimitives().size();h++){
-            Primitive primitive = scene.getPrimitives().get(h);
+        Iterator<Primitive> it = scene.getPrimitives().iterator();
+        while(it.hasNext()){
+            Primitive primitive = it.next();
             Point point = primitive.getIntersection(rayLine);
             if(point==null){
                 continue;

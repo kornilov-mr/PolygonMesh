@@ -9,14 +9,18 @@ import java.awt.*;
 public class Runner {
     public static void main(String[] args) {
         Scene scene = new Scene();
+        Point pointA = new Point(1,0,10);
+        Point pointB = new Point(1,10,0);
+        Point pointC = new Point(1,0,0);
+        Point pointD = new Point(1,10,10);
 //        scene.loadSceneFromFile(new File("src/main/Scenes/Scene4.json"));
-        scene.addPolygon(new Polygon(new Point(1,0,10),
-                new Point(1,10,0),
-                new Point(1,0,0),
+        scene.addPolygon(new Polygon(pointA,
+                pointB,
+                pointC,
                 new Color(0,255,0)));
-        scene.addPolygon(new Polygon(new Point(1,0,10),
-                new Point(1,10,0),
-                new Point(1,10,10),
+        scene.addPolygon(new Polygon(pointA,
+                pointB,
+                pointD,
                 new Color(255,255,0)));
 
         RenderFactory renderFactory = new RenderFactory();

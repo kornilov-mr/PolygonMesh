@@ -57,8 +57,9 @@ public class IntersectionShader extends ShaderRunner{
         double[] y3 = new double[polygonCount];
         double[] z3 = new double[polygonCount];
 
+        Iterator<Polygon> itPolygon = scene.getPolygons().iterator();
         for(int i=0;i<polygonCount;i++){
-            Polygon polygon = scene.getPolygons().get(i);
+            Polygon polygon = itPolygon.next();
             ACoordinateFrom[i]=polygon.getCoordinateForm().A;
             BCoordinateFrom[i]=polygon.getCoordinateForm().B;
             CCoordinateFrom[i]=polygon.getCoordinateForm().C;
@@ -88,7 +89,7 @@ public class IntersectionShader extends ShaderRunner{
         int[] SphereColor = new int[pointCount];
 
 
-        Iterator<Point> it = scene.getPoints().values().iterator();
+        Iterator<Point> it = scene.getPoints().iterator();
         for(int i=0;i<pointCount;i++){
             Point point = it.next();
             Sphere sphere = new Sphere(point);

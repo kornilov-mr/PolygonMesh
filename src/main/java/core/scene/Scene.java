@@ -16,9 +16,10 @@ import java.util.*;
 
 public class Scene {
 
-    private ArrayList<Primitive> primitives = new ArrayList<>();
-    private final ArrayList<Polygon> polygons = new ArrayList<>();
-    private final Map<String, Point> points = new HashMap<>();
+    private final Set<Primitive> primitives = new HashSet<>();
+    private final Set<Polygon> polygons = new HashSet<>();
+    private final Set<Point> points = new HashSet<>();
+    private final Map<String, Point> pointsIndexes = new HashMap<>();
     private final Map<Polygon, ArrayList<Point>> polygonToPoints = new HashMap<>();
     private final Map<Point, ArrayList<Polygon>> pointsToPolygon = new HashMap<>();
     private final File pathToSceneFolder = new File("src/main/Scenes");
@@ -28,18 +29,18 @@ public class Scene {
     public Scene() {
         this.selectedObjectManager= new SelectedObjectManager();
     }
-    public void createPolygons(ArrayList<Point> points,ArrayList<String> pointsID,Color color){
-        for(String Id: pointsID){
-            points.add(this.points.get(Id));
-        }
-        if(points.size()<3){
-            System.out.println("Not enough points");
-        }
-        for(int i=0;i<points.size()-2;i++){
-            createPolygon(points.get(i),points.get(i+1),points.get(i+2),color);
-        }
-
-    }
+//    public void createPolygons(ArrayList<Point> points,ArrayList<String> pointsID,Color color){
+//        for(String Id: pointsID){
+//            points.add(this.points.get(Id));
+//        }
+//        if(points.size()<3){
+//            System.out.println("Not enough points");
+//        }
+//        for(int i=0;i<points.size()-2;i++){
+//            createPolygon(points.get(i),points.get(i+1),points.get(i+2),color);
+//        }
+//
+//    }
     public void createPolygon(Point pointA,Point pointB,Point pointC, Color color){
         Polygon polygon = new Polygon(pointA,pointB,pointC,color);
     }
@@ -48,10 +49,16 @@ public class Scene {
         primitives.add(polygon.getPointA());
         primitives.add(polygon.getPointB());
         primitives.add(polygon.getPointC());
+
         polygons.add(polygon);
-        points.put(UUID.randomUUID().toString(),polygon.getPointA());
-        points.put(UUID.randomUUID().toString(),polygon.getPointB());
-        points.put(UUID.randomUUID().toString(),polygon.getPointC());
+        points.add(polygon.getPointA());
+        points.add(polygon.getPointB());
+        points.add(polygon.getPointC());
+
+        pointsIndexes.put(UUID.randomUUID().toString(),polygon.getPointA());
+        pointsIndexes.put(UUID.randomUUID().toString(),polygon.getPointB());
+        pointsIndexes.put(UUID.randomUUID().toString(),polygon.getPointC());
+
         if(!pointsToPolygon.containsKey(polygon.getPointA())){
             pointsToPolygon.put(polygon.getPointA(),new ArrayList<>());
         }
@@ -117,15 +124,15 @@ public class Scene {
         }
     }
 
-    public ArrayList<Primitive> getPrimitives() {
+    public Set<Primitive> getPrimitives() {
         return primitives;
     }
 
-    public ArrayList<Polygon> getPolygons() {
+    public Set<Polygon> getPolygons() {
         return polygons;
     }
 
-    public Map<String, Point> getPoints() {
+    public Set<Point> getPoints() {
         return points;
     }
 
