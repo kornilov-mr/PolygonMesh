@@ -6,6 +6,7 @@ import utils.line.Line;
 import utils.vectors.Vector3D;
 
 import java.awt.*;
+import java.util.Map;
 
 public class Sphere extends Primitive {
     public double x;
@@ -59,7 +60,7 @@ public class Sphere extends Primitive {
     }
 
     @Override
-    public JSONObject objectInSavingFormat(){
+    public JSONObject objectInSavingFormat(Map<Point, String> pointToIndexes){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("x",x);
         jsonObject.put("y",y);

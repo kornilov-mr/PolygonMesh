@@ -5,6 +5,7 @@ import primitive.Point;
 import primitive.faces.Polygon;
 
 import java.awt.*;
+import java.io.File;
 
 public class Runner {
     public static void main(String[] args) {
@@ -14,15 +15,15 @@ public class Runner {
         Point pointC = new Point(1,0,0);
         Point pointD = new Point(1,10,10);
 //        scene.loadSceneFromFile(new File("src/main/Scenes/Scene4.json"));
-        scene.addPolygon(new Polygon(pointA,
-                pointB,
-                pointC,
-                new Color(0,255,0)));
-        scene.addPolygon(new Polygon(pointA,
-                pointB,
-                pointD,
-                new Color(255,255,0)));
-
+//        scene.addPolygon(new Polygon(pointA,
+//                pointB,
+//                pointC,
+//                new Color(0,255,0)));
+//        scene.addPolygon(new Polygon(pointA,
+//                pointB,
+//                pointD,
+//                new Color(255,255,0)));
+        scene.loadSceneFromFile(new File("src/main/Scenes/Scene32.json"));
         RenderFactory renderFactory = new RenderFactory();
         renderFactory.setScene(scene);
 //        scene.saveScene();

@@ -6,6 +6,7 @@ import utils.line.Line;
 import utils.vectors.Vector3D;
 
 import java.awt.*;
+import java.util.Map;
 
 public class Point extends Primitive {
 
@@ -59,11 +60,14 @@ public class Point extends Primitive {
     }
 
     @Override
-    public JSONObject objectInSavingFormat(){
+    public JSONObject objectInSavingFormat(Map<Point, String> pointToIndexes){
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("class","Point");
         jsonObject.put("x",x);
         jsonObject.put("y",y);
         jsonObject.put("z",z);
+        jsonObject.put("size",size);
+        jsonObject.put("color",color.getRGB());
         return jsonObject;
     }
 

@@ -19,7 +19,9 @@ public class Scene {
     private final Set<Primitive> primitives = new HashSet<>();
     private final Set<Polygon> polygons = new HashSet<>();
     private final Set<Point> points = new HashSet<>();
-    private final Map<String, Point> pointsIndexes = new HashMap<>();
+    private final Map<String, Point> indexesToPoints = new HashMap<>();
+    private final Map<Point, String> pointToIndexes = new HashMap<>();
+
     private final Map<Polygon, ArrayList<Point>> polygonToPoints = new HashMap<>();
     private final Map<Point, ArrayList<Polygon>> pointsToPolygon = new HashMap<>();
     private final File pathToSceneFolder = new File("src/main/Scenes");
@@ -29,18 +31,10 @@ public class Scene {
     public Scene() {
         this.selectedObjectManager= new SelectedObjectManager();
     }
-//    public void createPolygons(ArrayList<Point> points,ArrayList<String> pointsID,Color color){
-//        for(String Id: pointsID){
-//            points.add(this.points.get(Id));
-//        }
-//        if(points.size()<3){
-//            System.out.println("Not enough points");
-//        }
-//        for(int i=0;i<points.size()-2;i++){
-//            createPolygon(points.get(i),points.get(i+1),points.get(i+2),color);
-//        }
-//
-//    }
+
+    public void createPolygon(String pointAId,String pointBId,String pointCId,Color color){
+
+    }
     public void createPolygon(Point pointA,Point pointB,Point pointC, Color color){
         Polygon polygon = new Polygon(pointA,pointB,pointC,color);
     }
@@ -55,9 +49,18 @@ public class Scene {
         points.add(polygon.getPointB());
         points.add(polygon.getPointC());
 
-        pointsIndexes.put(UUID.randomUUID().toString(),polygon.getPointA());
-        pointsIndexes.put(UUID.randomUUID().toString(),polygon.getPointB());
-        pointsIndexes.put(UUID.randomUUID().toString(),polygon.getPointC());
+        String id = "";
+        id=UUID.randomUUID().toString();
+        indexesToPoints.put(id,polygon.getPointA());
+        pointToIndexes.put(polygon.getPointA(),id);
+
+        id=UUID.randomUUID().toString();
+        indexesToPoints.put(id,polygon.getPointB());
+        pointToIndexes.put(polygon.getPointB(),id);
+
+        id=UUID.randomUUID().toString();
+        indexesToPoints.put(id,polygon.getPointC());
+        pointToIndexes.put(polygon.getPointC(),id);
 
         if(!pointsToPolygon.containsKey(polygon.getPointA())){
             pointsToPolygon.put(polygon.getPointA(),new ArrayList<>());
@@ -81,21 +84,6 @@ public class Scene {
         polygonToPoints.put(polygon,points);
     }
 
-    public void saveScene() {
-        File saveFile = getSaveFile();
-        try {
-            PrintWriter printWriter = new PrintWriter(saveFile);
-            JSONArray jsonArray = new JSONArray();
-            for (Primitive primitive : primitives) {
-                jsonArray.put(primitive.objectInSavingFormat());
-            }
-            printWriter.println(jsonArray.toString());
-            printWriter.flush();
-        } catch (FileNotFoundException e) {
-            System.out.println("Save file isn't found");
-        }
-    }
-
     private File getSaveFile() {
         if (!pathToSceneFolder.exists()) {
             pathToSceneFolder.mkdir();
@@ -109,14 +97,59 @@ public class Scene {
         return saveFile;
     }
 
+    public void saveScene() {
+        File saveFile = getSaveFile();
+        try {
+            PrintWriter printWriter = new PrintWriter(saveFile);
+            JSONObject jsonObject = new JSONObject();
+
+            JSONArray pointsJson = new JSONArray();
+            for (Point point : points) {
+                pointsJson.put(wrapPointJsonWithIndex(point, pointToIndexes.get(point)));
+            }
+            JSONArray polygonJson = new JSONArray();
+            for(Polygon polygon : polygons){
+                polygonJson.put(polygon.objectInSavingFormat(pointToIndexes));
+            }
+            jsonObject.put("points",pointsJson);
+            jsonObject.put("polygons",polygonJson);
+            printWriter.println(jsonObject.toString());
+            printWriter.flush();
+        } catch (FileNotFoundException e) {
+            System.out.println("Save file isn't found");
+        }
+    }
+    public JSONObject wrapPointJsonWithIndex(Point point,String id){
+        JSONObject wrappedPointJson = new JSONObject();
+        wrappedPointJson.put("id",id);
+        wrappedPointJson.put("point",point.objectInSavingFormat(pointToIndexes));
+        return wrappedPointJson;
+    }
     public void loadSceneFromFile(File file) {
         PrimitiveFactory primitiveFactory = new PrimitiveFactory();
         try {
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
-            JSONArray jsonArray = new JSONArray(content);
-            for(int i=0;i<jsonArray.length();i++){
-                Primitive primitive =primitiveFactory.createPrimitiveFromJson((JSONObject) jsonArray.get(i));
-                primitives.add(primitive);
+            JSONObject jsonObject = new JSONObject(content);
+
+            JSONArray points = jsonObject.getJSONArray("points");
+            for(int i=0;i<points.length();i++){
+                JSONObject pointJsonWithIndex = points.getJSONObject(i);
+
+                JSONObject pointData = pointJsonWithIndex.getJSONObject("point");
+                String id = pointJsonWithIndex.getString("id");
+                Point point = primitiveFactory.createPointFromJson(pointData);
+                this.primitives.add(point);
+                this.points.add(point);
+                this.indexesToPoints.put(id,point);
+                this.pointToIndexes.put(point,id);
+            }
+
+            JSONArray polygons = jsonObject.getJSONArray("polygons");
+            for(int i =0;i<polygons.length();i++){
+                JSONObject polygonData = polygons.getJSONObject(i);
+
+                Polygon polygon = primitiveFactory.createPolygonFromJson(polygonData,indexesToPoints);
+                addPolygon(polygon);
             }
         } catch (IOException e) {
             System.out.println("problem with reading from load file");

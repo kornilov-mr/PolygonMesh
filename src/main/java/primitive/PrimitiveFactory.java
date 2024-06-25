@@ -4,19 +4,34 @@ import org.json.JSONObject;
 import primitive.faces.Polygon;
 
 import java.awt.*;
+import java.util.Map;
 import java.util.Objects;
 
 public class PrimitiveFactory {
     public PrimitiveFactory(){
 
     }
-    public Polygon createPrimitiveFromJson(JSONObject data){
-        Polygon primitive=null;
-//        if(Objects.equals(data.get("Class"),"Face")){
-//            primitive = createFace(data);
-//        }
-        if(Objects.equals(data.get("Class"),"Polygon")){
-            primitive = createPolygon(data);
+    public Point createPointFromJson(JSONObject data){
+        Point point = null;
+        if(Objects.equals(data.get("class"),"Point")){
+            point = createPoint(data);
+        }
+        return point;
+    }
+    public Polygon createPolygonFromJson(JSONObject data, Map<String,Point> indexesToPoint){
+        Polygon polygon = null;
+        if(Objects.equals(data.get("class"),"Polygon")){
+            polygon = createPolygon(data,indexesToPoint);
+        }
+        return polygon;
+    }
+    public Primitive createPrimitiveFromJson(JSONObject data, Map<String, Point> indexesToPoint){
+        Primitive primitive=null;
+        if(Objects.equals(data.get("class"),"Point")){
+            primitive = createPoint(data);
+        }
+        if(Objects.equals(data.get("class"),"Polygon")){
+            primitive = createPolygon(data,indexesToPoint);
         }
         if(primitive == null){
             System.out.println("unknown type of primitive");
@@ -24,37 +39,27 @@ public class PrimitiveFactory {
         }
         return primitive;
     }
-//    private Primitive createFace(JSONObject data){
-//        Primitive face = new Face(createPoint((JSONObject) data.get("point1")),
-//                createPoint((JSONObject) data.get("point2")),
-//                createPoint((JSONObject) data.get("point3")),
-//                createColor((int) data.get("color")));
-//        return face;
-//    }
-    private Polygon createPolygon(JSONObject data){
-        Polygon face = new Polygon(createPoint((JSONObject) data.get("point1")),
-                createPoint((JSONObject) data.get("point2")),
-                createPoint((JSONObject) data.get("point3")),
-                createColor((int) data.get("color")));
+    private Polygon createPolygon(JSONObject data, Map<String, Point> indexesToPoint){
+        Polygon face = new Polygon(createPointFromId(data.getString("pointAId"), indexesToPoint),
+                createPointFromId(data.getString("pointBId"), indexesToPoint),
+                createPointFromId(data.getString("pointCId"), indexesToPoint),
+                createColor(data.getInt("color")));
         return face;
     }
+    private Point createPointFromId(String id,Map<String, Point> indexesToPoint){
+        return indexesToPoint.get(id);
+    }
     private Point createPoint(JSONObject data){
-        Point point = new Point(parseDouble(data.get("x")),
-                parseDouble(data.get("y")),
-                parseDouble(data.get("z")));
+        Point point = new Point(data.getDouble("x"),
+                data.getDouble("y"),
+                data.getDouble("z"),
+                data.getDouble("size"),
+                new Color(data.getInt("color")));
         return point;
     }
     private Color createColor(int rgb){
         Color color = new Color(rgb);
         return color;
     }
-    private Double parseDouble(Object presumableDouble){
-        if(presumableDouble instanceof Double){
-            return (Double) presumableDouble;
-        }
-        if(presumableDouble instanceof Integer){
-            return Double.parseDouble(String.valueOf((Integer)presumableDouble));
-        }
-        return null;
-    }
+
 }

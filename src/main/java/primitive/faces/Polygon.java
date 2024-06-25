@@ -9,6 +9,7 @@ import utils.line.Line;
 import utils.vectors.Vector3D;
 
 import java.awt.Color;
+import java.util.Map;
 
 public class Polygon extends Primitive {
 
@@ -19,7 +20,6 @@ public class Polygon extends Primitive {
     private Vector3D normalVector;
     protected CoordinateForm coordinateForm;
     private Color mainColor;
-    private Color contourColor;
 
     public Polygon(Point pointA, Point pointB, Point pointC){
         this(pointA,pointB,pointC,new Color(0,0,0));
@@ -51,14 +51,14 @@ public class Polygon extends Primitive {
         }
         return null;
     }
-    public JSONObject objectInSavingFormat() {
+    @Override
+    public JSONObject objectInSavingFormat(Map<Point, String> pointToIndexes) {
         JSONObject obj = new JSONObject();
-        obj.put("Class", "Polygon");
-        obj.put("point1", pointA.objectInSavingFormat());
-        obj.put("point2", pointB.objectInSavingFormat());
-        obj.put("point3", pointC.objectInSavingFormat());
-        obj.put("mainColor", mainColor.getRGB());
-        obj.put("contourColor", contourColor.getRGB());
+        obj.put("class", "Polygon");
+        obj.put("pointAId", pointToIndexes.get(pointA));
+        obj.put("pointBId", pointToIndexes.get(pointB));
+        obj.put("pointCId", pointToIndexes.get(pointC));
+        obj.put("color", mainColor.getRGB());
         return obj;
     }
 
