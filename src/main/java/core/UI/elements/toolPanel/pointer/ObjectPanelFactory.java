@@ -1,19 +1,11 @@
 package core.UI.elements.toolPanel.pointer;
 
+import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
 import core.scene.Scene;
 import primitive.Point;
 import primitive.Primitive;
 import primitive.faces.Polygon;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class ObjectPanelFactory {
 

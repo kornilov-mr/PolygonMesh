@@ -1,9 +1,8 @@
 package primitive;
 
-import core.UI.elements.mainPanel.InfoPanel;
-import core.UI.elements.toolPanel.pointer.CoordinateInfoPanel;
-import core.UI.elements.toolPanel.pointer.InfoPanelConvertible;
-import core.UI.elements.toolPanel.pointer.ObjectInfoPanel;
+import core.UI.elements.toolPanel.pointer.objectInfoPanels.CoordinateInfoPanel;
+import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
+import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
 import org.json.JSONObject;
 import primitive.faces.Polygon;
@@ -152,14 +151,15 @@ public class Point extends Primitive implements InfoPanelConvertible {
 
                 JPanel jPanel = new JPanel();
                 jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.X_AXIS));
-                jPanel.add(panelX.createJPanel(x));
-                jPanel.add(panelZ.createJPanel(y));
-                jPanel.add(panelZ.createJPanel(z));
+                jPanel.add(panelX.jPanel);
+                jPanel.add(panelY.jPanel);
+                jPanel.add(panelZ.jPanel);
 
                 titlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
                 titlePanel.add(jPanel);
                 return titlePanel;
             }
+
         };
         return objectInfoPanel;
     }

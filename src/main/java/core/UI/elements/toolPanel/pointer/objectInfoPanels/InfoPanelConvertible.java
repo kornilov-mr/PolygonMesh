@@ -1,4 +1,4 @@
-package core.UI.elements.toolPanel.pointer;
+package core.UI.elements.toolPanel.pointer.objectInfoPanels;
 
 import core.UI.managers.FocusTabManager;
 

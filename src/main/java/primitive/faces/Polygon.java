@@ -1,13 +1,13 @@
 package primitive.faces;
 
-import core.UI.elements.toolPanel.pointer.CoordinateInfoPanel;
 import core.UI.managers.FocusTabManager;
 import org.json.JSONObject;
-import core.UI.elements.toolPanel.pointer.ObjectInfoPanel;
-import core.UI.elements.toolPanel.pointer.InfoPanelConvertible;
+import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
+import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import primitive.Point;
 import primitive.Primitive;
 import utils.Calculation;
+import utils.colors.ColorAdapter;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
@@ -25,16 +25,16 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
 
     private Vector3D normalVector;
     protected CoordinateForm coordinateForm;
-    private Color mainColor;
+    private Color color;
 
     public Polygon(Point pointA, Point pointB, Point pointC){
         this(pointA,pointB,pointC,new Color(0,0,0));
     }
-    public Polygon(Point pointA, Point pointB, Point pointC, Color mainColor) {
+    public Polygon(Point pointA, Point pointB, Point pointC, Color color) {
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
-        this.mainColor = mainColor;
+        this.color = color;
 
         calculateNormalVector();
     }
@@ -52,7 +52,7 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
 
         if (intersectionWithPlane != null && Calculation.ifPointInTriangle(intersectionWithPlane, pointA, pointB, pointC)) {
-            intersectionWithPlane.setColor(mainColor);
+            intersectionWithPlane.setColor(color);
             return intersectionWithPlane;
         }
         return null;
@@ -64,7 +64,7 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         obj.put("pointAId", pointToIndexes.get(pointA));
         obj.put("pointBId", pointToIndexes.get(pointB));
         obj.put("pointCId", pointToIndexes.get(pointC));
-        obj.put("color", mainColor.getRGB());
+        obj.put("color", color.getRGB());
         return obj;
     }
 
@@ -96,11 +96,11 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         if(selected){
             return new Color(0,120,215) ;
         }
-        return mainColor;
+        return color;
     }
 
-    public Color getMainColor() {
-        return mainColor;
+    public Color getColor() {
+        return color;
     }
 
     public void setPointC(Point pointC) {
@@ -112,13 +112,13 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         return coordinateForm;
     }
     public void setRed(int red){
-        this.mainColor = new Color(red,mainColor.getGreen(),mainColor.getBlue());
+        this.color = new Color(red, color.getGreen(), color.getBlue());
     }
     public void setGreen(int green){
-        this.mainColor = new Color(mainColor.getRed(),green,mainColor.getBlue());
+        this.color = new Color(color.getRed(),green, color.getBlue());
     }
     public void setBlue(int blue){
-        this.mainColor = new Color(mainColor.getRed(),mainColor.getGreen(),blue);
+        this.color = new Color(color.getRed(), color.getGreen(),blue);
     }
 
     @Override
@@ -126,16 +126,18 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         ObjectInfoPanel pointAPanel = pointA.toInfoPanel(focusTabManager);
         ObjectInfoPanel pointBPanel = pointB.toInfoPanel(focusTabManager);
         ObjectInfoPanel pointCPanel = pointC.toInfoPanel(focusTabManager);
-        ObjectInfoPanel objectInfoPanel = new ObjectInfoPanel(new ArrayList<>(Arrays.asList(pointAPanel,pointCPanel,pointBPanel))) {
+        ObjectInfoPanel colorPanel = new ColorAdapter(color, this).toInfoPanel(focusTabManager);
+        ObjectInfoPanel objectInfoPanel = new ObjectInfoPanel(new ArrayList<>(Arrays.asList(pointAPanel,pointCPanel,pointBPanel,colorPanel))) {
             @Override
             public JPanel createJPanel() {
                 JPanel jPanel = new JPanel();
                 jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
                 jPanel.add(new JLabel("Polygon"));
 
-                jPanel.add(pointAPanel.createJPanel());
-                jPanel.add(pointBPanel.createJPanel());
-                jPanel.add(pointCPanel.createJPanel());
+                jPanel.add(pointAPanel.jPanel);
+                jPanel.add(pointBPanel.jPanel);
+                jPanel.add(pointCPanel.jPanel);
+                jPanel.add(colorPanel.jPanel);
 //                jPanel.add(createColorPanel(polygon));
                 jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
                 return jPanel;
