@@ -10,6 +10,7 @@ import core.UI.compositers.MainPanel;
 import core.camera.cameraControl.CameraMouseListener;
 import core.render.RenderConfig;
 import core.statistic.FPSTracker;
+import core.tools.selecting.SelectedKeyListener;
 
 import javax.swing.*;
 import java.util.Date;
@@ -27,11 +28,12 @@ public class Window {
         this.renderConfig=renderConfig;
         this.cameraKeyListener = new CameraKeyListener(camera,renderConfig);
         this.cameraMouseListener = new CameraMouseListener(camera,renderConfig);
+        SelectedKeyListener selectedKeyListener = new SelectedKeyListener();
         this.focusTabManager=new FocusTabManager();
 
         focusTabManager.setMainWindow(windowFrame);
 
-        this.pointMouseListener=new PointMouseListener(camera,focusTabManager);
+        this.pointMouseListener=new PointMouseListener(camera,focusTabManager,selectedKeyListener);
         this.mainPanel =new MainPanel(renderConfig,camera,cameraMouseListener,pointMouseListener);
         ToolBar toolBar = new ToolBar(pointMouseListener);
 
@@ -44,6 +46,7 @@ public class Window {
 
         setWindowSettings(windowFrame);
         windowFrame.addKeyListener(cameraKeyListener);
+        windowFrame.addKeyListener(selectedKeyListener);
         windowFrame.setFocusable(true);
     }
     private void setWindowSettings(JFrame window){
