@@ -45,7 +45,7 @@ public class CameraKeyListener implements KeyListener, Updatable {
                             case KeyEvent.VK_SPACE:
                                 dz-=0.1;
                                 break;
-                            case KeyEvent.VK_SHIFT:
+                            case KeyEvent.VK_C:
                                 dz+=0.1;
                                 break;
                         }

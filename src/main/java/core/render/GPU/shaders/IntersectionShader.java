@@ -98,9 +98,6 @@ public class IntersectionShader extends ShaderRunner{
             zSphere[i]= sphere.z;
             SphereSize[i]= sphere.size;
             SphereColor[i]=sphere.getColor().getRGB();
-            if(SphereColor[i]==-16746281){
-                System.out.println("test");
-            }
         }
 
         cl_mem ACoordinateFromMem = clCreateBuffer(context,
