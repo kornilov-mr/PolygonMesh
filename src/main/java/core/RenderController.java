@@ -42,7 +42,7 @@ public class RenderController {
                 System.out.println("A problem accrued during UI update");
                 throw new RuntimeException(e);
             }
-            window.updateKeyListeners();
+            window.updateAll();
             window.updateInfoLabels();
         }
     }

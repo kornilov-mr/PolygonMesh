@@ -1,20 +1,32 @@
 package primitive;
 
+import core.UI.elements.mainPanel.InfoPanel;
+import core.UI.elements.toolPanel.pointer.CoordinateInfoPanel;
+import core.UI.elements.toolPanel.pointer.InfoPanelConvertible;
+import core.UI.elements.toolPanel.pointer.ObjectInfoPanel;
+import core.UI.managers.FocusTabManager;
 import org.json.JSONObject;
+import primitive.faces.Polygon;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
-public class Point extends Primitive {
+public class Point extends Primitive implements InfoPanelConvertible {
 
-    public double x;
-    public double y;
-    public double z;
+    private double x;
+    private double y;
+    private double z;
     public Color color;
     public double size;
+
+    private ArrayList<Polygon> belongToPolygon = new ArrayList<>();
+
     public Point(Sphere sphere){
         this(sphere.x,sphere.y,sphere.z);
     }
@@ -37,6 +49,21 @@ public class Point extends Primitive {
         this.z = z;
         this.color=color;
         this.size=size;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+        notifyAllPolygonsToChange();
+    }
+
+    public void setY(double y) {
+        this.y = y;
+        notifyAllPolygonsToChange();
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+        notifyAllPolygonsToChange();
     }
 
     public double getX() {
@@ -93,5 +120,47 @@ public class Point extends Primitive {
         this.x=point.x;
         this.y=point.y;
         this.z=point.z;
+        notifyAllPolygonsToChange();
+    }
+
+    public void addPolygon(Polygon polygon){
+        belongToPolygon.add(polygon);
+    }
+
+    public ArrayList<Polygon> getBelongToPolygon() {
+        return belongToPolygon;
+    }
+
+    public void notifyAllPolygonsToChange(){
+        for(Polygon polygon: belongToPolygon){
+            polygon.calculateNormalVector();
+        }
+    }
+
+    @Override
+    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager) {
+        CoordinateInfoPanel panelX = new CoordinateInfoPanel(new ArrayList<>(),this,"x",x,focusTabManager);
+        CoordinateInfoPanel panelY = new CoordinateInfoPanel(new ArrayList<>(),this,"y",y,focusTabManager);
+        CoordinateInfoPanel panelZ = new CoordinateInfoPanel(new ArrayList<>(),this,"z",z,focusTabManager);
+        ObjectInfoPanel objectInfoPanel = new ObjectInfoPanel(new ArrayList<>(Arrays.asList(panelX,panelY,panelZ))) {
+            @Override
+            public JPanel createJPanel() {
+                JPanel titlePanel = new JPanel();
+                titlePanel.setLayout(new BoxLayout(titlePanel,BoxLayout.Y_AXIS));
+                titlePanel.add(new JLabel("Point"));
+
+
+                JPanel jPanel = new JPanel();
+                jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.X_AXIS));
+                jPanel.add(panelX.createJPanel(x));
+                jPanel.add(panelZ.createJPanel(y));
+                jPanel.add(panelZ.createJPanel(z));
+
+                titlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                titlePanel.add(jPanel);
+                return titlePanel;
+            }
+        };
+        return objectInfoPanel;
     }
 }

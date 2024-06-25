@@ -45,7 +45,7 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
                 Point newPointPosition = pointFace.getIntersection(line);
                 point.movePointToOtherPointCoordinates(newPointPosition);
 
-                ArrayList<Polygon> polygons = camera.getScene().getPointsToPolygon().get(point);
+                ArrayList<Polygon> polygons = point.getBelongToPolygon();
 
                 for (Polygon polygon : polygons) {
                     polygon.calculateNormalVector();

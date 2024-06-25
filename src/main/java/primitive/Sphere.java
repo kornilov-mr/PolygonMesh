@@ -15,7 +15,7 @@ public class Sphere extends Primitive {
     public Color color;
     public double size;
     public Sphere(Point point){
-        this(point.x,point.y,point.z,point.isSelected() ? 0.2 :0.02,point.isSelected() ? new Color(0,120,215) :point.color);
+        this(point.getX(),point.getY(),point.getZ(),point.isSelected() ? 0.2 :0.02,point.isSelected() ? new Color(0,120,215) :point.color);
     }
 
     public Sphere(double x, double y, double z){

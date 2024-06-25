@@ -1,6 +1,7 @@
 package core.UI;
 
 import core.UI.compositers.ToolBar;
+import core.UI.managers.UpdateManager;
 import core.tools.selecting.PointMouseListener;
 import core.UI.managers.FocusTabManager;
 import core.camera.Camera;
@@ -16,20 +17,20 @@ import javax.swing.*;
 import java.util.Date;
 
 public class Window {
-    private final CameraKeyListener cameraKeyListener;
-    private final CameraMouseListener cameraMouseListener;
     private final RenderConfig renderConfig;
     private final MainPanel mainPanel;
     private final FocusTabManager focusTabManager;
     private final PointMouseListener pointMouseListener;
+    private final UpdateManager updateManager = new UpdateManager();
     public Window(RenderConfig renderConfig, Camera camera) {
         JFrame windowFrame = new JFrame("3D render demo");
 
         this.renderConfig=renderConfig;
-        this.cameraKeyListener = new CameraKeyListener(camera,renderConfig);
-        this.cameraMouseListener = new CameraMouseListener(camera,renderConfig);
+        CameraKeyListener cameraKeyListener = new CameraKeyListener(camera,renderConfig);
+        CameraMouseListener cameraMouseListener = new CameraMouseListener(camera,renderConfig);
         SelectedKeyListener selectedKeyListener = new SelectedKeyListener();
-
+        updateManager.addToUpdates(cameraKeyListener);
+        updateManager.addToUpdates(cameraMouseListener);
 
 
         this.focusTabManager=new FocusTabManager();
@@ -38,7 +39,7 @@ public class Window {
 
         this.pointMouseListener=new PointMouseListener(camera,focusTabManager,selectedKeyListener);
         this.mainPanel =new MainPanel(renderConfig,camera,cameraMouseListener,pointMouseListener);
-        ToolBar toolBar = new ToolBar(pointMouseListener);
+        ToolBar toolBar = new ToolBar(pointMouseListener,updateManager);
 
 //        windowFrame.setLayout(new BorderLayout());
 
@@ -64,11 +65,10 @@ public class Window {
     public void updateInfoLabels(){
         mainPanel.updateInfoLabels();
     }
-    public void updateKeyListeners(){
+    public void updateAll(){
         long deltaTime = new Date().getTime();
-        cameraKeyListener.update();
-        cameraMouseListener.update();
-        FPSTracker.addComponent("Listener update",new Date().getTime()-deltaTime);
+        updateManager.updateAll();
+        FPSTracker.addComponent("UI update",new Date().getTime()-deltaTime);
     }
 
 }

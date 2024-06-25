@@ -22,8 +22,6 @@ public class Scene {
     private final Map<String, Point> indexesToPoints = new HashMap<>();
     private final Map<Point, String> pointToIndexes = new HashMap<>();
 
-    private final Map<Polygon, ArrayList<Point>> polygonToPoints = new HashMap<>();
-    private final Map<Point, ArrayList<Polygon>> pointsToPolygon = new HashMap<>();
     private final File pathToSceneFolder = new File("src/main/Scenes");
 
     public final SelectedObjectManager selectedObjectManager;
@@ -62,26 +60,9 @@ public class Scene {
         indexesToPoints.put(id,polygon.getPointC());
         pointToIndexes.put(polygon.getPointC(),id);
 
-        if(!pointsToPolygon.containsKey(polygon.getPointA())){
-            pointsToPolygon.put(polygon.getPointA(),new ArrayList<>());
-        }
-        pointsToPolygon.get(polygon.getPointA()).add(polygon);
-
-        if(!pointsToPolygon.containsKey(polygon.getPointB())){
-            pointsToPolygon.put(polygon.getPointB(),new ArrayList<>());
-        }
-        pointsToPolygon.get(polygon.getPointB()).add(polygon);
-
-        if(!pointsToPolygon.containsKey(polygon.getPointC())){
-            pointsToPolygon.put(polygon.getPointC(),new ArrayList<>());
-        }
-        pointsToPolygon.get(polygon.getPointC()).add(polygon);
-
-        ArrayList<Point> points = new ArrayList<>();
-        points.add(polygon.getPointA());
-        points.add(polygon.getPointB());
-        points.add(polygon.getPointC());
-        polygonToPoints.put(polygon,points);
+        polygon.getPointA().addPolygon(polygon);
+        polygon.getPointB().addPolygon(polygon);
+        polygon.getPointC().addPolygon(polygon);
     }
 
     private File getSaveFile() {
@@ -169,17 +150,4 @@ public class Scene {
         return points;
     }
 
-    public Map<Polygon, ArrayList<Point>> getPolygonToPoints() {
-        return polygonToPoints;
-    }
-
-    public Map<Point, ArrayList<Polygon>> getPointsToPolygon() {
-        return pointsToPolygon;
-    }
-    public ArrayList<Polygon> getPolygonNextToPoint(Point point){
-        return pointsToPolygon.get(point);
-    }
-    public ArrayList<Point> getPointOfPolygon(Polygon polygon){
-        return polygonToPoints.get(polygon);
-    }
 }

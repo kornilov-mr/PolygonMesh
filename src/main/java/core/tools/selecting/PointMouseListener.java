@@ -1,5 +1,6 @@
 package core.tools.selecting;
 
+import core.UI.elements.toolPanel.pointer.ObjectInfoPanel;
 import core.UI.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.elements.toolPanel.pointer.ObjectPanelFactory;
 import core.UI.managers.FocusTabManager;
@@ -45,8 +46,8 @@ public class PointMouseListener implements MouseListener {
                     }else{
                         camera.getScene().selectedObjectManager.changeSelectionWithRemove(primitive);
                     }
-                    JPanel panel = objectPanelFactory.createObjectPanel(primitive);
-                    objectPanel.loadObjectPanel(panel);
+                    ObjectInfoPanel objectInfoPanel = objectPanelFactory.createObjectPanel(primitive);
+                    objectPanel.loadObjectPanel(objectInfoPanel);
                     System.out.println(camera.getPrimitiveOnPixel(e.getX(), e.getY()));
                 }
             }

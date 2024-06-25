@@ -1,17 +1,23 @@
 package primitive.faces;
 
-import org.jocl.struct.Struct;
+import core.UI.elements.toolPanel.pointer.CoordinateInfoPanel;
+import core.UI.managers.FocusTabManager;
 import org.json.JSONObject;
+import core.UI.elements.toolPanel.pointer.ObjectInfoPanel;
+import core.UI.elements.toolPanel.pointer.InfoPanelConvertible;
 import primitive.Point;
 import primitive.Primitive;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
+import javax.swing.*;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
-public class Polygon extends Primitive {
+public class Polygon extends Primitive implements InfoPanelConvertible{
 
     private Point pointA;
     private Point pointB;
@@ -89,7 +95,6 @@ public class Polygon extends Primitive {
     public Color getMainColorForRendering() {
         if(selected){
             return new Color(0,120,215) ;
-
         }
         return mainColor;
     }
@@ -116,4 +121,26 @@ public class Polygon extends Primitive {
         this.mainColor = new Color(mainColor.getRed(),mainColor.getGreen(),blue);
     }
 
+    @Override
+    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager) {
+        ObjectInfoPanel pointAPanel = pointA.toInfoPanel(focusTabManager);
+        ObjectInfoPanel pointBPanel = pointB.toInfoPanel(focusTabManager);
+        ObjectInfoPanel pointCPanel = pointC.toInfoPanel(focusTabManager);
+        ObjectInfoPanel objectInfoPanel = new ObjectInfoPanel(new ArrayList<>(Arrays.asList(pointAPanel,pointCPanel,pointBPanel))) {
+            @Override
+            public JPanel createJPanel() {
+                JPanel jPanel = new JPanel();
+                jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
+                jPanel.add(new JLabel("Polygon"));
+
+                jPanel.add(pointAPanel.createJPanel());
+                jPanel.add(pointBPanel.createJPanel());
+                jPanel.add(pointCPanel.createJPanel());
+//                jPanel.add(createColorPanel(polygon));
+                jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                return jPanel;
+            }
+        };
+        return objectInfoPanel;
+    }
 }
