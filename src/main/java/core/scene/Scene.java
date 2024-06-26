@@ -20,7 +20,6 @@ public class Scene {
     private final Set<Polygon> polygons = new HashSet<>();
     private final Set<Point> points = new HashSet<>();
     private final Map<String, Point> indexesToPoints = new HashMap<>();
-    private final Map<Point, String> pointToIndexes = new HashMap<>();
 
     private final File pathToSceneFolder = new File("src/main/Scenes");
 
@@ -50,15 +49,15 @@ public class Scene {
         String id = "";
         id=UUID.randomUUID().toString();
         indexesToPoints.put(id,polygon.getPointA());
-        pointToIndexes.put(polygon.getPointA(),id);
+        polygon.getPointA().setId(id);
 
         id=UUID.randomUUID().toString();
         indexesToPoints.put(id,polygon.getPointB());
-        pointToIndexes.put(polygon.getPointB(),id);
+        polygon.getPointB().setId(id);
 
         id=UUID.randomUUID().toString();
         indexesToPoints.put(id,polygon.getPointC());
-        pointToIndexes.put(polygon.getPointC(),id);
+        polygon.getPointC().setId(id);
 
         polygon.getPointA().addPolygon(polygon);
         polygon.getPointB().addPolygon(polygon);
@@ -86,11 +85,11 @@ public class Scene {
 
             JSONArray pointsJson = new JSONArray();
             for (Point point : points) {
-                pointsJson.put(wrapPointJsonWithIndex(point, pointToIndexes.get(point)));
+                pointsJson.put(wrapPointJsonWithIndex(point, point.getId()));
             }
             JSONArray polygonJson = new JSONArray();
             for(Polygon polygon : polygons){
-                polygonJson.put(polygon.objectInSavingFormat(pointToIndexes));
+                polygonJson.put(polygon.objectInSavingFormat());
             }
             jsonObject.put("points",pointsJson);
             jsonObject.put("polygons",polygonJson);
@@ -103,7 +102,7 @@ public class Scene {
     public JSONObject wrapPointJsonWithIndex(Point point,String id){
         JSONObject wrappedPointJson = new JSONObject();
         wrappedPointJson.put("id",id);
-        wrappedPointJson.put("point",point.objectInSavingFormat(pointToIndexes));
+        wrappedPointJson.put("point",point.objectInSavingFormat());
         return wrappedPointJson;
     }
     public void loadSceneFromFile(File file) {
@@ -122,7 +121,7 @@ public class Scene {
                 this.primitives.add(point);
                 this.points.add(point);
                 this.indexesToPoints.put(id,point);
-                this.pointToIndexes.put(point,id);
+                point.setId(id);
             }
 
             JSONArray polygons = jsonObject.getJSONArray("polygons");

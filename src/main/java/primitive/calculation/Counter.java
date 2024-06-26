@@ -48,7 +48,7 @@ public class Counter extends Primitive {
     }
 
     @Override
-    public JSONObject objectInSavingFormat(Map<Point, String> pointToIndexes) {
+    public JSONObject objectInSavingFormat() {
         return null;
     }
 

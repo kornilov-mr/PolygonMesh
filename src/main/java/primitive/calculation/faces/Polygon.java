@@ -58,12 +58,12 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         return null;
     }
     @Override
-    public JSONObject objectInSavingFormat(Map<Point, String> pointToIndexes) {
+    public JSONObject objectInSavingFormat() {
         JSONObject obj = new JSONObject();
         obj.put("class", "Polygon");
-        obj.put("pointAId", pointToIndexes.get(pointA));
-        obj.put("pointBId", pointToIndexes.get(pointB));
-        obj.put("pointCId", pointToIndexes.get(pointC));
+        obj.put("pointAId", pointA.getId());
+        obj.put("pointBId", pointB.getId());
+        obj.put("pointCId", pointC.getId());
         obj.put("color", color.getRGB());
         return obj;
     }

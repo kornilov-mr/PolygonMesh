@@ -9,6 +9,6 @@ import java.util.Map;
 
 public abstract class Primitive extends Selected{
     public abstract Point getIntersection(Line line);
-    public abstract JSONObject objectInSavingFormat(Map<Point, String> pointToIndexes);
+    public abstract JSONObject objectInSavingFormat();
 
 }

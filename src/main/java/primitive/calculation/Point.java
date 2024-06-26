@@ -25,6 +25,7 @@ public class Point extends Primitive implements InfoPanelConvertible {
     protected double z;
     public Color color;
     public double size;
+    private String idInScene;
 
     private ArrayList<Polygon> belongToPolygon = new ArrayList<>();
 
@@ -88,7 +89,7 @@ public class Point extends Primitive implements InfoPanelConvertible {
     }
 
     @Override
-    public JSONObject objectInSavingFormat(Map<Point, String> pointToIndexes){
+    public JSONObject objectInSavingFormat(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("class","Point");
         jsonObject.put("x",x);
@@ -164,5 +165,13 @@ public class Point extends Primitive implements InfoPanelConvertible {
 
         };
         return objectInfoPanel;
+    }
+
+    public void setId(String idInScene) {
+        this.idInScene = idInScene;
+    }
+
+    public String getId() {
+        return idInScene;
     }
 }
