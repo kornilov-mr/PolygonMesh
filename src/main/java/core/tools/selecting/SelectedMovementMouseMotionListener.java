@@ -2,10 +2,10 @@ package core.tools.selecting;
 
 import core.UI.managers.MouseMotionManager;
 import core.camera.Camera;
-import primitive.Point;
+import primitive.calculation.Point;
 import primitive.Primitive;
-import primitive.faces.Face;
-import primitive.faces.Polygon;
+import primitive.calculation.faces.Face;
+import primitive.calculation.faces.Polygon;
 import utils.line.Line;
 
 import java.awt.event.MouseEvent;
@@ -43,6 +43,7 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
 
                 Line line = camera.getRayLine(e.getX(), e.getY());
                 Point newPointPosition = pointFace.getIntersection(line);
+
                 point.movePointToOtherPointCoordinates(newPointPosition);
 
                 ArrayList<Polygon> polygons = point.getBelongToPolygon();
@@ -56,6 +57,7 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
 
     @Override
     public void mouseMoved(MouseEvent e) {
+
         if(this.mouseMotionManager!=null){
             mouseMotionManager.startCameraMotion();
         }

@@ -1,11 +1,13 @@
-package primitive;
+package primitive.calculation;
 
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.CoordinateInfoPanel;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
 import org.json.JSONObject;
-import primitive.faces.Polygon;
+import primitive.Primitive;
+import primitive.rendering.Sphere;
+import primitive.calculation.faces.Polygon;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
@@ -18,9 +20,9 @@ import java.util.Map;
 
 public class Point extends Primitive implements InfoPanelConvertible {
 
-    private double x;
-    private double y;
-    private double z;
+    protected double x;
+    protected double y;
+    protected double z;
     public Color color;
     public double size;
 
@@ -30,7 +32,7 @@ public class Point extends Primitive implements InfoPanelConvertible {
         this(sphere.x,sphere.y,sphere.z);
     }
     public Point(double x, double y, double z){
-        this(x,y,z,1,new Color(0,0,0));
+        this(x,y,z,0.1,new Color(0,0,0));
     }
     public Point(Vector3D vector){
         this(vector.getX(), vector.getY(), vector.getZ(),0.1,new Color(0,0,0));

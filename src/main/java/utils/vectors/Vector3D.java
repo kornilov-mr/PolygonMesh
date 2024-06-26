@@ -1,6 +1,6 @@
 package utils.vectors;
 
-import primitive.Point;
+import primitive.calculation.Point;
 import utils.Calculation;
 
 public class Vector3D {
@@ -63,6 +63,9 @@ public class Vector3D {
         return new Vector3D(this.x * Math.cos(angle) - this.y * Math.sin(angle),
                 this.x * Math.sin(angle) + this.y * Math.cos(angle),
                 this.z);
+    }
+    public Vector3D subtraction(Vector3D vector){
+        return new Vector3D(x- vector.getX(),y- vector.getY(),z- vector.getZ());
     }
 
     public double getLength() {

@@ -6,15 +6,13 @@ import core.scene.Scene;
 import org.jocl.Pointer;
 import org.jocl.Sizeof;
 import org.jocl.cl_mem;
-import primitive.Point;
-import primitive.Sphere;
-import primitive.faces.Polygon;
-import utils.line.Line;
+import primitive.calculation.Point;
+import primitive.rendering.PolygonForRendering;
+import primitive.rendering.Sphere;
+import primitive.calculation.faces.Polygon;
 import utils.vectors.Vector3D;
 
-import java.awt.*;
 import java.io.File;
-import java.util.Date;
 import java.util.Iterator;
 
 import static org.jocl.CL.*;
@@ -59,12 +57,13 @@ public class IntersectionShader extends ShaderRunner{
 
         Iterator<Polygon> itPolygon = scene.getPolygons().iterator();
         for(int i=0;i<polygonCount;i++){
-            Polygon polygon = itPolygon.next();
+            Polygon pg = itPolygon.next();
+            PolygonForRendering polygon = new PolygonForRendering(pg);
             ACoordinateFrom[i]=polygon.getCoordinateForm().A;
             BCoordinateFrom[i]=polygon.getCoordinateForm().B;
             CCoordinateFrom[i]=polygon.getCoordinateForm().C;
             DCoordinateFrom[i]=polygon.getCoordinateForm().D;
-            polygonColor[i]=polygon.getMainColorForRendering().getRGB();
+            polygonColor[i]=polygon.getColor().getRGB();
 
             x1[i]=polygon.getPointA().getX();
             y1[i]=polygon.getPointA().getY();
@@ -94,9 +93,9 @@ public class IntersectionShader extends ShaderRunner{
             Point point = it.next();
             Sphere sphere = new Sphere(point);
 
-            xSphere[i]= sphere.x;
-            ySphere[i]= sphere.y;
-            zSphere[i]= sphere.z;
+            xSphere[i]= sphere.getX();
+            ySphere[i]= sphere.getY();
+            zSphere[i]= sphere.getZ();
             SphereSize[i]= sphere.size;
             SphereColor[i]=sphere.getColor().getRGB();
         }

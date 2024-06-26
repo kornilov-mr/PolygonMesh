@@ -1,8 +1,7 @@
 package core.UI.elements.toolPanel.pointer.objectInfoPanels;
 
 import core.UI.managers.FocusTabManager;
-import primitive.faces.Polygon;
-import utils.Calculation;
+import primitive.calculation.faces.Polygon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +17,7 @@ public class ColorToneInfoPanel extends ObjectInfoPanel{
     private JTextField textArea;
     private final FocusTabManager focusTabManager;
     private final Polygon polygon;
-    public ColorToneInfoPanel(ArrayList<ObjectInfoPanel> infoPanels, Color color, String title, double startValue, FocusTabManager focusTabManager, Polygon polygon) {
+    public ColorToneInfoPanel(ArrayList<ObjectInfoPanel> infoPanels, Color color, String title, int startValue, FocusTabManager focusTabManager, Polygon polygon) {
         super(infoPanels);
         this.color=color;
         this.title=title;
@@ -26,10 +25,10 @@ public class ColorToneInfoPanel extends ObjectInfoPanel{
         this.focusTabManager=focusTabManager;
         this.jPanel = createJPanel(startValue);
     }
-    private JPanel createJPanel(double startValue){
+    private JPanel createJPanel(int startValue){
         JPanel jPanel = new JPanel();
         jPanel.add(new JLabel(title+":"));
-        textArea = new JTextField(String.valueOf(Calculation.round(startValue,4)));
+        textArea = new JTextField(String.valueOf(startValue));
         textArea.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
                 String value = textArea.getText();
@@ -47,6 +46,10 @@ public class ColorToneInfoPanel extends ObjectInfoPanel{
             public void actionPerformed(ActionEvent e)
             {
                 focusTabManager.setFocusToMainWindow();
+                int intValue = Integer.parseInt(textArea.getText());
+                if(intValue> 255){
+                    return;
+                }
                 if(Objects.equals(title,"R")){
                     polygon.setRed(Integer.parseInt(textArea.getText()));
                     return;

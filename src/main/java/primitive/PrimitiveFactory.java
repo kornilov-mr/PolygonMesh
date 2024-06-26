@@ -1,7 +1,8 @@
 package primitive;
 
 import org.json.JSONObject;
-import primitive.faces.Polygon;
+import primitive.calculation.Point;
+import primitive.calculation.faces.Polygon;
 
 import java.awt.*;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class PrimitiveFactory {
         }
         return point;
     }
-    public Polygon createPolygonFromJson(JSONObject data, Map<String,Point> indexesToPoint){
+    public Polygon createPolygonFromJson(JSONObject data, Map<String, Point> indexesToPoint){
         Polygon polygon = null;
         if(Objects.equals(data.get("class"),"Polygon")){
             polygon = createPolygon(data,indexesToPoint);
@@ -46,7 +47,7 @@ public class PrimitiveFactory {
                 createColor(data.getInt("color")));
         return face;
     }
-    private Point createPointFromId(String id,Map<String, Point> indexesToPoint){
+    private Point createPointFromId(String id, Map<String, Point> indexesToPoint){
         return indexesToPoint.get(id);
     }
     private Point createPoint(JSONObject data){

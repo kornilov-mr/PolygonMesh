@@ -1,7 +1,6 @@
-package primitive.faces;
+package primitive.calculation.faces;
 
-import org.jocl.struct.Struct;
-import primitive.Point;
+import primitive.calculation.Point;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 

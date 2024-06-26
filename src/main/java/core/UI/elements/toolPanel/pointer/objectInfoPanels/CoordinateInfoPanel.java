@@ -1,7 +1,7 @@
 package core.UI.elements.toolPanel.pointer.objectInfoPanels;
 
 import core.UI.managers.FocusTabManager;
-import primitive.Point;
+import primitive.calculation.Point;
 import utils.Calculation;
 
 import javax.swing.*;

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
 
-public class SelectedKeyListener implements KeyListener {
+public class SelectionKeyListener implements KeyListener {
     private final HashSet<Integer> keyPressed = new HashSet<>();
     private boolean shiftPressed = false;
     @Override

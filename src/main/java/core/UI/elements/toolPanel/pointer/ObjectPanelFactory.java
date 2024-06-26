@@ -3,9 +3,9 @@ package core.UI.elements.toolPanel.pointer;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
 import core.scene.Scene;
-import primitive.Point;
+import primitive.calculation.Point;
 import primitive.Primitive;
-import primitive.faces.Polygon;
+import primitive.calculation.faces.Polygon;
 
 public class ObjectPanelFactory {
 

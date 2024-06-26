@@ -1,11 +1,11 @@
-package primitive.faces;
+package primitive.calculation.faces;
 
 import core.UI.managers.FocusTabManager;
 import org.json.JSONObject;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
-import primitive.Point;
 import primitive.Primitive;
+import primitive.calculation.Point;
 import utils.Calculation;
 import utils.colors.ColorAdapter;
 import utils.line.Line;
@@ -90,13 +90,6 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
     public void setPointB(Point pointB) {
         this.pointB = pointB;
         calculateNormalVector();
-    }
-
-    public Color getMainColorForRendering() {
-        if(selected){
-            return new Color(0,120,215) ;
-        }
-        return color;
     }
 
     public Color getColor() {

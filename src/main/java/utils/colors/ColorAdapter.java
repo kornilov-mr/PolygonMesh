@@ -4,7 +4,7 @@ import core.UI.elements.toolPanel.pointer.objectInfoPanels.ColorToneInfoPanel;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
-import primitive.faces.Polygon;
+import primitive.calculation.faces.Polygon;
 
 import javax.swing.*;
 import java.awt.*;

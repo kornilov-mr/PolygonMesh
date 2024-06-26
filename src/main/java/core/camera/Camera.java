@@ -3,7 +3,7 @@ package core.camera;
 import core.render.RenderConfig;
 import core.scene.Scene;
 import primitive.OrientedObject;
-import primitive.Point;
+import primitive.calculation.Point;
 import primitive.Primitive;
 import utils.Calculation;
 import utils.line.Line;

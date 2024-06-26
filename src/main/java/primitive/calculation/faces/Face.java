@@ -1,6 +1,6 @@
-package primitive.faces;
+package primitive.calculation.faces;
 
-import primitive.Point;
+import primitive.calculation.Point;
 import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
@@ -12,6 +12,10 @@ public class Face {
 
     private Vector3D normalVector;
     protected CoordinateForm coordinateForm;
+    public Face(Point pointA, Vector3D normalVector){
+        double D = -1 * normalVector.multiply(new Vector3D(pointA)).getSum();
+        this.coordinateForm = new CoordinateForm(normalVector, D);
+    }
     public Face(Point pointA, Vector3D directionVector1, Vector3D directionVector2){
         this(pointA, new Point(new Vector3D(pointA).add(directionVector1)),new Point(new Vector3D(pointA).add(directionVector2)));
     }
@@ -33,8 +37,18 @@ public class Face {
     }
     public Point getIntersection(Line line) {
         Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
-
         return intersectionWithPlane;
+    }
+    public int ifPointIsAboveFace(Point point){
+        double sum = normalVector.multiply(new Vector3D(point)).getSum()+ coordinateForm.D;
+        if(sum>0){
+            return 1;
+        }
+        if(sum==0){
+            return 0;
+        }
+        return -1;
+
     }
 
 

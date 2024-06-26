@@ -2,7 +2,7 @@ package unitTests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import primitive.Point;
+import primitive.calculation.Point;
 import utils.Calculation;
 import utils.vectors.Vector3D;
 

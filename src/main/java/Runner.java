@@ -1,8 +1,7 @@
 import core.RenderController;
 import core.RenderFactory;
 import core.scene.Scene;
-import primitive.Point;
-import primitive.faces.Polygon;
+import primitive.calculation.Point;
 
 import java.awt.*;
 import java.io.File;

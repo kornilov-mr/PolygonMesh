@@ -1,7 +1,7 @@
 package utils;
 
-import primitive.Point;
-import primitive.faces.CoordinateForm;
+import primitive.calculation.Point;
+import primitive.calculation.faces.CoordinateForm;
 import utils.line.Line;
 import utils.quaternion.Quaternion;
 import utils.vectors.Vector3D;

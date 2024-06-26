@@ -1,6 +1,6 @@
 package core.tools.selecting;
 
-import primitive.Point;
+import primitive.calculation.Point;
 import primitive.Primitive;
 
 import java.util.*;

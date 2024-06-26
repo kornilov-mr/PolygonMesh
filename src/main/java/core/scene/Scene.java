@@ -3,10 +3,10 @@ package core.scene;
 import core.tools.selecting.SelectedObjectManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import primitive.Point;
+import primitive.calculation.Point;
 import primitive.Primitive;
 import primitive.PrimitiveFactory;
-import primitive.faces.Polygon;
+import primitive.calculation.faces.Polygon;
 
 import java.awt.*;
 import java.io.*;

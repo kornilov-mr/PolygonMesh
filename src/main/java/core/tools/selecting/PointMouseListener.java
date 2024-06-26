@@ -15,11 +15,11 @@ public class PointMouseListener implements MouseListener {
     private final Camera camera;
     private final ObjectPanelFactory objectPanelFactory;
     private ObjectPanel objectPanel=null;
-    private final SelectedKeyListener selectedKeyListener;
+    private final SelectionKeyListener selectionKeyListener;
 
-    public PointMouseListener(Camera camera, FocusTabManager focusTabManager, SelectedKeyListener selectedKeyListener) {
+    public PointMouseListener(Camera camera, FocusTabManager focusTabManager, SelectionKeyListener selectionKeyListener) {
         this.camera = camera;
-        this.selectedKeyListener =selectedKeyListener;
+        this.selectionKeyListener = selectionKeyListener;
         this.objectPanelFactory=new ObjectPanelFactory(focusTabManager,camera.getScene());
     }
 
@@ -38,7 +38,7 @@ public class PointMouseListener implements MouseListener {
 
                 Primitive primitive = camera.getPrimitiveOnPixel(e.getX(), e.getY());
                 if(primitive!=null) {
-                    if(selectedKeyListener.isShiftPressed()){
+                    if(selectionKeyListener.isShiftPressed()){
                         camera.getScene().selectedObjectManager.changeSelection(primitive);
                     }else{
                         camera.getScene().selectedObjectManager.changeSelectionWithRemove(primitive);
