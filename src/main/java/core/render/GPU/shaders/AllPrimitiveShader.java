@@ -25,7 +25,7 @@ public class AllPrimitiveShader extends ShaderRunner{
     private int[] RGBColors;
     private Pointer RGBColorsPt;
     private cl_mem RGBColorsMem;
-    public AllPrimitiveShader(File shaderFile, RenderConfig renderConfig, Camera camera) {
+    protected AllPrimitiveShader(File shaderFile, RenderConfig renderConfig, Camera camera) {
         super(shaderFile);
         this.renderConfig=renderConfig;
         this.camera = camera;

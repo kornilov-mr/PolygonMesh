@@ -24,7 +24,7 @@ public class OnlyPolygonShader extends ShaderRunner{
     private int[] RGBColors;
     private Pointer RGBColorsPt;
     private cl_mem RGBColorsMem;
-    public OnlyPolygonShader(File shaderFile, RenderConfig renderConfig, Camera camera) {
+    protected OnlyPolygonShader(File shaderFile, RenderConfig renderConfig, Camera camera) {
         super(shaderFile);
         this.renderConfig=renderConfig;
         this.camera = camera;
