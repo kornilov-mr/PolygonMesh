@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import primitive.Primitive;
+import primitive.calculation.Counter;
 import primitive.calculation.Point;
 import utils.Calculation;
 import utils.colors.ColorAdapter;
@@ -19,23 +20,28 @@ import java.util.Map;
 
 public class Polygon extends Primitive implements InfoPanelConvertible{
 
-    private Point pointA;
-    private Point pointB;
-    private Point pointC;
+    private final Point pointA;
+    private final Point pointB;
+    private final Point pointC;
+    private final Counter counterA;
+    private final Counter counterB;
+    private final Counter counterC;
 
     private Vector3D normalVector;
     protected CoordinateForm coordinateForm;
-    private Color color;
 
     public Polygon(Point pointA, Point pointB, Point pointC){
         this(pointA,pointB,pointC,new Color(0,0,0));
     }
     public Polygon(Point pointA, Point pointB, Point pointC, Color color) {
+        super(color);
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
-        this.color = color;
 
+        this.counterA= new Counter(pointA,pointB);
+        this.counterB= new Counter(pointB,pointC);
+        this.counterC= new Counter(pointC,pointA);
         calculateNormalVector();
     }
     public void calculateNormalVector(){
@@ -67,9 +73,6 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         obj.put("color", color.getRGB());
         return obj;
     }
-
-
-
     public Point getPointA() {
         return pointA;
     }
@@ -82,36 +85,35 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         return pointC;
     }
 
-    public void setPointA(Point pointA) {
-        this.pointA = pointA;
+    public Counter getCounterA() {
+        return counterA;
+    }
+
+    public Counter getCounterB() {
+        return counterB;
+    }
+
+    public Counter getCounterC() {
+        return counterC;
+    }
+
+    public void setPointA(Point point) {
+        pointA.movePointToOtherPointCoordinates(point);
         calculateNormalVector();
     }
 
-    public void setPointB(Point pointB) {
-        this.pointB = pointB;
+    public void setPointB(Point point) {
+        pointB.movePointToOtherPointCoordinates(point);
         calculateNormalVector();
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setPointC(Point pointC) {
-        this.pointC = pointC;
+    public void setPointC(Point point) {
+        pointC.movePointToOtherPointCoordinates(point);
         calculateNormalVector();
     }
 
     public CoordinateForm getCoordinateForm() {
         return coordinateForm;
-    }
-    public void setRed(int red){
-        this.color = new Color(red, color.getGreen(), color.getBlue());
-    }
-    public void setGreen(int green){
-        this.color = new Color(color.getRed(),green, color.getBlue());
-    }
-    public void setBlue(int blue){
-        this.color = new Color(color.getRed(), color.getGreen(),blue);
     }
 
     @Override

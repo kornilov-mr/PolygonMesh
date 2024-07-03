@@ -23,7 +23,6 @@ public class Point extends Primitive implements InfoPanelConvertible {
     protected double x;
     protected double y;
     protected double z;
-    public Color color;
     public double size;
     private String idInScene;
 
@@ -46,10 +45,10 @@ public class Point extends Primitive implements InfoPanelConvertible {
     }
 
     public Point(double x, double y, double z,double size, Color color) {
+        super(color);
         this.x = x;
         this.y = y;
         this.z = z;
-        this.color=color;
         this.size=size;
     }
 
@@ -67,7 +66,6 @@ public class Point extends Primitive implements InfoPanelConvertible {
         this.z = z;
         notifyAllPolygonsToChange();
     }
-
     public double getX() {
         return x;
     }
@@ -80,13 +78,6 @@ public class Point extends Primitive implements InfoPanelConvertible {
         return z;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
     @Override
     public JSONObject objectInSavingFormat(){
@@ -173,5 +164,14 @@ public class Point extends Primitive implements InfoPanelConvertible {
 
     public String getId() {
         return idInScene;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 }

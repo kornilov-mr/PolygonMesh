@@ -3,6 +3,7 @@ package core.scene;
 import core.tools.selecting.SelectedObjectManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import primitive.calculation.Counter;
 import primitive.calculation.Point;
 import primitive.Primitive;
 import primitive.PrimitiveFactory;
@@ -19,10 +20,9 @@ public class Scene {
     private final Set<Primitive> primitives = new HashSet<>();
     private final Set<Polygon> polygons = new HashSet<>();
     private final Set<Point> points = new HashSet<>();
+    private final Set<Counter> counters = new HashSet<>();
     private final Map<String, Point> indexesToPoints = new HashMap<>();
-
     private final File pathToSceneFolder = new File("src/main/Scenes");
-
     public final SelectedObjectManager selectedObjectManager;
 
     public Scene() {
@@ -40,11 +40,18 @@ public class Scene {
         primitives.add(polygon.getPointA());
         primitives.add(polygon.getPointB());
         primitives.add(polygon.getPointC());
+        primitives.add(polygon.getCounterA());
+        primitives.add(polygon.getCounterB());
+        primitives.add(polygon.getCounterC());
 
         polygons.add(polygon);
         points.add(polygon.getPointA());
         points.add(polygon.getPointB());
         points.add(polygon.getPointC());
+
+        counters.add(polygon.getCounterA());
+        counters.add(polygon.getCounterB());
+        counters.add(polygon.getCounterC());
 
         String id = "";
         id=UUID.randomUUID().toString();
@@ -149,4 +156,7 @@ public class Scene {
         return points;
     }
 
+    public Set<Counter> getCounters() {
+        return counters;
+    }
 }

@@ -30,7 +30,6 @@ public class Window {
         ObjectPanel objectPanel = new ObjectPanel();
         updateManager.addToUpdates(cameraKeyListener);
         updateManager.addToUpdates(cameraMouseListener);
-        updateManager.addToUpdates(objectPanel);
 
         SelectionKeyListener selectionKeyListener = new SelectionKeyListener();
 
@@ -40,7 +39,7 @@ public class Window {
         PointMouseListener pointMouseListener=new PointMouseListener(camera,focusTabManager, selectionKeyListener);
         pointMouseListener.setObjectPanel(objectPanel);
 
-        this.mainPanel =new MainPanel(renderConfig,camera,cameraMouseListener,pointMouseListener);
+        this.mainPanel =new MainPanel(renderConfig,camera,cameraMouseListener,pointMouseListener,objectPanel);
 
         ToolBar toolBar = new ToolBar(objectPanel);
 

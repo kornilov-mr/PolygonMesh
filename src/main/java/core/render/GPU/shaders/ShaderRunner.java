@@ -1,5 +1,6 @@
 package core.render.GPU.shaders;
 
+import core.scene.Scene;
 import org.jocl.*;
 
 import java.io.*;
@@ -67,6 +68,7 @@ public abstract class ShaderRunner {
         setUpKernel(shaderFile);
     }
 
+    public abstract int[] run(Scene scene);
     private String readFile(String fileName)
     {
         BufferedReader br = null;

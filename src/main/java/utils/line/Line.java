@@ -5,13 +5,15 @@ import primitive.calculation.faces.Face;
 import utils.Calculation;
 import utils.vectors.Vector3D;
 
+import java.util.UUID;
+
 public class Line {
 
 
     public final Vector3D pointVector;
     public final Vector3D directionVector;
     public Line(Point pointA, Point pointB) {
-        this(new Vector3D(pointA),new Vector3D(pointB));
+        this(new Vector3D(pointA),new Vector3D(pointB).subtraction(new Vector3D(pointA)));
     }
     public Line(Vector3D pointVector, Vector3D directionVector) {
         this.pointVector = pointVector;
@@ -19,9 +21,12 @@ public class Line {
     }
     private Point getClosesPointBetweenLines(Line line){
         Vector3D cross = directionVector.crossMultiply(line.directionVector);
-        Face face = new Face(new Point(pointVector),cross,directionVector);
-        Point point = face.getIntersection(line);
-        return point;
+        double tLine= directionVector.crossMultiply(cross).multiply(line.pointVector.subtraction(pointVector)).getSum()/Math.pow(cross.getLength(),2);
+        if(tLine<0){
+            return null;
+        }
+        Vector3D point = line.pointVector.add(line.directionVector.multiply(tLine));
+        return new Point(point);
     }
     public Point getHardIntersection(Line line){
         double distance = getDistanceBetweenTwoLines(line);
@@ -35,21 +40,20 @@ public class Line {
         if(distance>delta){
             return null;
         }
-
+        System.out.println("got"+ UUID.randomUUID().toString());
         Point pointT = getClosesPointBetweenLines(line);
         if(pointT==null){
             return null;
         }
-        if(delta*2-distance*2<0){
+        if(delta*delta-distance*distance<0){
             return null;
         }
-        double distanceT = Math.sqrt(delta*2-distance*2);
+        double distanceT = Math.sqrt(delta*delta-distance*distance);
 
         return new Point(new Vector3D(pointT).add(line.directionVector.multiply(distanceT*-1)));
     }
     public double getDistanceBetweenTwoLines(Line line){
-        Vector3D cross = directionVector.crossMultiply(line.directionVector);
-        cross = cross.normalized();
-        return cross.multiply(pointVector.subtraction(line.pointVector)).getLength();
+        Vector3D cross = directionVector.crossMultiply(line.directionVector).normalized();
+        return Math.abs(cross.multiply(line.pointVector.subtraction(pointVector)).getSum());
     }
 }

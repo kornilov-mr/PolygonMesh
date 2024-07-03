@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Sphere extends Point {
     public Sphere(Point point){
-        this(point.getX(),point.getY(),point.getZ(),point.isSelected() ? 0.2 :0.02,point.isSelected() ? new Color(36, 100, 155) :point.color);
+        this(point.getX(),point.getY(),point.getZ(),point.isSelected() ? 0.2 :0.02,point.isSelected() ? new Color(36, 100, 155) :point.getColor());
     }
 
     private Sphere(double x, double y, double z,double size, Color color) {

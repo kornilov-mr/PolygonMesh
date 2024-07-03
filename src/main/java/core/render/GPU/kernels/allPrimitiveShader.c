@@ -3,7 +3,28 @@ double square_root(double x)
 {
     return sqrt(x);
 }
-
+double abs(const double a){
+    if(a<0){
+        return -1*a;
+    }
+    return a;
+}
+double calculate2MatrixDeterminant(const double x1,
+                                   const double x2,
+                                   const double y1,
+                                   const double y2){
+        return x1*y2-x2*y1;
+}
+int isPointAboveFace(const double A, const double B,const double C,const double D,
+                                const double x,
+                                const double y,
+                                const double z){
+    double sum = x*A+y*B+z*C+D;
+    if(sum>0){
+        return 1;
+    }
+    return -1;
+}
 double getDistance(
         const double x,
         const double y,
@@ -29,6 +50,20 @@ double getDistanceFromTwoPoints(const double x1,
                                 const double z2){
         return getDistance(x1-x2,y1-y2,z1-z2);
 }
+void crossMultiply(const double x1,
+                     const double y1,
+                     const double z1,
+
+                     const double x2,
+                     const double y2,
+                     const double z2,
+                     double *x3,
+                     double *y3,
+                     double *z3){
+        *x3=y1*z2-z1*y2;
+        *y3=z1*x2-x1*z2;
+        *z3=x1*y2-y1*x2;
+                     }
 double crossProduct(
                      const double x1,
                      const double y1,
@@ -132,6 +167,124 @@ bool getIntersectionWithPane(
         *zPoint=zRay*r+zCameraPosition;
         return true;
 }
+double getDistanceBetweenTwoLines(const double x1,
+                                  const double y1,
+                                  const double z1,
+
+                                  const double x2,
+                                  const double y2,
+                                  const double z2,
+
+                                  const double xRay,
+                                  const double yRay,
+                                  const double zRay,
+
+                                  const double xCameraPosition,
+                                  const double yCameraPosition,
+                                  const double zCameraPosition){
+       double xCross;
+       double yCross;
+       double zCross;
+       crossMultiply(x2-x1,y2-y1,z2-z1,xRay,yRay,zRay,&xCross,&yCross,&zCross);
+       normalizeCus(&xCross,&yCross,&zCross);
+       return abs(xCross*(x1-xCameraPosition)+yCross*(y1-yCameraPosition)+zCross*(z1-zCameraPosition));
+}
+
+bool getClosestPointBetweenLines(const double x1,
+                                 const double y1,
+                                 const double z1,
+
+                                 const double x2,
+                                 const double y2,
+                                 const double z2,
+
+                                 const double xRay,
+                                 const double yRay,
+                                 const double zRay,
+
+                                 const double xCameraPosition,
+                                 const double yCameraPosition,
+                                 const double zCameraPosition,
+
+                                 double *xPoint,
+                                 double *yPoint,
+                                 double *zPoint){
+       double xCross;
+       double yCross;
+       double zCross;
+       crossMultiply(x2-x1,y2-y1,z2-z1,xRay,yRay,zRay,&xCross,&yCross,&zCross);
+       double xCrossE;
+       double yCrossE;
+       double zCrossE;
+       crossMultiply(x2-x1,y2-y1,z2-z1,xCross,yCross,zCross,&xCrossE,&yCrossE,&zCrossE);
+
+       double length = getDistance(xCross,yCross,zCross);
+
+       double tLine = (xCrossE*(xCameraPosition-x1) + yCrossE*(yCameraPosition-y1) + zCrossE*(zCameraPosition-z1))/(length*length);
+       if(tLine<0){
+        return false;
+       }
+       *xPoint=xCameraPosition+tLine*xRay;
+       *yPoint=yCameraPosition+tLine*yRay;
+       *zPoint=zCameraPosition+tLine*zRay;
+       return true;
+}
+
+
+bool getIntersectionWithCounter(const double x1,
+                                const double y1,
+                                const double z1,
+
+                                const double x2,
+                                const double y2,
+                                const double z2,
+
+                                const double size,
+
+                                const double xRay,
+                                const double yRay,
+                                const double zRay,
+
+                                const double xCameraPosition,
+                                const double yCameraPosition,
+                                const double zCameraPosition,
+                                double *xPoint,
+                                double *yPoint,
+                                double *zPoint){
+       double distance = getDistanceBetweenTwoLines(x1,y1,z1,x2,y2,z2,xRay,yRay,zRay,xCameraPosition,yCameraPosition,zCameraPosition);
+       if(distance>size){
+            return false;
+       }
+       double xPointT;
+       double yPointT;
+       double zPointT;
+       bool result = getClosestPointBetweenLines(x1,y1,z1,x2,y2,z2,xRay,yRay,zRay,xCameraPosition,yCameraPosition,zCameraPosition, &xPointT,&yPointT,&zPointT);
+       if(result==false){
+            return false;
+       }
+       double distanceNoSqrt = size*size-distance*distance;
+       if(distanceNoSqrt<0){
+            return false;
+       }
+       double distanceT = sqrt(distanceNoSqrt);
+       *xPoint = xPointT-xRay*distanceT;
+       *yPoint = yPointT-yRay*distanceT;
+       *zPoint = zPointT-zRay*distanceT;
+
+       double d1 = ((x2-x1)*x1+ (y2-y1)*y1+ (z2-z1)*z1)*-1;
+       double d2 = ((x2-x1)*x2+ (y2-y1)*y2+ (z2-z1)*z2)*-1;
+       int result1 = isPointAboveFace(x2-x1,y2-y1,z2-z1,d1,*xPoint,*yPoint,*zPoint);
+       int result2 = isPointAboveFace(x2-x1,y2-y1,z2-z1,d2,*xPoint,*yPoint,*zPoint);
+       if(result1*result2==-1){
+        return true;
+       }
+       if(getDistance(x1-*xPoint,y1-*yPoint,z1-*zPoint)<=size||getDistance(x2-*xPoint,y2-*yPoint,z2-*zPoint)<=size){
+        return true;
+       }
+       return false;
+}
+
+
 
 bool getIntersectionWithSphere(
                         const double xSphere,
@@ -253,16 +406,6 @@ __kernel void calculatePointVector(
                     __constant   double *DCoordinateFrom,
                     __constant   int *PolygonColor,
 
-                    const int polygonCount,
-
-                    __constant double *xSphere,
-                    __constant double *ySphere,
-                    __constant double *zSphere,
-                    __constant double *size,
-                    __constant int *sphereColor,
-
-                    const int pointCount,
-
                     __constant   double *x1,
                     __constant   double *y1,
                     __constant   double *z1,
@@ -274,6 +417,29 @@ __kernel void calculatePointVector(
                     __constant   double *x3,
                     __constant   double *y3,
                     __constant   double *z3,
+
+                    const int polygonCount,
+
+                    __constant double *xSphere,
+                    __constant double *ySphere,
+                    __constant double *zSphere,
+                    __constant double *size,
+                    __constant int *sphereColor,
+
+                    const int pointCount,
+
+                    __constant   double *counterSize,
+                    __constant   int *counterColor,
+
+                    __constant   double *xCounter1,
+                    __constant   double *yCounter1,
+                    __constant   double *zCounter1,
+
+                    __constant   double *xCounter2,
+                    __constant   double *yCounter2,
+                    __constant   double *zCounter2,
+
+                    const int counterCount,
 
                     __global int *RGB)
 {
@@ -335,7 +501,24 @@ __kernel void calculatePointVector(
                 minDistance=distance;
                 RGBForPoint=sphereColor[i];
             }
-        }
+    }
+    for(int i =0;i<counterCount;i++){
+         bool result = getIntersectionWithCounter(xCounter1[i],yCounter1[i],zCounter1[i],
+                                             xCounter2[i],yCounter2[i],zCounter2[i],counterSize[i],
+                                             xRay,yRay,zRay,
+                                             xCameraPosition,yCameraPosition,zCameraPosition,
+                                             &xPoint,&yPoint,&zPoint);
+         if(result==false){
+             continue;
+         }
+
+         __private double distance= getDistanceFromTwoPoints(xCameraPosition,yCameraPosition,zCameraPosition,
+                                                    xPoint,yPoint,zPoint);
+         if(distance<minDistance || minDistance==-1){
+             minDistance=distance;
+             RGBForPoint=counterColor[i];
+         }
+    }
     RGB[index]=RGBForPoint;
     return;
 }

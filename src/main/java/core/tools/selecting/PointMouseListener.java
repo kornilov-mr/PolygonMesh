@@ -1,8 +1,8 @@
 package core.tools.selecting;
 
+import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.elements.toolPanel.pointer.ObjectPanel;
-import core.UI.elements.toolPanel.pointer.ObjectPanelFactory;
 import core.UI.managers.FocusTabManager;
 import core.camera.Camera;
 import primitive.Primitive;
@@ -13,14 +13,14 @@ import java.awt.event.MouseListener;
 public class PointMouseListener implements MouseListener {
 
     private final Camera camera;
-    private final ObjectPanelFactory objectPanelFactory;
+    private final FocusTabManager focusTabManager;
     private ObjectPanel objectPanel=null;
     private final SelectionKeyListener selectionKeyListener;
 
     public PointMouseListener(Camera camera, FocusTabManager focusTabManager, SelectionKeyListener selectionKeyListener) {
         this.camera = camera;
+        this.focusTabManager=focusTabManager;
         this.selectionKeyListener = selectionKeyListener;
-        this.objectPanelFactory=new ObjectPanelFactory(focusTabManager,camera.getScene());
     }
 
     public void setObjectPanel(ObjectPanel objectPanel) {
@@ -43,7 +43,7 @@ public class PointMouseListener implements MouseListener {
                     }else{
                         camera.getScene().selectedObjectManager.changeSelectionWithRemove(primitive);
                     }
-                    ObjectInfoPanel objectInfoPanel = objectPanelFactory.createObjectPanel(primitive);
+                    ObjectInfoPanel objectInfoPanel =((InfoPanelConvertible) primitive).toInfoPanel(focusTabManager);
                     objectPanel.loadObjectPanel(objectInfoPanel);
                 }
             }

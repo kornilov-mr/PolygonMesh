@@ -73,7 +73,9 @@ public class CameraKeyListener implements KeyListener, Updatable {
         camera.moveFront(dx);
         camera.moveRight(dy);
         camera.moveUp(dz);
-        dx=0; dy=0; dz=0;
+        dx = 0;
+        dy = 0;
+        dz = 0;
     }
 
     public Camera getCamera() {

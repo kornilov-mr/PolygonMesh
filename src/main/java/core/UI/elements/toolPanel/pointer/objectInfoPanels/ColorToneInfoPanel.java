@@ -1,6 +1,7 @@
 package core.UI.elements.toolPanel.pointer.objectInfoPanels;
 
 import core.UI.managers.FocusTabManager;
+import primitive.Primitive;
 import primitive.calculation.faces.Polygon;
 
 import javax.swing.*;
@@ -16,12 +17,12 @@ public class ColorToneInfoPanel extends ObjectInfoPanel{
     private final String title;
     private JTextField textArea;
     private final FocusTabManager focusTabManager;
-    private final Polygon polygon;
-    public ColorToneInfoPanel(ArrayList<ObjectInfoPanel> infoPanels, Color color, String title, int startValue, FocusTabManager focusTabManager, Polygon polygon) {
+    private final Primitive primitive;
+    public ColorToneInfoPanel(ArrayList<ObjectInfoPanel> infoPanels, Color color, String title, int startValue, FocusTabManager focusTabManager, Primitive primitive) {
         super(infoPanels);
         this.color=color;
         this.title=title;
-        this.polygon=polygon;
+        this.primitive=primitive;
         this.focusTabManager=focusTabManager;
         this.jPanel = createJPanel(startValue);
     }
@@ -51,15 +52,15 @@ public class ColorToneInfoPanel extends ObjectInfoPanel{
                     return;
                 }
                 if(Objects.equals(title,"R")){
-                    polygon.setRed(Integer.parseInt(textArea.getText()));
+                    primitive.setRed(Integer.parseInt(textArea.getText()));
                     return;
                 }
                 if(Objects.equals(title,"G")){
-                    polygon.setGreen(Integer.parseInt(textArea.getText()));
+                    primitive.setGreen(Integer.parseInt(textArea.getText()));
                     return;
                 }
                 if(Objects.equals(title,"B")){
-                    polygon.setBlue(Integer.parseInt(textArea.getText()));
+                    primitive.setBlue(Integer.parseInt(textArea.getText()));
                     return;
                 }
 

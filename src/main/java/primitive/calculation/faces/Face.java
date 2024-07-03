@@ -13,6 +13,7 @@ public class Face {
     private Vector3D normalVector;
     protected CoordinateForm coordinateForm;
     public Face(Point pointA, Vector3D normalVector){
+        this.normalVector = normalVector;
         double D = -1 * normalVector.multiply(new Vector3D(pointA)).getSum();
         this.coordinateForm = new CoordinateForm(normalVector, D);
     }
@@ -43,9 +44,6 @@ public class Face {
         double sum = normalVector.multiply(new Vector3D(point)).getSum()+ coordinateForm.D;
         if(sum>0){
             return 1;
-        }
-        if(sum==0){
-            return 0;
         }
         return -1;
 
