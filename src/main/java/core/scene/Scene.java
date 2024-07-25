@@ -71,7 +71,7 @@ public class Scene {
     }
     public void loadSceneFromFile(File file){
         SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file);
-        sceneLoader.saveScene(this);
+        sceneLoader.readScene(file,this);
     }
 
     public Set<Primitive> getPrimitives() {
