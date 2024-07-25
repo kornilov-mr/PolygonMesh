@@ -1,8 +1,11 @@
 package core.UI.elements.toolPanel.pointer.objectInfoPanels;
 
 import core.UI.managers.FocusTabManager;
+import core.tools.commands.CommandManager;
+import core.tools.commands.changeParameters.color.ColorBChange;
+import core.tools.commands.changeParameters.color.ColorGChange;
+import core.tools.commands.changeParameters.color.ColorRChange;
 import primitive.Primitive;
-import primitive.calculation.faces.Polygon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,15 +21,15 @@ public class ColorToneInfoPanel extends ObjectInfoPanel{
     private JTextField textArea;
     private final FocusTabManager focusTabManager;
     private final Primitive primitive;
-    public ColorToneInfoPanel(ArrayList<ObjectInfoPanel> infoPanels, Color color, String title, int startValue, FocusTabManager focusTabManager, Primitive primitive) {
+    public ColorToneInfoPanel(ArrayList<ObjectInfoPanel> infoPanels, Color color, String title, int startValue, FocusTabManager focusTabManager, Primitive primitive, CommandManager commandManager) {
         super(infoPanels);
         this.color=color;
         this.title=title;
         this.primitive=primitive;
         this.focusTabManager=focusTabManager;
-        this.jPanel = createJPanel(startValue);
+        this.jPanel = createJPanel(startValue,commandManager);
     }
-    private JPanel createJPanel(int startValue){
+    private JPanel createJPanel(int startValue,CommandManager commandManager){
         JPanel jPanel = new JPanel();
         jPanel.add(new JLabel(title+":"));
         textArea = new JTextField(String.valueOf(startValue));
@@ -52,16 +55,13 @@ public class ColorToneInfoPanel extends ObjectInfoPanel{
                     return;
                 }
                 if(Objects.equals(title,"R")){
-                    primitive.setRed(Integer.parseInt(textArea.getText()));
-                    return;
+                    commandManager.executeCommand( new ColorRChange(primitive,Integer.parseInt(textArea.getText())));
                 }
                 if(Objects.equals(title,"G")){
-                    primitive.setGreen(Integer.parseInt(textArea.getText()));
-                    return;
+                    commandManager.executeCommand( new ColorGChange(primitive,Integer.parseInt(textArea.getText())));
                 }
                 if(Objects.equals(title,"B")){
-                    primitive.setBlue(Integer.parseInt(textArea.getText()));
-                    return;
+                    commandManager.executeCommand( new ColorBChange(primitive,Integer.parseInt(textArea.getText())));
                 }
 
             }

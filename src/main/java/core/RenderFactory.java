@@ -2,8 +2,6 @@ package core;
 
 import core.UI.Window;
 import core.camera.Camera;
-import core.camera.cameraControl.CameraKeyListener;
-import core.camera.cameraControl.CameraMouseListener;
 import core.render.Render;
 import core.render.RenderConfig;
 import core.scene.Scene;
@@ -31,7 +29,7 @@ public class RenderFactory {
         Camera camera = new Camera(renderConfig);
         camera.setScene(scene);
         Render render=new Render(renderConfig,camera);
-        Window window=new Window(renderConfig,camera);
+        Window window=new Window(renderConfig,camera,scene);
         return  new RenderController(renderConfig,render,window,camera, scene);
     }
 }

@@ -5,6 +5,7 @@ import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.managers.FocusTabManager;
 import core.camera.Camera;
+import core.tools.commands.CommandManager;
 import primitive.Primitive;
 
 import java.awt.event.MouseEvent;
@@ -15,12 +16,14 @@ public class PointMouseListener implements MouseListener {
     private final Camera camera;
     private final FocusTabManager focusTabManager;
     private ObjectPanel objectPanel=null;
-    private final SelectionKeyListener selectionKeyListener;
+    private final MainKeyListener mainKeyListener;
+    private final CommandManager commandManager;
 
-    public PointMouseListener(Camera camera, FocusTabManager focusTabManager, SelectionKeyListener selectionKeyListener) {
+    public PointMouseListener(Camera camera, FocusTabManager focusTabManager, MainKeyListener mainKeyListener, CommandManager commandManager) {
         this.camera = camera;
+        this.commandManager=commandManager;
         this.focusTabManager=focusTabManager;
-        this.selectionKeyListener = selectionKeyListener;
+        this.mainKeyListener = mainKeyListener;
     }
 
     public void setObjectPanel(ObjectPanel objectPanel) {
@@ -38,12 +41,12 @@ public class PointMouseListener implements MouseListener {
 
                 Primitive primitive = camera.getPrimitiveOnPixel(e.getX(), e.getY());
                 if(primitive!=null) {
-                    if(selectionKeyListener.isShiftPressed()){
+                    if(mainKeyListener.isShiftPressed()){
                         camera.getScene().selectedObjectManager.changeSelection(primitive);
                     }else{
                         camera.getScene().selectedObjectManager.changeSelectionWithRemove(primitive);
                     }
-                    ObjectInfoPanel objectInfoPanel =((InfoPanelConvertible) primitive).toInfoPanel(focusTabManager);
+                    ObjectInfoPanel objectInfoPanel =((InfoPanelConvertible) primitive).toInfoPanel(focusTabManager,commandManager);
                     objectPanel.loadObjectPanel(objectInfoPanel);
                 }
             }

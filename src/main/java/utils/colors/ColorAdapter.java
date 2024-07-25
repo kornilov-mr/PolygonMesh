@@ -4,8 +4,8 @@ import core.UI.elements.toolPanel.pointer.objectInfoPanels.ColorToneInfoPanel;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
+import core.tools.commands.CommandManager;
 import primitive.Primitive;
-import primitive.calculation.faces.Polygon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +22,10 @@ public class ColorAdapter implements InfoPanelConvertible {
     }
 
     @Override
-    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager) {
-        ColorToneInfoPanel panelR = new ColorToneInfoPanel(new ArrayList<>(),color,"R", color.getRed(),focusTabManager,primitive);
-        ColorToneInfoPanel panelG = new ColorToneInfoPanel(new ArrayList<>(),color,"G", color.getGreen(),focusTabManager,primitive);
-        ColorToneInfoPanel panelB = new ColorToneInfoPanel(new ArrayList<>(),color,"B", color.getBlue(),focusTabManager,primitive);
+    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager, CommandManager commandManager) {
+        ColorToneInfoPanel panelR = new ColorToneInfoPanel(new ArrayList<>(),color,"R", color.getRed(),focusTabManager,primitive, commandManager);
+        ColorToneInfoPanel panelG = new ColorToneInfoPanel(new ArrayList<>(),color,"G", color.getGreen(),focusTabManager,primitive, commandManager);
+        ColorToneInfoPanel panelB = new ColorToneInfoPanel(new ArrayList<>(),color,"B", color.getBlue(),focusTabManager,primitive,commandManager);
         ObjectInfoPanel objectInfoPanel = new ObjectInfoPanel(new ArrayList<>(Arrays.asList(panelR,panelG,panelB))) {
             @Override
             public JPanel createJPanel() {

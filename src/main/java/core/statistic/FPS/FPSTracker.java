@@ -1,4 +1,4 @@
-package core.statistic;
+package core.statistic.FPS;
 
 import java.util.*;
 

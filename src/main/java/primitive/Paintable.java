@@ -2,7 +2,7 @@ package primitive;
 
 import java.awt.*;
 
-public abstract class Paintable  {
+public abstract class Paintable extends IdContains {
     protected Color color;
     protected Paintable(Color color) {
         this.color = color;

@@ -21,7 +21,7 @@ public class Scene {
     private final Set<Polygon> polygons = new HashSet<>();
     private final Set<Point> points = new HashSet<>();
     private final Set<Counter> counters = new HashSet<>();
-    private final Map<String, Point> indexesToPoints = new HashMap<>();
+    public final IDManager idManager = new IDManager();
     private final File pathToSceneFolder = new File("src/main/Scenes");
     public final SelectedObjectManager selectedObjectManager;
 
@@ -53,18 +53,15 @@ public class Scene {
         counters.add(polygon.getCounterB());
         counters.add(polygon.getCounterC());
 
-        String id = "";
-        id=UUID.randomUUID().toString();
-        indexesToPoints.put(id,polygon.getPointA());
-        polygon.getPointA().setId(id);
+        idManager.putPoint(polygon.getPointA().getId(),polygon.getPointA());
+        idManager.putPoint(polygon.getPointB().getId(),polygon.getPointB());
+        idManager.putPoint(polygon.getPointC().getId(),polygon.getPointC());
 
-        id=UUID.randomUUID().toString();
-        indexesToPoints.put(id,polygon.getPointB());
-        polygon.getPointB().setId(id);
+        idManager.putCounter(polygon.getCounterA().getId(),polygon.getCounterA());
+        idManager.putCounter(polygon.getCounterB().getId(),polygon.getCounterB());
+        idManager.putCounter(polygon.getCounterC().getId(),polygon.getCounterC());
 
-        id=UUID.randomUUID().toString();
-        indexesToPoints.put(id,polygon.getPointC());
-        polygon.getPointC().setId(id);
+        idManager.putPolygon(polygon.getId(),polygon);
 
         polygon.getPointA().addPolygon(polygon);
         polygon.getPointB().addPolygon(polygon);
@@ -127,7 +124,7 @@ public class Scene {
                 Point point = primitiveFactory.createPointFromJson(pointData);
                 this.primitives.add(point);
                 this.points.add(point);
-                this.indexesToPoints.put(id,point);
+                this.idManager.putPoint(id,point);
                 point.setId(id);
             }
 
@@ -135,7 +132,7 @@ public class Scene {
             for(int i =0;i<polygons.length();i++){
                 JSONObject polygonData = polygons.getJSONObject(i);
 
-                Polygon polygon = primitiveFactory.createPolygonFromJson(polygonData,indexesToPoints);
+                Polygon polygon = primitiveFactory.createPolygonFromJson(polygonData,idManager);
                 addPolygon(polygon);
             }
         } catch (IOException e) {

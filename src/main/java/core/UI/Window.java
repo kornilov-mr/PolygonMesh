@@ -3,6 +3,9 @@ package core.UI;
 import core.UI.compositers.ToolBar;
 import core.UI.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.managers.UpdateManager;
+import core.scene.Scene;
+import core.tools.changes.ChangeManager;
+import core.tools.commands.CommandManager;
 import core.tools.selecting.PointMouseListener;
 import core.UI.managers.FocusTabManager;
 import core.camera.Camera;
@@ -11,8 +14,8 @@ import core.camera.cameraControl.CameraKeyListener;
 import core.UI.compositers.MainPanel;
 import core.camera.cameraControl.CameraMouseListener;
 import core.render.RenderConfig;
-import core.statistic.FPSTracker;
-import core.tools.selecting.SelectionKeyListener;
+import core.statistic.FPS.FPSTracker;
+import core.tools.selecting.MainKeyListener;
 
 import javax.swing.*;
 import java.util.Date;
@@ -21,25 +24,28 @@ public class Window {
     private final RenderConfig renderConfig;
     private final MainPanel mainPanel;
     private final UpdateManager updateManager = new UpdateManager();
-    public Window(RenderConfig renderConfig, Camera camera) {
+    public Window(RenderConfig renderConfig, Camera camera, Scene scene) {
         JFrame windowFrame = new JFrame("3D render demo");
         this.renderConfig=renderConfig;
+        ChangeManager changeManager = new ChangeManager(scene.idManager, scene);
+        CommandManager commandManager = new CommandManager(changeManager);
 
         CameraKeyListener cameraKeyListener = new CameraKeyListener(camera,renderConfig);
         CameraMouseListener cameraMouseListener = new CameraMouseListener(camera,renderConfig);
-        ObjectPanel objectPanel = new ObjectPanel();
+
         updateManager.addToUpdates(cameraKeyListener);
         updateManager.addToUpdates(cameraMouseListener);
 
-        SelectionKeyListener selectionKeyListener = new SelectionKeyListener();
 
         FocusTabManager focusTabManager=new FocusTabManager();
         focusTabManager.setMainWindow(windowFrame);
 
-        PointMouseListener pointMouseListener=new PointMouseListener(camera,focusTabManager, selectionKeyListener);
+        MainKeyListener mainKeyListener = new MainKeyListener(commandManager, changeManager);
+        PointMouseListener pointMouseListener=new PointMouseListener(camera,focusTabManager, mainKeyListener,commandManager);
+        ObjectPanel objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);
 
-        this.mainPanel =new MainPanel(renderConfig,camera,cameraMouseListener,pointMouseListener,objectPanel);
+        this.mainPanel =new MainPanel(renderConfig,camera,cameraMouseListener,pointMouseListener,objectPanel, commandManager);
 
         ToolBar toolBar = new ToolBar(objectPanel);
 
@@ -47,7 +53,7 @@ public class Window {
         windowFrame.add(sl);
 
         windowFrame.addKeyListener(cameraKeyListener);
-        windowFrame.addKeyListener(selectionKeyListener);
+        windowFrame.addKeyListener(mainKeyListener);
         setWindowSettings(windowFrame);
         windowFrame.setFocusable(true);
     }

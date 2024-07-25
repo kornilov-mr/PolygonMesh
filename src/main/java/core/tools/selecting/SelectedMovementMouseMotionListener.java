@@ -3,15 +3,15 @@ package core.tools.selecting;
 import core.UI.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.managers.MouseMotionManager;
 import core.camera.Camera;
+import core.tools.commands.CommandManager;
+import core.tools.commands.changeParameters.point.PointMoveChange;
 import primitive.calculation.Point;
 import primitive.Primitive;
 import primitive.calculation.faces.Face;
-import primitive.calculation.faces.Polygon;
 import utils.line.Line;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SelectedMovementMouseMotionListener implements MouseMotionListener {
@@ -19,16 +19,20 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
     private final SelectedObjectManager selectedObjectManager;
     private final ObjectPanel objectPanel;
     private MouseMotionManager mouseMotionManager;
+    private final CommandManager commandManager;
+    private boolean dragged= false;
+    private Point pointDragged;
     private boolean working = true;
 
     public void setMouseMotionManager(MouseMotionManager mouseMotionManager) {
         this.mouseMotionManager = mouseMotionManager;
     }
 
-    public SelectedMovementMouseMotionListener(Camera camera, SelectedObjectManager selectedObjectManager, ObjectPanel objectPanel) {
+    public SelectedMovementMouseMotionListener(Camera camera, SelectedObjectManager selectedObjectManager, ObjectPanel objectPanel, CommandManager commandManager) {
         this.camera = camera;
         this.selectedObjectManager = selectedObjectManager;
         this.objectPanel = objectPanel;
+        this.commandManager = commandManager;
     }
 
     @Override
@@ -49,6 +53,8 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
 
             point.movePointToOtherPointCoordinates(newPointPosition);
             objectPanel.update();
+            pointDragged=new Point(point);
+            dragged=true;
         }
     }
 
@@ -57,6 +63,10 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
 
         if (this.mouseMotionManager != null) {
             mouseMotionManager.startCameraMotion();
+        }
+        if(dragged){
+            dragged=false;
+            commandManager.executeCommand( new PointMoveChange(pointDragged));
         }
     }
 }

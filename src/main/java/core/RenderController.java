@@ -6,7 +6,8 @@ import core.render.RenderConfig;
 import core.camera.Camera;
 import core.scene.Scene;
 import core.UI.Window;
-import core.statistic.FPSTracker;
+import core.statistic.FPS.TrackFPS;
+import core.statistic.FPS.FPSTracker;
 
 import java.util.Date;
 
@@ -46,6 +47,7 @@ public class RenderController {
             window.updateInfoLabels();
         }
     }
+    @TrackFPS
     public Frame getProcessedFrame(){
         long deltaTime = new Date().getTime();
         Frame frame = render.ProcessFrame(scene);

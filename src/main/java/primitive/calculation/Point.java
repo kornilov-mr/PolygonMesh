@@ -4,6 +4,7 @@ import core.UI.elements.toolPanel.pointer.objectInfoPanels.CoordinateInfoPanel;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
+import core.tools.commands.CommandManager;
 import org.json.JSONObject;
 import primitive.Primitive;
 import primitive.rendering.Sphere;
@@ -16,18 +17,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 public class Point extends Primitive implements InfoPanelConvertible {
 
     protected double x;
     protected double y;
     protected double z;
-    public double size;
-    private String idInScene;
 
-    private ArrayList<Polygon> belongToPolygon = new ArrayList<>();
-
+    private final ArrayList<Polygon> belongToPolygon = new ArrayList<>();
+    public Point(Point point){
+        this(point.getX(),point.getY(),point.getZ(), point.getSize(), point.getColor(),point.getId());
+    }
     public Point(Sphere sphere){
         this(sphere.x,sphere.y,sphere.z);
     }
@@ -45,11 +45,17 @@ public class Point extends Primitive implements InfoPanelConvertible {
     }
 
     public Point(double x, double y, double z,double size, Color color) {
-        super(color);
+        super(color,size);
         this.x = x;
         this.y = y;
         this.z = z;
-        this.size=size;
+    }
+    public Point(double x, double y, double z,double size, Color color, String id) {
+        super(color,size);
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        setId(id);
     }
 
     public void setX(double x) {
@@ -106,9 +112,6 @@ public class Point extends Primitive implements InfoPanelConvertible {
         return resultPoint;
     }
 
-    public boolean isSelected() {
-        return selected;
-    }
     public void movePointToOtherPointCoordinates(Point point){
         this.x=point.x;
         this.y=point.y;
@@ -131,10 +134,10 @@ public class Point extends Primitive implements InfoPanelConvertible {
     }
 
     @Override
-    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager) {
-        CoordinateInfoPanel panelX = new CoordinateInfoPanel(new ArrayList<>(),this,"x",x,focusTabManager);
-        CoordinateInfoPanel panelY = new CoordinateInfoPanel(new ArrayList<>(),this,"y",y,focusTabManager);
-        CoordinateInfoPanel panelZ = new CoordinateInfoPanel(new ArrayList<>(),this,"z",z,focusTabManager);
+    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager, CommandManager commandManager) {
+        CoordinateInfoPanel panelX = new CoordinateInfoPanel(new ArrayList<>(),this,"x",x,focusTabManager, commandManager);
+        CoordinateInfoPanel panelY = new CoordinateInfoPanel(new ArrayList<>(),this,"y",y,focusTabManager, commandManager);
+        CoordinateInfoPanel panelZ = new CoordinateInfoPanel(new ArrayList<>(),this,"z",z,focusTabManager, commandManager);
         ObjectInfoPanel objectInfoPanel = new ObjectInfoPanel(new ArrayList<>(Arrays.asList(panelX,panelY,panelZ))) {
             @Override
             public JPanel createJPanel() {
@@ -158,13 +161,6 @@ public class Point extends Primitive implements InfoPanelConvertible {
         return objectInfoPanel;
     }
 
-    public void setId(String idInScene) {
-        this.idInScene = idInScene;
-    }
-
-    public String getId() {
-        return idInScene;
-    }
 
     @Override
     public String toString() {

@@ -1,10 +1,6 @@
 package core.UI.elements.mainPanel.InfoData;
 
-import core.camera.cameraControl.Updatable;
-import core.statistic.FPSTracker;
-
-import javax.swing.*;
-import java.awt.*;
+import core.statistic.FPS.FPSTracker;
 
 public class FPSInfo implements InfoData {
 

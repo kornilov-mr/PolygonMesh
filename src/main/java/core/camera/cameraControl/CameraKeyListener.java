@@ -9,14 +9,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class CameraKeyListener implements KeyListener, Updatable {
     private final Set<Integer> keyPressedSet= new HashSet<>();
     private final Camera camera;
     private final RenderConfig renderConfig;
-
+    private boolean cntrPressed= false;
     private double dx=0;
     private double dy=0;
     private double dz=0;
@@ -46,7 +45,9 @@ public class CameraKeyListener implements KeyListener, Updatable {
                                 dz-=0.1;
                                 break;
                             case KeyEvent.VK_C:
-                                dz+=0.1;
+                                if(!cntrPressed){
+                                    dz+=0.1;
+                                }
                                 break;
                         }
                     }
@@ -62,11 +63,16 @@ public class CameraKeyListener implements KeyListener, Updatable {
     @Override
     public void keyPressed(KeyEvent e) {
         keyPressedSet.add(e.getKeyCode());
+        if(e.getKeyCode()==KeyEvent.VK_CONTROL){
+            cntrPressed=true;
+        }
     }
     @Override
     public void keyReleased(KeyEvent e) {
         keyPressedSet.remove(e.getKeyCode());
-
+        if(e.getKeyCode()==KeyEvent.VK_CONTROL){
+            cntrPressed=false;
+        }
     }
     @Override
     public void update() {

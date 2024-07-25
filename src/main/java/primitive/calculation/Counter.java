@@ -3,9 +3,9 @@ package primitive.calculation;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.UI.managers.FocusTabManager;
+import core.tools.commands.CommandManager;
 import org.json.JSONObject;
 import primitive.Primitive;
-import primitive.calculation.Point;
 import primitive.calculation.faces.Face;
 import utils.colors.ColorAdapter;
 import utils.line.Line;
@@ -14,13 +14,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 public class Counter extends Primitive implements InfoPanelConvertible {
 
     private final Point pointA;
     private final Point pointB;
-    private final double size;
     private final Line counterLine;
 
     public Counter(Point pointA, Point pointB) {
@@ -32,10 +30,9 @@ public class Counter extends Primitive implements InfoPanelConvertible {
     }
 
     public Counter(Point pointA, Point pointB, double size, Color color) {
-        super(color);
+        super(color,size);
         this.pointA = pointA;
         this.pointB = pointB;
-        this.size = size;
         this.counterLine = new Line(pointA,pointB);
     }
 
@@ -66,14 +63,6 @@ public class Counter extends Primitive implements InfoPanelConvertible {
         return pointB;
     }
 
-    public double getSize() {
-        return size;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Counter){
@@ -90,10 +79,10 @@ public class Counter extends Primitive implements InfoPanelConvertible {
     }
 
     @Override
-    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager) {
-        ObjectInfoPanel pointAPanel = pointA.toInfoPanel(focusTabManager);
-        ObjectInfoPanel pointBPanel = pointB.toInfoPanel(focusTabManager);
-        ObjectInfoPanel colorPanel = new ColorAdapter(color, this).toInfoPanel(focusTabManager);
+    public ObjectInfoPanel toInfoPanel(FocusTabManager focusTabManager, CommandManager commandManager) {
+        ObjectInfoPanel pointAPanel = pointA.toInfoPanel(focusTabManager,commandManager);
+        ObjectInfoPanel pointBPanel = pointB.toInfoPanel(focusTabManager,commandManager);
+        ObjectInfoPanel colorPanel = new ColorAdapter(color, this).toInfoPanel(focusTabManager,commandManager);
         ObjectInfoPanel objectInfoPanel = new ObjectInfoPanel(new ArrayList<>(Arrays.asList(pointAPanel,pointBPanel,colorPanel))) {
             @Override
             public JPanel createJPanel() {

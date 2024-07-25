@@ -1,11 +1,9 @@
 package utils.line;
 
 import primitive.calculation.Point;
-import primitive.calculation.faces.Face;
 import utils.Calculation;
 import utils.vectors.Vector3D;
 
-import java.util.UUID;
 
 public class Line {
 
@@ -40,7 +38,6 @@ public class Line {
         if(distance>delta){
             return null;
         }
-        System.out.println("got"+ UUID.randomUUID().toString());
         Point pointT = getClosesPointBetweenLines(line);
         if(pointT==null){
             return null;

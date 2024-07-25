@@ -1,6 +1,10 @@
 package core.UI.elements.toolPanel.pointer.objectInfoPanels;
 
 import core.UI.managers.FocusTabManager;
+import core.tools.commands.CommandManager;
+import core.tools.commands.changeParameters.point.PointXChange;
+import core.tools.commands.changeParameters.point.PointYChange;
+import core.tools.commands.changeParameters.point.PointZChange;
 import primitive.calculation.Point;
 import utils.Calculation;
 
@@ -18,14 +22,14 @@ public class CoordinateInfoPanel extends ObjectInfoPanel{
     private final Point point;
     private final FocusTabManager focusTabManager;
 
-    public CoordinateInfoPanel(ArrayList<ObjectInfoPanel> infoPanels,Point point, String title, double startValue,FocusTabManager focusTabManager){
+    public CoordinateInfoPanel(ArrayList<ObjectInfoPanel> infoPanels,Point point, String title, double startValue,FocusTabManager focusTabManager, CommandManager commandManager){
         super(infoPanels);
         this.title=title;
         this.point=point;
         this.focusTabManager =focusTabManager;
-        super.jPanel = createJPanel(startValue);
+        super.jPanel = createJPanel(startValue,commandManager);
     }
-    private JPanel createJPanel(double startValue){
+    private JPanel createJPanel(double startValue, CommandManager commandManager){
         JPanel jPanel = new JPanel();
         jPanel.add(new JLabel(title+":"));
         textArea = new JTextField(String.valueOf(Calculation.round(startValue,4)));
@@ -47,16 +51,13 @@ public class CoordinateInfoPanel extends ObjectInfoPanel{
             {
                 focusTabManager.setFocusToMainWindow();
                 if(Objects.equals(title,"x")){
-                    point.setX(Double.parseDouble(textArea.getText()));
-                    return;
+                    commandManager.executeCommand(new PointXChange(point,Double.parseDouble(textArea.getText())));
                 }
                 if(Objects.equals(title,"y")){
-                    point.setX(Double.parseDouble(textArea.getText()));
-                    return;
+                    commandManager.executeCommand(new PointYChange(point,Double.parseDouble(textArea.getText())));
                 }
                 if(Objects.equals(title,"z")){
-                    point.setX(Double.parseDouble(textArea.getText()));
-                    return;
+                    commandManager.executeCommand(new PointZChange(point,Double.parseDouble(textArea.getText())));
                 }
 
             }

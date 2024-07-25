@@ -22,9 +22,9 @@ import static org.jocl.CL.*;
 public class AllPrimitiveShader extends ShaderRunner{
     private final RenderConfig renderConfig;
     private final Camera camera;
-    private int[] RGBColors;
-    private Pointer RGBColorsPt;
-    private cl_mem RGBColorsMem;
+    private final int[] RGBColors;
+    private final Pointer RGBColorsPt;
+    private final cl_mem RGBColorsMem;
     protected AllPrimitiveShader(File shaderFile, RenderConfig renderConfig, Camera camera) {
         super(shaderFile);
         this.renderConfig=renderConfig;
@@ -99,7 +99,7 @@ public class AllPrimitiveShader extends ShaderRunner{
             xSphere[i]= sphere.getX();
             ySphere[i]= sphere.getY();
             zSphere[i]= sphere.getZ();
-            SphereSize[i]= sphere.size;
+            SphereSize[i]= sphere.getSize();
             SphereColor[i]=sphere.getColor().getRGB();
         }
         int counterCount= scene.getCounters().size();
