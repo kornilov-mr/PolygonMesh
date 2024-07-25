@@ -1,5 +1,9 @@
 package core.scene;
 
+import core.scene.sceneLoaders.Extensions;
+import core.scene.sceneLoaders.JsonSceneLoader;
+import core.scene.sceneLoaders.SceneLoader;
+import core.scene.sceneLoaders.SceneLoaderFactory;
 import core.tools.selecting.SelectedObjectManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +26,7 @@ public class Scene {
     private final Set<Point> points = new HashSet<>();
     private final Set<Counter> counters = new HashSet<>();
     public final IDManager idManager = new IDManager();
+    private final SceneLoader sceneLoader = new JsonSceneLoader(new File("src/main/Scenes"));
     private final File pathToSceneFolder = new File("src/main/Scenes");
     public final SelectedObjectManager selectedObjectManager;
 
@@ -68,77 +73,13 @@ public class Scene {
         polygon.getPointC().addPolygon(polygon);
     }
 
-    private File getSaveFile() {
-        if (!pathToSceneFolder.exists()) {
-            pathToSceneFolder.mkdir();
-        }
-        int copyCount = 0;
-        File saveFile = pathToSceneFolder.toPath().resolve("Scene" + copyCount+".json").toFile();
-        while (saveFile.exists()) {
-            copyCount += 1;
-            saveFile = pathToSceneFolder.toPath().resolve("Scene" + copyCount+".json").toFile();
-        }
-        return saveFile;
+    public void saveScene(File file, Extensions extension) {
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(file,extension);
+        sceneLoader.saveScene(this);
     }
-
-    public void saveScene() {
-        File saveFile = getSaveFile();
-        try {
-            PrintWriter printWriter = new PrintWriter(saveFile);
-            JSONObject jsonObject = new JSONObject();
-
-            JSONArray pointsJson = new JSONArray();
-            for (Point point : points) {
-                pointsJson.put(wrapPointJsonWithIndex(point, point.getId()));
-            }
-            JSONArray polygonJson = new JSONArray();
-            for(Polygon polygon : polygons){
-                polygonJson.put(polygon.objectInSavingFormat());
-            }
-            jsonObject.put("points",pointsJson);
-            jsonObject.put("polygons",polygonJson);
-            printWriter.println(jsonObject.toString());
-            printWriter.flush();
-        } catch (FileNotFoundException e) {
-            System.out.println("Save file isn't found");
-        }
-    }
-    public JSONObject wrapPointJsonWithIndex(Point point,String id){
-        JSONObject wrappedPointJson = new JSONObject();
-        wrappedPointJson.put("id",id);
-        wrappedPointJson.put("point",point.objectInSavingFormat());
-        return wrappedPointJson;
-    }
-    public void loadSceneFromFile(File file) {
-        PrimitiveFactory primitiveFactory = new PrimitiveFactory();
-        try {
-            String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
-            JSONObject jsonObject = new JSONObject(content);
-
-            JSONArray points = jsonObject.getJSONArray("points");
-            for(int i=0;i<points.length();i++){
-                JSONObject pointJsonWithIndex = points.getJSONObject(i);
-
-                JSONObject pointData = pointJsonWithIndex.getJSONObject("point");
-                String id = pointJsonWithIndex.getString("id");
-                Point point = primitiveFactory.createPointFromJson(pointData);
-                this.primitives.add(point);
-                this.points.add(point);
-                this.idManager.putPoint(id,point);
-                point.setId(id);
-            }
-
-            JSONArray polygons = jsonObject.getJSONArray("polygons");
-            for(int i =0;i<polygons.length();i++){
-                JSONObject polygonData = polygons.getJSONObject(i);
-
-                Polygon polygon = primitiveFactory.createPolygonFromJson(polygonData,idManager);
-                addPolygon(polygon);
-            }
-        } catch (IOException e) {
-            System.out.println("problem with reading from load file");
-
-        }
+    public void loadSceneFromFile(File file){
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file);
+        sceneLoader.saveScene(this);;
     }
 
     public Set<Primitive> getPrimitives() {
