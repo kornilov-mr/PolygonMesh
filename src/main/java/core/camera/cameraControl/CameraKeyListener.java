@@ -26,29 +26,30 @@ public class CameraKeyListener implements KeyListener, Updatable {
         new Timer(20, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if(!keyPressedSet.isEmpty()){
-                    for(int key : keyPressedSet){
-                        switch (key){
-                            case KeyEvent.VK_W:
-                                dx+=0.1;
-                                break;
-                            case KeyEvent.VK_S:
-                                dx-=0.1;
-                                break;
-                            case KeyEvent.VK_A:
-                                dy-=0.1;
-                                break;
-                            case KeyEvent.VK_D:
-                                dy+=0.1;
-                                break;
-                            case KeyEvent.VK_SPACE:
-                                dz-=0.1;
-                                break;
-                            case KeyEvent.VK_C:
-                                if(!cntrPressed){
-                                    dz+=0.1;
-                                }
-                                break;
+                if (cntrPressed) {
+
+                    if (!keyPressedSet.isEmpty()) {
+                        for (int key : keyPressedSet) {
+                            switch (key) {
+                                case KeyEvent.VK_W:
+                                    dx += 0.1;
+                                    break;
+                                case KeyEvent.VK_S:
+                                    dx -= 0.1;
+                                    break;
+                                case KeyEvent.VK_A:
+                                    dy -= 0.1;
+                                    break;
+                                case KeyEvent.VK_D:
+                                    dy += 0.1;
+                                    break;
+                                case KeyEvent.VK_SPACE:
+                                    dz -= 0.1;
+                                    break;
+                                case KeyEvent.VK_C:
+                                    dz += 0.1;
+                                    break;
+                            }
                         }
                     }
                 }
