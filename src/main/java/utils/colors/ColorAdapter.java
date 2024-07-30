@@ -1,9 +1,9 @@
 package utils.colors;
 
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.ColorToneInfoPanel;
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
-import core.UI.managers.FocusTabManager;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.ColorToneInfoPanel;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
+import core.tools.managers.FocusTabManager;
 import core.tools.commands.CommandManager;
 import primitive.Primitive;
 

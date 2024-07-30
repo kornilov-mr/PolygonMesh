@@ -1,4 +1,4 @@
-package core.UI.elements.mainPanel.InfoData;
+package core.UI.visuals.elements.mainPanel.InfoData;
 
 import core.statistic.FPS.FPSTracker;
 

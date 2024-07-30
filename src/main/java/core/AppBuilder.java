@@ -1,12 +1,13 @@
 package core;
 
-import core.UI.Window;
+import core.UI.App;
 import core.camera.Camera;
 import core.render.Render;
 import core.render.RenderConfig;
 import core.scene.Scene;
 
-public class RenderFactory {
+public class AppBuilder {
+
     private RenderConfig renderConfig;
     private Scene scene;
 
@@ -17,19 +18,18 @@ public class RenderFactory {
     public void setScene(Scene scene) {
         this.scene = scene;
     }
-    public RenderController buildRenderController(){
+    public App buildApp(){
 
         if(scene==null){
+            scene = new Scene();
             System.out.println("scene isn't specified");
         }
         if(renderConfig==null){
             System.out.println("renderConfing isn't specified, creating default preset");
             this.renderConfig= new RenderConfig();
         }
-        Camera camera = new Camera(renderConfig);
-        camera.setScene(scene);
+        Camera camera = new Camera(renderConfig, scene);
         Render render=new Render(renderConfig,camera);
-        Window window=new Window(renderConfig,camera,scene,render);
-        return  new RenderController(renderConfig,render,window,camera, scene);
+        return  new App(renderConfig,camera,scene,render);
     }
 }

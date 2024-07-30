@@ -1,9 +1,10 @@
 package core.tools.selecting;
 
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
-import core.UI.elements.toolPanel.pointer.ObjectPanel;
-import core.UI.managers.FocusTabManager;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
+import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
+import core.scene.Scene;
+import core.tools.managers.FocusTabManager;
 import core.camera.Camera;
 import core.tools.commands.CommandManager;
 import core.tools.keys.MainKeyListener;
@@ -19,9 +20,11 @@ public class PointMouseListener implements MouseListener {
     private ObjectPanel objectPanel=null;
     private final MainKeyListener mainKeyListener;
     private final CommandManager commandManager;
+    private final Scene scene;
 
-    public PointMouseListener(Camera camera, FocusTabManager focusTabManager, MainKeyListener mainKeyListener, CommandManager commandManager) {
+    public PointMouseListener(Camera camera,Scene scene, FocusTabManager focusTabManager, MainKeyListener mainKeyListener, CommandManager commandManager) {
         this.camera = camera;
+        this.scene=scene;
         this.commandManager=commandManager;
         this.focusTabManager=focusTabManager;
         this.mainKeyListener = mainKeyListener;
@@ -34,7 +37,7 @@ public class PointMouseListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton()==MouseEvent.BUTTON3){
-            camera.getScene().selectedObjectManager.clearSelection();
+            scene.selectedObjectManager.clearSelection();
             return;
         }
         if(e.getButton()==MouseEvent.BUTTON1) {
@@ -43,9 +46,9 @@ public class PointMouseListener implements MouseListener {
                 Primitive primitive = camera.getPrimitiveOnPixel(e.getX(), e.getY());
                 if(primitive!=null) {
                     if(mainKeyListener.isShiftPressed()){
-                        camera.getScene().selectedObjectManager.changeSelection(primitive);
+                       scene.selectedObjectManager.changeSelection(primitive);
                     }else{
-                        camera.getScene().selectedObjectManager.changeSelectionWithRemove(primitive);
+                        scene.selectedObjectManager.changeSelectionWithRemove(primitive);
                     }
                     ObjectInfoPanel objectInfoPanel =((InfoPanelConvertible) primitive).toInfoPanel(focusTabManager,commandManager);
                     objectPanel.loadObjectPanel(objectInfoPanel);

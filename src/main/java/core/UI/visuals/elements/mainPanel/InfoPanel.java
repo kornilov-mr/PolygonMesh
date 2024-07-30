@@ -1,8 +1,8 @@
-package core.UI.elements.mainPanel;
+package core.UI.visuals.elements.mainPanel;
 
-import core.UI.elements.mainPanel.InfoData.CameraPositionInfo;
-import core.UI.elements.mainPanel.InfoData.FPSInfo;
-import core.UI.elements.mainPanel.InfoData.InfoData;
+import core.UI.visuals.elements.mainPanel.InfoData.CameraPositionInfo;
+import core.UI.visuals.elements.mainPanel.InfoData.FPSInfo;
+import core.UI.visuals.elements.mainPanel.InfoData.InfoData;
 import core.camera.cameraControl.Updatable;
 import primitive.OrientedObject;
 

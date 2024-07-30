@@ -1,6 +1,6 @@
-package core.UI.elements.mainPanel;
+package core.UI.visuals.elements.mainPanel;
 
-import core.UI.managers.MouseMotionManager;
+import core.tools.managers.MouseMotionManager;
 import core.tools.selecting.PointMouseListener;
 import core.render.Frame;
 import core.camera.cameraControl.CameraMouseListener;

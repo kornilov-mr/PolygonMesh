@@ -1,6 +1,6 @@
 package core;
 
-import core.UI.Window;
+import core.UI.visuals.Window;
 import core.render.Frame;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ public class UIUpdateWorker extends SwingWorker<Void,Void> {
     }
 
     @Override
-    protected Void doInBackground() throws Exception {
+    public Void doInBackground() throws Exception {
         window.showOneFrame(frame);
         return null;
     }

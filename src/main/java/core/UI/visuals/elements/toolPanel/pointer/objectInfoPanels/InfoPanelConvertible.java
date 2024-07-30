@@ -1,6 +1,6 @@
-package core.UI.elements.toolPanel.pointer.objectInfoPanels;
+package core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels;
 
-import core.UI.managers.FocusTabManager;
+import core.tools.managers.FocusTabManager;
 import core.tools.commands.CommandManager;
 
 public interface InfoPanelConvertible {

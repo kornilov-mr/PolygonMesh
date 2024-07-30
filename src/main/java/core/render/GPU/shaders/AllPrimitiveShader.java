@@ -37,7 +37,9 @@ public class AllPrimitiveShader extends ShaderRunner{
     }
     @Override
     public int[] run(Scene scene){
-
+        if(scene.getPrimitives().size()==0){
+            return new int[renderConfig.pixelCount];
+        }
         int polygonCount = scene.getPolygons().size();
 
         double[] ACoordinateFrom = new double[polygonCount];

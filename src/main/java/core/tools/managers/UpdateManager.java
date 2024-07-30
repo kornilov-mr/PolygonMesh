@@ -1,4 +1,4 @@
-package core.UI.managers;
+package core.tools.managers;
 
 import core.camera.cameraControl.Updatable;
 

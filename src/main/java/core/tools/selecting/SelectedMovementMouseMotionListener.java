@@ -1,7 +1,7 @@
 package core.tools.selecting;
 
-import core.UI.elements.toolPanel.pointer.ObjectPanel;
-import core.UI.managers.MouseMotionManager;
+import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
+import core.tools.managers.MouseMotionManager;
 import core.camera.Camera;
 import core.tools.commands.CommandManager;
 import core.tools.commands.changeParameters.point.PointMoveChange;

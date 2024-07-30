@@ -1,6 +1,6 @@
-package core.UI.elements.toolPanel.pointer;
+package core.UI.visuals.elements.toolPanel.pointer;
 
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
 import core.camera.cameraControl.Updatable;
 
 import javax.swing.*;

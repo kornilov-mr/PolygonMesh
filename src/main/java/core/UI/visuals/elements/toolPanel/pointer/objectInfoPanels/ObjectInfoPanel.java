@@ -1,4 +1,4 @@
-package core.UI.elements.toolPanel.pointer.objectInfoPanels;
+package core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels;
 
 import javax.swing.*;
 import java.util.ArrayList;

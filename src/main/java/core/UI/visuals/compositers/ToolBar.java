@@ -1,8 +1,6 @@
-package core.UI.compositers;
+package core.UI.visuals.compositers;
 
-import core.UI.elements.toolPanel.pointer.ObjectPanel;
-import core.UI.managers.UpdateManager;
-import core.tools.selecting.PointMouseListener;
+import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
 
 import javax.swing.*;
 

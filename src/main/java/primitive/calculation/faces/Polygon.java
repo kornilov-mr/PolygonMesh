@@ -1,10 +1,10 @@
 package primitive.calculation.faces;
 
-import core.UI.managers.FocusTabManager;
+import core.tools.managers.FocusTabManager;
 import core.tools.commands.CommandManager;
 import org.json.JSONObject;
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
 import primitive.Primitive;
 import primitive.calculation.Counter;
 import primitive.calculation.Point;

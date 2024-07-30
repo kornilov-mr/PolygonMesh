@@ -1,18 +1,19 @@
-package core;
+package core.render;
 
+import core.UIUpdateWorker;
 import core.render.Frame;
 import core.render.Render;
 import core.render.RenderConfig;
 import core.camera.Camera;
 import core.scene.Scene;
-import core.UI.Window;
+import core.UI.visuals.Window;
 import core.statistic.FPS.TrackFPS;
 import core.statistic.FPS.FPSTracker;
 
 import java.util.Date;
 
 
-public class RenderController {
+public class RenderController extends Thread {
 
     private final RenderConfig renderConfig;
     private final Render render;
@@ -20,7 +21,7 @@ public class RenderController {
     private final Camera camera;
     private final Scene scene;
 
-    protected RenderController(RenderConfig renderConfig, Render render, Window window, Camera camera, Scene scene) {
+    public RenderController(RenderConfig renderConfig, Render render, Window window, Camera camera, Scene scene) {
         this.renderConfig = renderConfig;
         this.render = render;
         this.window = window;
@@ -28,12 +29,9 @@ public class RenderController {
         this.scene = scene;
     }
 
-    public void startRender(){
 
-        if(scene==null){
-            System.out.println("emptyScene");
-            return;
-        }
+    @Override
+    public void run() {
         while(true){
             Frame frame = getProcessedFrame();
             UIUpdateWorker uiUpdateWorker = new UIUpdateWorker(frame, window);
@@ -47,6 +45,7 @@ public class RenderController {
             window.updateInfoLabels();
         }
     }
+
     @TrackFPS
     public Frame getProcessedFrame(){
         long deltaTime = new Date().getTime();

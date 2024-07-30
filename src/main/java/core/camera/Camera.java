@@ -17,13 +17,14 @@ public class Camera extends OrientedObject {
     private Scene scene;
     private final RenderConfig renderConfig;
 
-    public Camera(RenderConfig renderConfig) {
-        this(new Vector3D(0,0,0), 0, 0,renderConfig);
+    public Camera(RenderConfig renderConfig,Scene scene) {
+        this(new Vector3D(0,0,0), 0, 0,renderConfig,scene);
     }
 
-    public Camera(Vector3D cameraPosition, double horizontalAngle, double verticalAngle, RenderConfig renderConfig) {
+    public Camera(Vector3D cameraPosition, double horizontalAngle, double verticalAngle, RenderConfig renderConfig, Scene scene) {
         super(cameraPosition,horizontalAngle,verticalAngle);
         this.renderConfig=renderConfig;
+        this.scene=scene;
     }
     public Line getRayLine(int i, int j) {
         Vector3D vu = new Vector3D(position);
@@ -40,10 +41,6 @@ public class Camera extends OrientedObject {
     }
     public void setScene(Scene scene){
         this.scene=scene;
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     public Primitive getPrimitiveOnPixel(int i, int j){

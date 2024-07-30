@@ -1,9 +1,9 @@
 package primitive.calculation;
 
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.CoordinateInfoPanel;
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
-import core.UI.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
-import core.UI.managers.FocusTabManager;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.CoordinateInfoPanel;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.InfoPanelConvertible;
+import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPanel;
+import core.tools.managers.FocusTabManager;
 import core.tools.commands.CommandManager;
 import org.json.JSONObject;
 import primitive.Primitive;

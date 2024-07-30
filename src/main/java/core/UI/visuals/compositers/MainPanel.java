@@ -1,8 +1,9 @@
-package core.UI.compositers;
+package core.UI.visuals.compositers;
 
-import core.UI.elements.mainPanel.InfoPanel;
-import core.UI.elements.mainPanel.MainRenderPlane;
-import core.UI.elements.toolPanel.pointer.ObjectPanel;
+import core.UI.visuals.elements.mainPanel.InfoPanel;
+import core.UI.visuals.elements.mainPanel.MainRenderPlane;
+import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
+import core.scene.Scene;
 import core.tools.commands.CommandManager;
 import core.tools.selecting.PointMouseListener;
 import core.camera.Camera;
@@ -18,10 +19,10 @@ public class MainPanel extends JLayeredPane {
 
     private final MainRenderPlane mainRenderPlane;
     private final InfoPanel infoPanel;
-    public MainPanel(RenderConfig renderConfig, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener, ObjectPanel objectPanel, CommandManager commandManager){
+    public MainPanel(RenderConfig renderConfig, Scene scene, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener, ObjectPanel objectPanel, CommandManager commandManager){
         this.renderConfig=renderConfig;
         this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],
-                cameraMouseListener,pointMouseListener, new SelectedMovementMouseMotionListener(camera,camera.getScene().selectedObjectManager,objectPanel, commandManager));
+                cameraMouseListener,pointMouseListener, new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager));
 
         this.infoPanel = new InfoPanel(camera);
 

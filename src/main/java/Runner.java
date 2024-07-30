@@ -1,5 +1,6 @@
-import core.RenderController;
-import core.RenderFactory;
+import core.AppBuilder;
+import core.UI.App;
+import core.render.RenderController;
 import core.scene.Scene;
 import primitive.calculation.Point;
 import primitive.calculation.faces.Polygon;
@@ -25,13 +26,11 @@ public class Runner {
                 new Color(255,255,0)));
         scene.addPoint(pointE);
 //        scene.loadSceneFromFile(new File("src/main/Scenes/Scene32.json"));
-        RenderFactory renderFactory = new RenderFactory();
-        renderFactory.setScene(scene);
+        AppBuilder appBuilder = new AppBuilder();
+        appBuilder.setScene(scene);
 //        scene.saveScene();
-        RenderController renderController =renderFactory.buildRenderController();
-        renderController.startRender();
-//        Color color = new Color(255,0,0);
-//        System.out.println(color.getRGB());
+        App app =appBuilder.buildApp();
+        app.start();
         System.out.println(new Color(-65536));
     }
 }
