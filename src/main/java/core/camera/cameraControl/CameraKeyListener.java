@@ -26,8 +26,6 @@ public class CameraKeyListener implements KeyListener, Updatable {
         new Timer(20, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if (cntrPressed) {
-
                     if (!keyPressedSet.isEmpty()) {
                         for (int key : keyPressedSet) {
                             switch (key) {
@@ -53,7 +51,6 @@ public class CameraKeyListener implements KeyListener, Updatable {
                         }
                     }
                 }
-            }
         }).start();
     }
 

@@ -6,6 +6,7 @@ import core.UI.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.managers.FocusTabManager;
 import core.camera.Camera;
 import core.tools.commands.CommandManager;
+import core.tools.keys.MainKeyListener;
 import primitive.Primitive;
 
 import java.awt.event.MouseEvent;

@@ -1,6 +1,8 @@
 package core.tools.commands.changeParameters.color;
 
+import core.scene.Scene;
 import core.tools.commands.changeParameters.ParameterChangeCommand;
+import core.tools.selecting.SelectedObjectManager;
 import primitive.Primitive;
 
 public class ColorBChange extends ParameterChangeCommand {
@@ -13,7 +15,7 @@ public class ColorBChange extends ParameterChangeCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(Scene scene, SelectedObjectManager selectedObjectManager) {
         primitive.setBlue(B);
     }
 }

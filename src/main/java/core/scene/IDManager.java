@@ -19,11 +19,11 @@ public class IDManager {
         indexesToPoints.put(id,point);
         indexesToPrimitive.put(id,point);
     }
-    public void putCounter(String id,Counter counter){
+    private void putCounter(String id,Counter counter){
         indexesToCounters.put(id,counter);
         indexesToPrimitive.put(id,counter);
     }
-    public void putPolygon(String id,Polygon polygon){
+    private void putPolygon(String id,Polygon polygon){
         indexesToPolygons.put(id,polygon);
         indexesToPrimitive.put(id,polygon);
     }
@@ -44,5 +44,28 @@ public class IDManager {
         indexesToCounters.remove(id);
         indexesToPoints.remove(id);
         indexesToPrimitive.remove(id);
+    }
+    public boolean containPrimitiveById(String id){
+        return indexesToPrimitive.containsKey(id);
+    }
+    protected void registerPolygon(Polygon polygon){
+        putPoint(polygon.getPointA().getId(),polygon.getPointA());
+        putPoint(polygon.getPointB().getId(),polygon.getPointB());
+        putPoint(polygon.getPointC().getId(),polygon.getPointC());
+
+        putCounter(polygon.getCounterA().getId(),polygon.getCounterA());
+        putCounter(polygon.getCounterB().getId(),polygon.getCounterB());
+        putCounter(polygon.getCounterC().getId(),polygon.getCounterC());
+
+        putPolygon(polygon.getId(),polygon);
+    }
+    protected void registerPoint(Point point){
+        putPoint(point.getId(), point);
+    }
+    protected void registerCounter(Counter counter){
+        putPoint(counter.getPointA().getId(),counter.getPointA());
+        putPoint(counter.getPointB().getId(),counter.getPointB());
+
+        putCounter(counter.getId(), counter);
     }
 }

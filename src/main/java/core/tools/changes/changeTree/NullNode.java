@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class NullNode extends ChangeNode{
     public NullNode(Scene scene) {
-        super(new Change(new ArrayList<>(scene.getPrimitives())), null);
+        super(new Change(new ArrayList<>(scene.getPrimitives()), new ArrayList<>()), null);
     }
 
     @Override

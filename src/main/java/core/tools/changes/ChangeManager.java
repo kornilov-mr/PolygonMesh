@@ -11,12 +11,13 @@ public class ChangeManager {
     private final ChangeTree changeTree;
 
     public ChangeManager(IDManager idManager, Scene scene) {
-        this.changeReverser = new ChangeReverser(idManager);
+        this.changeReverser = new ChangeReverser(idManager,scene);
         this.changeTree=new ChangeTree(scene);
     }
     public void addChangeInStack(Change change){
-        System.out.println("add");
-        changeTree.addNode(change);
+        if(!change.isEmpty()){
+            changeTree.addNode(change);
+        }
     }
     public void reversePreviousChange(){
         changeReverser.ReverseChange(changeTree.previousChange());

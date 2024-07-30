@@ -1,6 +1,8 @@
 package core.tools.commands.changeParameters.point;
 
+import core.scene.Scene;
 import core.tools.commands.changeParameters.ParameterChangeCommand;
+import core.tools.selecting.SelectedObjectManager;
 import primitive.calculation.Point;
 
 public class PointZChange extends ParameterChangeCommand {
@@ -13,7 +15,7 @@ public class PointZChange extends ParameterChangeCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(Scene scene, SelectedObjectManager selectedObjectManager) {
         point.setZ(z);
     }
 }

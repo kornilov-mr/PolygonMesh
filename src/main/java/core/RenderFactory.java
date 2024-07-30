@@ -29,7 +29,7 @@ public class RenderFactory {
         Camera camera = new Camera(renderConfig);
         camera.setScene(scene);
         Render render=new Render(renderConfig,camera);
-        Window window=new Window(renderConfig,camera,scene);
+        Window window=new Window(renderConfig,camera,scene,render);
         return  new RenderController(renderConfig,render,window,camera, scene);
     }
 }

@@ -32,7 +32,7 @@ public class Point extends Primitive implements InfoPanelConvertible {
         this(sphere.x,sphere.y,sphere.z);
     }
     public Point(double x, double y, double z){
-        this(x,y,z,0.1,new Color(0,0,0));
+        this(x,y,z,0.2,new Color(0,0,0));
     }
     public Point(Vector3D vector){
         this(vector.getX(), vector.getY(), vector.getZ(),0.1,new Color(0,0,0));

@@ -53,4 +53,12 @@ public class SelectedObjectManager {
         }
         return false;
     }
+    public boolean isSelectedOnlyPoints(){
+        for(Primitive primitive: selected){
+            if(!(primitive instanceof Point)){
+                return false;
+            }
+        }
+        return true;
+    }
 }

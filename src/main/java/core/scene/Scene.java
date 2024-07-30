@@ -9,7 +9,6 @@ import primitive.calculation.Point;
 import primitive.Primitive;
 import primitive.calculation.faces.Polygon;
 
-import java.awt.*;
 import java.io.*;
 import java.util.*;
 
@@ -26,11 +25,29 @@ public class Scene {
         this.selectedObjectManager= new SelectedObjectManager();
     }
 
-    public void createPolygon(String pointAId,String pointBId,String pointCId,Color color){
-
+    public void addPrimitive(Primitive primitive){
+        if(primitive instanceof Polygon){
+            addPolygon((Polygon) primitive);
+        }else if(primitive instanceof Point){
+            addPoint((Point) primitive);
+        }else if(primitive instanceof Counter){
+            addCounter((Counter) primitive);
+        }
     }
-    public void createPolygon(Point pointA,Point pointB,Point pointC, Color color){
-        Polygon polygon = new Polygon(pointA,pointB,pointC,color);
+    public void addPoint(Point point){
+        points.add(point);
+        primitives.add(point);
+        idManager.registerPoint(point);
+    }
+    public void addCounter(Counter counter){
+        counters.add(counter);
+        points.add(counter.getPointA());
+        points.add(counter.getPointB());
+        primitives.add(counter);
+        primitives.add(counter.getPointA());
+        primitives.add(counter.getPointB());
+
+        idManager.registerCounter(counter);
     }
     public void addPolygon(Polygon polygon) {
         primitives.add(polygon);
@@ -50,15 +67,7 @@ public class Scene {
         counters.add(polygon.getCounterB());
         counters.add(polygon.getCounterC());
 
-        idManager.putPoint(polygon.getPointA().getId(),polygon.getPointA());
-        idManager.putPoint(polygon.getPointB().getId(),polygon.getPointB());
-        idManager.putPoint(polygon.getPointC().getId(),polygon.getPointC());
-
-        idManager.putCounter(polygon.getCounterA().getId(),polygon.getCounterA());
-        idManager.putCounter(polygon.getCounterB().getId(),polygon.getCounterB());
-        idManager.putCounter(polygon.getCounterC().getId(),polygon.getCounterC());
-
-        idManager.putPolygon(polygon.getId(),polygon);
+        idManager.registerPolygon(polygon);
 
         polygon.getPointA().addPolygon(polygon);
         polygon.getPointB().addPolygon(polygon);

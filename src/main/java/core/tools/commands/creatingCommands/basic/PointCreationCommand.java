@@ -1,21 +1,17 @@
-package core.tools.commands.changeParameters.point;
+package core.tools.commands.creatingCommands.basic;
 
 import core.scene.Scene;
-import core.tools.commands.changeParameters.ParameterChangeCommand;
 import core.tools.selecting.SelectedObjectManager;
 import primitive.calculation.Point;
 
-public class PointXChange extends ParameterChangeCommand {
+public class PointCreationCommand extends ObjectCreationCommand{
     private final Point point;
-    private final double x;
-    public PointXChange(Point point, double x) {
+    public PointCreationCommand(Point point) {
         super(point);
         this.point=point;
-        this.x=x;
     }
-
     @Override
     public void execute(Scene scene, SelectedObjectManager selectedObjectManager) {
-        point.setX(x);
+        scene.addPoint(point);
     }
 }

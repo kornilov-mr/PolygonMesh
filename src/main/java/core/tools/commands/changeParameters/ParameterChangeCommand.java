@@ -14,7 +14,7 @@ public abstract class ParameterChangeCommand implements Command {
     }
 
     @Override
-    public Change getChange() {
-        return new Change(new ArrayList<>(Arrays.asList(primitive)));
+    public final Change getChange() {
+        return new Change(new ArrayList<>(Arrays.asList(primitive)), new ArrayList<>());
     }
 }

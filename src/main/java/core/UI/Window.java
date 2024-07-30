@@ -3,6 +3,7 @@ package core.UI;
 import core.UI.compositers.ToolBar;
 import core.UI.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.managers.UpdateManager;
+import core.render.RenderSwitcher;
 import core.scene.Scene;
 import core.tools.changes.ChangeManager;
 import core.tools.commands.CommandManager;
@@ -15,7 +16,7 @@ import core.UI.compositers.MainPanel;
 import core.camera.cameraControl.CameraMouseListener;
 import core.render.RenderConfig;
 import core.statistic.FPS.FPSTracker;
-import core.tools.selecting.MainKeyListener;
+import core.tools.keys.MainKeyListener;
 
 import javax.swing.*;
 import java.util.Date;
@@ -24,11 +25,11 @@ public class Window {
     private final RenderConfig renderConfig;
     private final MainPanel mainPanel;
     private final UpdateManager updateManager = new UpdateManager();
-    public Window(RenderConfig renderConfig, Camera camera, Scene scene) {
+    public Window(RenderConfig renderConfig, Camera camera, Scene scene, RenderSwitcher renderSwitcher) {
         JFrame windowFrame = new JFrame("3D render demo");
         this.renderConfig=renderConfig;
         ChangeManager changeManager = new ChangeManager(scene.idManager, scene);
-        CommandManager commandManager = new CommandManager(changeManager);
+        CommandManager commandManager = new CommandManager(scene, scene.selectedObjectManager, changeManager);
 
         CameraKeyListener cameraKeyListener = new CameraKeyListener(camera,renderConfig);
         CameraMouseListener cameraMouseListener = new CameraMouseListener(camera,renderConfig);
@@ -40,7 +41,7 @@ public class Window {
         FocusTabManager focusTabManager=new FocusTabManager();
         focusTabManager.setMainWindow(windowFrame);
 
-        MainKeyListener mainKeyListener = new MainKeyListener(commandManager, changeManager);
+        MainKeyListener mainKeyListener = new MainKeyListener(commandManager, changeManager, renderSwitcher);
         PointMouseListener pointMouseListener=new PointMouseListener(camera,focusTabManager, mainKeyListener,commandManager);
         ObjectPanel objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);

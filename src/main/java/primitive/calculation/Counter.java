@@ -22,7 +22,7 @@ public class Counter extends Primitive implements InfoPanelConvertible {
     private final Line counterLine;
 
     public Counter(Point pointA, Point pointB) {
-        this(pointA,pointB,1, new Color(0,0,0));
+        this(pointA,pointB,0.1, new Color(0,0,0));
     }
 
     public Counter(Point pointA, Point pointB, double size) {

@@ -9,11 +9,8 @@ import org.jocl.Sizeof;
 import org.jocl.cl_mem;
 import primitive.calculation.faces.Polygon;
 import primitive.rendering.PolygonForRendering;
-import utils.line.Line;
-import utils.vectors.Vector3D;
 
 import java.io.File;
-import java.util.Date;
 import java.util.Iterator;
 
 import static org.jocl.CL.*;
@@ -21,9 +18,9 @@ import static org.jocl.CL.*;
 public class OnlyPolygonShader extends ShaderRunner{
     private final RenderConfig renderConfig;
     private final Camera camera;
-    private int[] RGBColors;
-    private Pointer RGBColorsPt;
-    private cl_mem RGBColorsMem;
+    private final int[] RGBColors;
+    private final Pointer RGBColorsPt;
+    private final cl_mem RGBColorsMem;
     protected OnlyPolygonShader(File shaderFile, RenderConfig renderConfig, Camera camera) {
         super(shaderFile);
         this.renderConfig=renderConfig;
@@ -156,7 +153,6 @@ public class OnlyPolygonShader extends ShaderRunner{
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(DCoordinateFromMem));
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(polygonColorMem));
 
-        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{scene.getPolygons().size()}));
 
 
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(x1Mem));
@@ -171,6 +167,7 @@ public class OnlyPolygonShader extends ShaderRunner{
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(y3Mem));
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(z3Mem));
 
+        clSetKernelArg(kernel, a++, Sizeof.cl_int, Pointer.to(new int[]{scene.getPolygons().size()}));
         clSetKernelArg(kernel, a++, Sizeof.cl_mem, Pointer.to(RGBColorsMem));
 
 
