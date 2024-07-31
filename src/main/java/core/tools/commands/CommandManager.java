@@ -1,7 +1,9 @@
 package core.tools.commands;
 
+import core.UI.visuals.elements.toolPanel.toolInterface.instructions.Instruction;
 import core.scene.Scene;
 import core.tools.changes.ChangeManager;
+import core.tools.managers.FocusTabManager;
 import core.tools.selecting.SelectedObjectManager;
 
 public class CommandManager {
@@ -18,4 +20,5 @@ public class CommandManager {
         command.execute(scene,selectedObjectManager);
         changeManager.addChangeInStack(command.getChange());
     }
+
 }

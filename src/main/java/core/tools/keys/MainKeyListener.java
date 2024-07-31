@@ -1,5 +1,6 @@
 package core.tools.keys;
 
+import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionManager;
 import core.render.RenderSwitcher;
 import core.scene.SceneManipulator;
 import core.tools.changes.ChangeManager;
@@ -15,8 +16,8 @@ public class MainKeyListener implements KeyListener {
     private final KeyBindRegister keyBindRegister;
     private boolean shiftPressed = false;
 
-    public MainKeyListener(CommandManager commandManager, ChangeManager changeManager, RenderSwitcher renderSwitcher) {
-        this.sceneManipulator = new SceneManipulator(commandManager,changeManager,renderSwitcher);
+    public MainKeyListener(CommandManager commandManager, ChangeManager changeManager, RenderSwitcher renderSwitcher, InstructionManager instructionManager) {
+        this.sceneManipulator = new SceneManipulator(commandManager,changeManager,renderSwitcher, instructionManager);
         this.keyBindRegister=new KeyBindRegister();
     }
 

@@ -32,7 +32,7 @@ public class Window {
 
         this.mainPanel =new MainPanel(windowController.getRenderConfig(),windowController.getScene(),windowController.getCamera(),
                 windowController.getCameraMouseListener(),windowController.getPointMouseListener(),
-                windowController.getObjectPanel(), windowController.getCommandManager());
+                windowController.getObjectPanel(), windowController.getCommandManager(), windowController.getInstructionPanel());
 
         ToolBar toolBar = new ToolBar(windowController.getObjectPanel());
 

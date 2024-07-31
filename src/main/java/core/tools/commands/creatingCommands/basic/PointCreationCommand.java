@@ -6,6 +6,9 @@ import primitive.calculation.Point;
 
 public class PointCreationCommand extends ObjectCreationCommand{
     private final Point point;
+    public PointCreationCommand(double x, double y, double z){
+        this(new Point(x,y,z));
+    }
     public PointCreationCommand(Point point) {
         super(point);
         this.point=point;

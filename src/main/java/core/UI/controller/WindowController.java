@@ -1,6 +1,8 @@
 package core.UI.controller;
 
 import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
+import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionManager;
+import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionPanel;
 import core.camera.Camera;
 import core.camera.cameraControl.CameraKeyListener;
 import core.camera.cameraControl.CameraMouseListener;
@@ -27,24 +29,29 @@ public class WindowController {
     private final Camera camera;
     private final ObjectPanel objectPanel;
     private final Scene scene;
+    private final InstructionPanel instructionPanel;
+    private final InstructionManager instructionManager;
     public WindowController(RenderConfig renderConfig, Camera camera,Scene scene, RenderSwitcher renderSwitcher) {
         this.renderConfig = renderConfig;
         this.camera= camera;
         this.scene= scene;
         this.changeManager = new ChangeManager(scene.idManager, scene);
+        this.focusTabManager=new FocusTabManager();
         this.commandManager = new CommandManager(scene, scene.selectedObjectManager, changeManager);
 
         this.cameraKeyListener = new CameraKeyListener(camera,renderConfig);
         this.cameraMouseListener = new CameraMouseListener(camera,renderConfig);
 
+        this.instructionPanel= new InstructionPanel();
+
+        this.instructionManager= new InstructionManager(focusTabManager,commandManager,instructionPanel);
         updateManager.addToUpdates(cameraKeyListener);
         updateManager.addToUpdates(cameraMouseListener);
 
 
-        this.focusTabManager=new FocusTabManager();
 
 
-        this.mainKeyListener = new MainKeyListener(commandManager, changeManager, renderSwitcher);
+        this.mainKeyListener = new MainKeyListener(commandManager, changeManager, renderSwitcher, instructionManager);
         this.pointMouseListener=new PointMouseListener(camera,scene,focusTabManager, mainKeyListener,commandManager);
         this.objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);
@@ -95,5 +102,13 @@ public class WindowController {
 
     public Scene getScene() {
         return scene;
+    }
+
+    public InstructionPanel getInstructionPanel() {
+        return instructionPanel;
+    }
+
+    public InstructionManager getInstructionManager() {
+        return instructionManager;
     }
 }

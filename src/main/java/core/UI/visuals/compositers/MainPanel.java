@@ -2,7 +2,9 @@ package core.UI.visuals.compositers;
 
 import core.UI.visuals.elements.mainPanel.InfoPanel;
 import core.UI.visuals.elements.mainPanel.MainRenderPlane;
+import core.UI.visuals.elements.mainPanel.PaletteLayer;
 import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
+import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionPanel;
 import core.scene.Scene;
 import core.tools.commands.CommandManager;
 import core.tools.selecting.PointMouseListener;
@@ -19,16 +21,17 @@ public class MainPanel extends JLayeredPane {
 
     private final MainRenderPlane mainRenderPlane;
     private final InfoPanel infoPanel;
-    public MainPanel(RenderConfig renderConfig, Scene scene, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener, ObjectPanel objectPanel, CommandManager commandManager){
+    public MainPanel(RenderConfig renderConfig, Scene scene, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener, ObjectPanel objectPanel, CommandManager commandManager, InstructionPanel instructionPanel){
         this.renderConfig=renderConfig;
         this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],
                 cameraMouseListener,pointMouseListener, new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager));
 
         this.infoPanel = new InfoPanel(camera);
 
+        PaletteLayer paletteLayer = new PaletteLayer(infoPanel, instructionPanel);
         OverlayLayout overlayLayout = new OverlayLayout(this);
         setLayout(overlayLayout);
-        add(infoPanel,JLayeredPane.PALETTE_LAYER);
+        add(paletteLayer,JLayeredPane.PALETTE_LAYER);
         add(mainRenderPlane,JLayeredPane.DEFAULT_LAYER);
         infoPanel.setAlignmentX(0.2f);
         infoPanel.setAlignmentY(0.0f);

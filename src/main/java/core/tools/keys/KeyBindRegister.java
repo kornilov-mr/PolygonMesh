@@ -1,10 +1,7 @@
 package core.tools.keys;
 
 import core.scene.SceneManipulator;
-import core.tools.keys.oneTimeKeyBind.CNTRSHIFTZ;
-import core.tools.keys.oneTimeKeyBind.CNTRZ;
-import core.tools.keys.oneTimeKeyBind.OneTimeKeyBind;
-import core.tools.keys.oneTimeKeyBind.SHIFTA;
+import core.tools.keys.oneTimeKeyBind.*;
 import core.tools.keys.radioKeyBind.OnlyPolygonShaderBind;
 import core.tools.keys.radioKeyBind.RadioKeyBind;
 
@@ -20,6 +17,7 @@ public class KeyBindRegister {
         this.oneTimeKeyBindSet.add(new CNTRZ());
         this.oneTimeKeyBindSet.add(new CNTRSHIFTZ());
         this.oneTimeKeyBindSet.add(new SHIFTA());
+        this.oneTimeKeyBindSet.add(new SHIFTP());
     }
 
     public void loopThroughOneTimeBinds(Set<Integer> keyPressed,SceneManipulator sceneManipulator){
