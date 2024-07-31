@@ -11,7 +11,7 @@ public class InstructionQueue {
     private final InstructionPanel instructionPanel;
     private final Queue<JPanel> queue = new LinkedList<>();
 
-    public InstructionQueue(InstructionPanel instructionPanel, FocusTabManager focusTabManager, CommandManager commandManager) {
+    public InstructionQueue(InstructionPanel instructionPanel) {
         this.instructionPanel = instructionPanel;
     }
 

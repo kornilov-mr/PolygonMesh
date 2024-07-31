@@ -2,7 +2,6 @@ package core.UI.visuals.elements.toolPanel.toolInterface.instructions;
 
 import core.UI.visuals.elements.toolPanel.toolInterface.popup.InstructionPopup;
 import core.UI.visuals.elements.toolPanel.toolInterface.popup.fields.TypeEnum;
-import core.tools.commands.Command;
 import core.tools.commands.CommandManager;
 import core.tools.managers.FocusTabManager;
 

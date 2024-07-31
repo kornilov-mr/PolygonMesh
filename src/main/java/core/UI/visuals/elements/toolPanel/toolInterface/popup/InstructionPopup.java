@@ -5,9 +5,6 @@ import core.UI.visuals.elements.toolPanel.toolInterface.popup.fields.TypeEnum;
 import core.tools.managers.FocusTabManager;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 
 public class InstructionPopup {

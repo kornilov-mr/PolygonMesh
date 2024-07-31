@@ -6,7 +6,6 @@ import core.scene.SceneManipulator;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 public class SHIFTP extends OneTimeKeyBind{
     public SHIFTP() {

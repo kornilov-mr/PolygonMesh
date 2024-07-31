@@ -1,7 +1,6 @@
 package core.UI.visuals.elements.toolPanel.toolInterface.instructions.creatingInstructions;
 
 import core.UI.visuals.elements.toolPanel.toolInterface.instructions.Instruction;
-import core.UI.visuals.elements.toolPanel.toolInterface.popup.fields.DoubleField;
 import core.UI.visuals.elements.toolPanel.toolInterface.popup.fields.TypeEnum;
 import core.tools.commands.CommandManager;
 import core.tools.commands.creatingCommands.basic.PointCreationCommand;

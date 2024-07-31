@@ -1,23 +1,10 @@
 package core.UI.visuals;
 
 import core.UI.controller.WindowController;
-import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.visuals.compositers.MainPanel;
 import core.UI.visuals.compositers.ToolBar;
-import core.tools.managers.UpdateManager;
-import core.render.RenderSwitcher;
-import core.scene.Scene;
-import core.tools.changes.ChangeManager;
-import core.tools.commands.CommandManager;
-import core.tools.selecting.PointMouseListener;
-import core.tools.managers.FocusTabManager;
-import core.camera.Camera;
 import core.render.Frame;
-import core.camera.cameraControl.CameraKeyListener;
-import core.camera.cameraControl.CameraMouseListener;
-import core.render.RenderConfig;
 import core.statistic.FPS.FPSTracker;
-import core.tools.keys.MainKeyListener;
 
 import javax.swing.*;
 import java.util.Date;
