@@ -57,7 +57,7 @@ public class Camera extends OrientedObject {
             if(point==null){
                 continue;
             }
-            double distance = Calculation.getLengthBetweenTwoPoints(point,new Point(position));
+            double distance = point.getDistanceToPoint(new Point(position));
             if(distance<minDistance||minDistance==-1){
                 minDistance=distance;
                 closesPrimitive=primitive;

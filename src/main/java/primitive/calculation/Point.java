@@ -7,10 +7,12 @@ import core.tools.managers.FocusTabManager;
 import core.tools.commands.CommandManager;
 import org.json.JSONObject;
 import primitive.Primitive;
+import primitive.calculation.faces.CoordinateForm;
 import primitive.rendering.Sphere;
 import primitive.calculation.faces.Polygon;
 import utils.Calculation;
 import utils.line.Line;
+import utils.triangle.Triangle;
 import utils.vectors.Vector3D;
 
 import javax.swing.*;
@@ -98,11 +100,11 @@ public class Point extends Primitive implements InfoPanelConvertible {
     }
     @Override
     public Point getIntersection(Line line) {
-        Point pointT = Calculation.closestPointToLine(this,line);
+        Point pointT =closestPointOnLine(line);
         if(pointT==null){
             return null;
         }
-        double distanceST=Calculation.getLengthBetweenTwoPoints(this,pointT);
+        double distanceST=getDistanceToPoint(pointT);
         if(size*2-distanceST*2<0){
             return null;
         }
@@ -161,7 +163,29 @@ public class Point extends Primitive implements InfoPanelConvertible {
         return objectInfoPanel;
     }
 
+    public Vector3D VectorToPoint(Point pointB){
+        return new Vector3D(pointB.getX()-getX(),pointB.getY()-getY(),pointB.getZ()-getZ());
+    }
+    public double getDistanceToPoint(Point pointB){
+        return VectorToPoint(pointB).getLength();
+    }
+    public boolean ifPointInTriangle(Triangle triangle){
+        double mainArea = triangle.area();
+        double subArea1 = new Triangle(this,triangle.getPointB(), triangle.getPointC()).area();
+        double subArea2 = new Triangle(triangle.getPointA(),this, triangle.getPointC()).area();
+        double subArea3 = new Triangle(triangle.getPointA(),triangle.getPointB(), this).area();
+        if(Calculation.round(mainArea,10)==Calculation.round(subArea1+subArea2+subArea3,10)){
+            return true;
+        }
+        return false;
+    }
+    public Point closestPointOnLine(Line line){
+        CoordinateForm coordinateForm = new CoordinateForm(line.directionVector,
+                new Vector3D(this).multiply(line.directionVector).multiply(-1).getSum());
+        Point pointT = coordinateForm.getPointOnIntersection(line);
 
+        return pointT;
+    }
     @Override
     public String toString() {
         return "Point{" +

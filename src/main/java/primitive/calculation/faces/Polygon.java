@@ -11,6 +11,7 @@ import primitive.calculation.Point;
 import utils.Calculation;
 import utils.colors.ColorAdapter;
 import utils.line.Line;
+import utils.triangle.Triangle;
 import utils.vectors.Vector3D;
 
 import javax.swing.*;
@@ -45,8 +46,8 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
         calculateNormalVector();
     }
     public void calculateNormalVector(){
-        Vector3D directionVector1 = Calculation.VectorBetweenTwoPoints(pointA, pointB);
-        Vector3D directionVector2 = Calculation.VectorBetweenTwoPoints(pointA, pointC);
+        Vector3D directionVector1 = pointA.VectorToPoint(pointB);
+        Vector3D directionVector2 = pointA.VectorToPoint(pointC);
 
         this.normalVector = directionVector1.crossMultiply(directionVector2);
 
@@ -57,7 +58,7 @@ public class Polygon extends Primitive implements InfoPanelConvertible{
     public Point getIntersection(Line line) {
         Point intersectionWithPlane = coordinateForm.getPointOnIntersection(line);
 
-        if (intersectionWithPlane != null && Calculation.ifPointInTriangle(intersectionWithPlane, pointA, pointB, pointC)) {
+        if (intersectionWithPlane != null &&intersectionWithPlane.ifPointInTriangle(new Triangle(pointA, pointB, pointC))) {
             intersectionWithPlane.setColor(color);
             return intersectionWithPlane;
         }

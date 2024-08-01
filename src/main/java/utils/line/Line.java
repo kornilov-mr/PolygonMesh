@@ -2,6 +2,7 @@ package utils.line;
 
 import primitive.calculation.Point;
 import utils.Calculation;
+import utils.Matrix.Matrix2D;
 import utils.vectors.Vector3D;
 
 
@@ -52,5 +53,23 @@ public class Line {
     public double getDistanceBetweenTwoLines(Line line){
         Vector3D cross = directionVector.crossMultiply(line.directionVector).normalized();
         return Math.abs(cross.multiply(line.pointVector.subtraction(pointVector)).getSum());
+    }
+    public Point getIntersectionWithLine(Line line2){
+        double t;
+        double denominator =  new Matrix2D(this.directionVector.getX(),-1*line2.directionVector.getX(),
+                this.directionVector.getY(),-1*line2.directionVector.getY()).determinant();
+        if(denominator!=0){
+            t= (new Matrix2D(line2.pointVector.getX()-this.pointVector.getX(), -1*line2.directionVector.getX(),
+                    line2.pointVector.getY()-this.pointVector.getY(), -1*line2.directionVector.getY()).determinant())/denominator;
+
+        }else{
+            denominator =  new Matrix2D(this.directionVector.getZ(),-1*line2.directionVector.getZ(),
+                    this.directionVector.getX(),-1*line2.directionVector.getX()).determinant();
+
+            t=(new Matrix2D(line2.pointVector.getZ()-this.pointVector.getZ(), -1*line2.directionVector.getZ(),
+                    line2.pointVector.getX()-this.pointVector.getX(), -1*line2.directionVector.getX()).determinant())/denominator;
+        }
+        return new Point(this.pointVector.add(this.directionVector.multiply(t)));
+
     }
 }

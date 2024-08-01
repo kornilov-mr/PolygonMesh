@@ -33,8 +33,8 @@ public abstract class OrientedObject {
         if(verticalAngle==0){
             return;
         }
-        this.frontVector=Calculation.rotateVectorAroundCertainAxis(frontVector,rightVector,verticalAngle);
-        this.aboveVector=Calculation.rotateVectorAroundCertainAxis(frontVector,rightVector,Math.PI/2);
+        this.frontVector=frontVector.rotateVectorAroundCertainAxis(rightVector,verticalAngle);
+        this.aboveVector=frontVector.rotateVectorAroundCertainAxis(rightVector,Math.PI/2);
         setAnglesFromFrontVector();
 
     }
@@ -43,8 +43,8 @@ public abstract class OrientedObject {
         if(horizontalAngle==0){
             return;
         }
-        this.frontVector=Calculation.rotateVectorAroundCertainAxis(frontVector,aboveVector,horizontalAngle*-1);
-        this.rightVector=Calculation.rotateVectorAroundCertainAxis(frontVector,aboveVector,Math.PI/2*-1);
+        this.frontVector=frontVector.rotateVectorAroundCertainAxis(aboveVector,horizontalAngle*-1);
+        this.rightVector=frontVector.rotateVectorAroundCertainAxis(aboveVector,Math.PI/2*-1);
         setAnglesFromFrontVector();
     }
 

@@ -26,7 +26,7 @@ public abstract class TypeArgumentField implements ArgumentField{
             public void keyPressed(KeyEvent ke) {
                 String value = textArea.getText();
                 int l = value.length();
-                if (String.valueOf(l).matches(regexString)||ke.getKeyChar()==KeyEvent.VK_BACK_SPACE) {
+                if (String.valueOf(ke.getKeyChar()).matches(regexString)||ke.getKeyChar()==KeyEvent.VK_BACK_SPACE) {
                     textArea.setEditable(true);
                 } else {
                     textArea.setEditable(false);

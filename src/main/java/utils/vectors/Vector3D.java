@@ -2,6 +2,7 @@ package utils.vectors;
 
 import primitive.calculation.Point;
 import utils.Calculation;
+import utils.quaternion.Quaternion;
 
 public class Vector3D {
     private final double x;
@@ -67,7 +68,20 @@ public class Vector3D {
     public Vector3D subtraction(Vector3D vector){
         return new Vector3D(x- vector.getX(),y- vector.getY(),z- vector.getZ());
     }
+    public Vector3D rotateVectorAroundCertainAxis(Vector3D axisVector1,double angle){
+        Vector3D pointVector = new Vector3D(this);
+        Vector3D axisVector = new Vector3D(axisVector1);
+        angle = angle/2;
+        axisVector=axisVector.normalized();
+        Quaternion pointQuaternion= new Quaternion(pointVector);
+        Quaternion axisQuaternion= (new Quaternion(Math.cos(angle),axisVector.multiply(Math.sin(angle))));
 
+        Quaternion pointDelta = axisQuaternion.crossMultiply(pointQuaternion);
+        Quaternion reversed= axisQuaternion.reversed();
+        Quaternion endPoint= pointDelta.crossMultiply(reversed);
+
+        return endPoint.getQuaternionVector();
+    }
     public double getLength() {
         return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
     }

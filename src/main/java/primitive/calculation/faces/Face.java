@@ -28,8 +28,8 @@ public class Face {
         calculateNormalVector();
     }
     public void calculateNormalVector(){
-        Vector3D directionVector1 = Calculation.VectorBetweenTwoPoints(pointA, pointB);
-        Vector3D directionVector2 = Calculation.VectorBetweenTwoPoints(pointA, pointC);
+        Vector3D directionVector1 = pointA.VectorToPoint(pointB);
+        Vector3D directionVector2 = pointA.VectorToPoint(pointC);
 
         this.normalVector = directionVector1.crossMultiply(directionVector2);
 

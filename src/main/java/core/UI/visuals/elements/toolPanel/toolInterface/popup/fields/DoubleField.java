@@ -10,6 +10,9 @@ public class DoubleField extends TypeArgumentField{
         if(textArea==null){
             throw new RuntimeException("textArea wasn't initialized");
         }
+        if(textArea.getText().isEmpty()){
+            return 0.0;
+        }
         return Double.parseDouble(textArea.getText());
     }
 }
