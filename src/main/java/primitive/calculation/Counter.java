@@ -7,6 +7,7 @@ import core.tools.commands.CommandManager;
 import org.json.JSONObject;
 import primitive.Primitive;
 import primitive.calculation.faces.Face;
+import primitive.calculation.faces.Polygon;
 import utils.colors.ColorAdapter;
 import utils.line.Line;
 
@@ -20,6 +21,7 @@ public class Counter extends Primitive implements InfoPanelConvertible {
     private final Point pointA;
     private final Point pointB;
     private final Line counterLine;
+    private final ArrayList<Polygon> belongToPolygon = new ArrayList<>();
 
     public Counter(Point pointA, Point pointB) {
         this(pointA,pointB,0.1, new Color(0,0,0));
@@ -99,6 +101,17 @@ public class Counter extends Primitive implements InfoPanelConvertible {
             }
         };
         return objectInfoPanel;
+    }
+    public void addPolygon(Polygon polygon){
+        belongToPolygon.add(polygon);
+    }
+
+    public ArrayList<Polygon> getBelongToPolygon() {
+        return belongToPolygon;
+    }
+
+    public void notifyAllPolygonsToChange(){
+
     }
 
 }

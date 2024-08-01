@@ -19,8 +19,10 @@ public class ChangeTree {
         currentNode=newNode;
     }
     public Change previousChange(){
-        currentNode=currentNode.getUpNode();
-        return currentNode.getChange();
+        ChangeNode nextNode=currentNode.getUpNode();
+        Change change = new Change(currentNode.getChange(),nextNode.getChange());
+        currentNode=nextNode;
+        return change;
     }
     public Change nextChange(){
         ChangeNode nextNode = currentNode.getNextMainNode();

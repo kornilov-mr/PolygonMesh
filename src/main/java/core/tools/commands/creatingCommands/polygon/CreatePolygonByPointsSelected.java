@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CreatePolygonByPointsSelected implements Command {
-    private final Set<Polygon> polygons = new HashSet<>();
+    private final Set<Primitive> primitives = new HashSet<>();
     public CreatePolygonByPointsSelected() {
     }
 
@@ -30,13 +30,21 @@ public class CreatePolygonByPointsSelected implements Command {
             points.add((Point) primitive);
         }
         Polygon polygon= new Polygon(points.get(0),points.get(1),points.get(2));
+        if(!scene.getCounters().contains(polygon.getCounterA())){
+            primitives.add(polygon.getCounterA());
+        }
+        if(!scene.getCounters().contains(polygon.getCounterB())){
+            primitives.add(polygon.getCounterB());
+        }
+        if(!scene.getCounters().contains(polygon.getCounterC())){
+            primitives.add(polygon.getCounterC());
+        }
         scene.addPolygon(polygon);
-        polygons.add(polygon);
-
+        primitives.add(polygon);
     }
     @Override
     public final Change getChange() {
-        return new Change(new ArrayList<>(),new ArrayList<>(polygons));
+        return new Change(new ArrayList<>(),new ArrayList<>(primitives));
     }
 
 }

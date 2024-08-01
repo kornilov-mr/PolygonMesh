@@ -18,7 +18,7 @@ public class Scene {
     private final Set<Polygon> polygons = new HashSet<>();
     private final Set<Point> points = new HashSet<>();
     private final Set<Counter> counters = new HashSet<>();
-    public final IDManager idManager = new IDManager();
+    public final IDManager idManager = new IDManager(this);
     public final SelectedObjectManager selectedObjectManager;
 
     public Scene() {
@@ -72,6 +72,8 @@ public class Scene {
         polygon.getPointA().addPolygon(polygon);
         polygon.getPointB().addPolygon(polygon);
         polygon.getPointC().addPolygon(polygon);
+        polygon.getCounterA().addPolygon(polygon);
+        polygon.getCounterB().addPolygon(polygon);
     }
 
     public void saveScene(File file, Extensions extension) {
