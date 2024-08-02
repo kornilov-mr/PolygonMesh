@@ -30,6 +30,7 @@ public class Change {
             this.isEmpty=false;
         }
         for(Primitive primitive: added){
+            System.out.println(primitive.getId());
             addedPrimitives.put(primitive.getId(), primitive);
             this.isEmpty=false;
         }
