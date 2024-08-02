@@ -7,6 +7,7 @@ import core.render.Frame;
 import core.statistic.FPS.FPSTracker;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Date;
 
 public class Window {
@@ -21,9 +22,11 @@ public class Window {
                 windowController.getCameraMouseListener(),windowController.getPointMouseListener(),
                 windowController.getObjectPanel(), windowController.getCommandManager(), windowController.getInstructionPanel());
 
-        ToolBar toolBar = new ToolBar(windowController.getObjectPanel());
-
+        ToolBar toolBar = new ToolBar(windowController.getObjectPanel(), windowController.getInstructionToolBar());
+        toolBar.setPreferredSize(new Dimension(300, 500));
         JSplitPane sl = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,mainPanel,toolBar);
+        sl.setDividerLocation(windowController.getRenderConfig().resolution[0]);
+//        sl.setResizeWeight(0.5);
         windowFrame.add(sl);
 
         windowFrame.addKeyListener(windowController.getCameraKeyListener());

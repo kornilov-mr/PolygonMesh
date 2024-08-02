@@ -1,6 +1,7 @@
 package core.UI.controller;
 
 import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
+import core.UI.visuals.elements.toolPanel.toolInterface.InstructionToolBar;
 import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionManager;
 import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionPanel;
 import core.camera.Camera;
@@ -31,6 +32,7 @@ public class WindowController {
     private final Scene scene;
     private final InstructionPanel instructionPanel;
     private final InstructionManager instructionManager;
+    private final InstructionToolBar instructionToolBar;
     public WindowController(RenderConfig renderConfig, Camera camera,Scene scene, RenderSwitcher renderSwitcher) {
         this.renderConfig = renderConfig;
         this.camera= camera;
@@ -47,7 +49,7 @@ public class WindowController {
         this.instructionManager= new InstructionManager(focusTabManager,commandManager,instructionPanel);
         updateManager.addToUpdates(cameraKeyListener);
         updateManager.addToUpdates(cameraMouseListener);
-
+        this.instructionToolBar= new InstructionToolBar(instructionManager);
 
 
 
@@ -55,6 +57,10 @@ public class WindowController {
         this.pointMouseListener=new PointMouseListener(camera,scene,focusTabManager, mainKeyListener,commandManager);
         this.objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);
+    }
+
+    public InstructionToolBar getInstructionToolBar() {
+        return instructionToolBar;
     }
 
     public RenderConfig getRenderConfig() {

@@ -4,9 +4,14 @@ import core.UI.visuals.elements.toolPanel.pointer.objectInfoPanels.ObjectInfoPan
 import core.camera.cameraControl.Updatable;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ObjectPanel extends JPanel implements Updatable {
     private ObjectInfoPanel currentObjectInfoPanel;
+
+    public ObjectPanel() {
+        setAlignmentY(Component.TOP_ALIGNMENT);
+    }
 
     public void loadObjectPanel(ObjectInfoPanel objectInfoPanel){
         this.currentObjectInfoPanel = objectInfoPanel;
@@ -14,6 +19,11 @@ public class ObjectPanel extends JPanel implements Updatable {
         revalidate();
         repaint();
         add(objectInfoPanel.createJPanel());
+    }
+    public void unloadObjectPanel(){
+        removeAll();
+        revalidate();
+        repaint();
     }
 
     @Override

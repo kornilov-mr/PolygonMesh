@@ -15,6 +15,7 @@ import core.render.RenderConfig;
 import core.tools.selecting.SelectedMovementMouseMotionListener;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainPanel extends JLayeredPane {
     private final RenderConfig renderConfig;
@@ -27,7 +28,7 @@ public class MainPanel extends JLayeredPane {
                 cameraMouseListener,pointMouseListener, new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager));
 
         this.infoPanel = new InfoPanel(camera);
-
+        setPreferredSize(new Dimension(renderConfig.resolution[0],renderConfig.resolution[1]));
         PaletteLayer paletteLayer = new PaletteLayer(infoPanel, instructionPanel);
         OverlayLayout overlayLayout = new OverlayLayout(this);
         setLayout(overlayLayout);

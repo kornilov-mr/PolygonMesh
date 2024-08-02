@@ -49,9 +49,16 @@ public class PointMouseListener implements MouseListener {
                        scene.selectedObjectManager.changeSelection(primitive);
                     }else{
                         scene.selectedObjectManager.changeSelectionWithRemove(primitive);
+                        if(scene.selectedObjectManager.getSelected().size()!=1){
+                            objectPanel.unloadObjectPanel();
+                            return;
+                        }
                     }
                     ObjectInfoPanel objectInfoPanel =((InfoPanelConvertible) primitive).toInfoPanel(focusTabManager,commandManager);
                     objectPanel.loadObjectPanel(objectInfoPanel);
+                }else{
+                    objectPanel.unloadObjectPanel();
+                    scene.selectedObjectManager.clearSelection();
                 }
             }
         }
