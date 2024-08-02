@@ -23,14 +23,17 @@ public class InstructionPopup {
     }
     public JPanel createLabel(FocusTabManager focusTabManager){
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         for(int i=0;i< argumentNames.length;i++){
             String name = argumentNames[i];
             Class<? extends ArgumentField> argumentClass = typeEnums[i].getFieldClass();
             try {
                 ArgumentField argumentField = (ArgumentField) argumentClass.getConstructors()[0].newInstance(name);
                 this.argumentFields[i]=argumentField;
-                panel.add(new JLabel(name+":"));
-                panel.add(argumentField.createPanel(focusTabManager));
+                JPanel arguments = new JPanel();
+                arguments.add(new JLabel(name+":"));
+                arguments.add(argumentField.createPanel(focusTabManager));
+                panel.add(arguments);
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {

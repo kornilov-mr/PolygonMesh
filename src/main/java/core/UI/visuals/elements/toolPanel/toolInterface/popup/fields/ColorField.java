@@ -9,7 +9,7 @@ public class ColorField implements ArgumentField {
     private final ColorComponentField r;
     private final ColorComponentField g;
     private final ColorComponentField b;
-    protected ColorField(String title) {
+    public ColorField(String title) {
         this.r= new ColorComponentField("R");
         this.g= new ColorComponentField("G");
         this.b= new ColorComponentField("B");

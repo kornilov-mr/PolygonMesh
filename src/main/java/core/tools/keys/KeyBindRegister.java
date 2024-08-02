@@ -19,6 +19,7 @@ public class KeyBindRegister {
         this.oneTimeKeyBindSet.add(new SHIFTA());
         this.oneTimeKeyBindSet.add(new SHIFTP());
         this.oneTimeKeyBindSet.add(new SHIFTLeftBracket());
+        this.oneTimeKeyBindSet.add(new SHIFTB());
     }
 
     public void loopThroughOneTimeBinds(Set<Integer> keyPressed,SceneManipulator sceneManipulator){

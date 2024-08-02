@@ -20,7 +20,7 @@ public abstract class TypeArgumentField implements ArgumentField{
     @Override
     public JPanel createPanel(FocusTabManager focusTabManager){
         JPanel jPanel = new JPanel();
-        jPanel.add(new JLabel(title+":"));
+//        jPanel.add(new JLabel(title+":"));
         this.textArea = new JTextField("0");
         textArea.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
