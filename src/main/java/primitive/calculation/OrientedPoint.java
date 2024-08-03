@@ -6,25 +6,43 @@ import utils.vectors.Vector3D;
 public class OrientedPoint extends OrientedObject {
     private final Point point;
     public OrientedPoint(Point point, double horizontalAngle, double verticalAngle) {
-        super(new Vector3D(point), horizontalAngle, verticalAngle);
+        this(point,horizontalAngle,verticalAngle,new Point(0,0,0));
+    }
+    public OrientedPoint(Point point, double horizontalAngle, double verticalAngle,Point center) {
+        super(new Vector3D(point), horizontalAngle, verticalAngle,center);
         this.point=point;
     }
 
     @Override
     public void moveUp(double distance) {
-        point.movePointToOtherPointCoordinates(new Point(new Vector3D(point).add(aboveVector.multiply(distance))));
+        super.moveUp(distance);
+        point.movePointToOtherPointCoordinates(new Point(position));
     }
 
     @Override
     public void moveRight(double distance) {
-        point.movePointToOtherPointCoordinates(new Point(new Vector3D(point).add(rightVector.multiply(distance))));
+        super.moveRight(distance);
+        point.movePointToOtherPointCoordinates(new Point(position));
 
     }
 
     @Override
     public void moveFront(double distance) {
-        point.movePointToOtherPointCoordinates(new Point(new Vector3D(point).add(frontVector.multiply(distance))));
+        super.moveFront(distance);
+        point.movePointToOtherPointCoordinates(new Point(position));
 
+    }
+
+    @Override
+    public void moveUpOnSphere(double angle) {
+        super.moveUpOnSphere(angle);
+        point.movePointToOtherPointCoordinates(new Point(position));
+    }
+
+    @Override
+    public void moveRightOnSphere(double angle) {
+        super.moveRightOnSphere(angle);
+        point.movePointToOtherPointCoordinates(new Point(position));
     }
 
     public Point getPoint() {

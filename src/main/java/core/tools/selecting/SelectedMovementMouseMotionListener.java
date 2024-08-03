@@ -1,6 +1,7 @@
 package core.tools.selecting;
 
 import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
+import core.tools.keys.MainKeyListener;
 import core.tools.managers.MouseMotionManager;
 import core.camera.Camera;
 import core.tools.commands.CommandManager;
@@ -20,6 +21,7 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
     private final ObjectPanel objectPanel;
     private MouseMotionManager mouseMotionManager;
     private final CommandManager commandManager;
+    private final MainKeyListener mainKeyListener;
     private boolean dragged= false;
     private Point pointDragged;
     private boolean working = true;
@@ -28,11 +30,12 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
         this.mouseMotionManager = mouseMotionManager;
     }
 
-    public SelectedMovementMouseMotionListener(Camera camera, SelectedObjectManager selectedObjectManager, ObjectPanel objectPanel, CommandManager commandManager) {
+    public SelectedMovementMouseMotionListener(Camera camera, SelectedObjectManager selectedObjectManager, ObjectPanel objectPanel, CommandManager commandManager, MainKeyListener mainKeyListener) {
         this.camera = camera;
         this.selectedObjectManager = selectedObjectManager;
         this.objectPanel = objectPanel;
         this.commandManager = commandManager;
+        this.mainKeyListener=mainKeyListener;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
         if (!working) {
             return;
         }
-        if (selectedObjectManager.isSelectedOnlyOnePoint()) {
+        if (selectedObjectManager.isSelectedOnlyOnePoint()&& mainKeyListener.isShiftPressed()) {
             if (this.mouseMotionManager != null) {
                 mouseMotionManager.stopCameraMotion();
             }

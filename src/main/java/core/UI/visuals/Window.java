@@ -20,7 +20,7 @@ public class Window {
 
         this.mainPanel =new MainPanel(windowController.getRenderConfig(),windowController.getScene(),windowController.getCamera(),
                 windowController.getCameraMouseListener(),windowController.getPointMouseListener(),
-                windowController.getObjectPanel(), windowController.getCommandManager(), windowController.getInstructionPanel());
+                windowController.getObjectPanel(), windowController.getCommandManager(), windowController.getInstructionPanel(), windowController.getMainKeyListener());
 
         ToolBar toolBar = new ToolBar(windowController.getObjectPanel(), windowController.getInstructionToolBar());
         toolBar.setPreferredSize(new Dimension(300, 500));

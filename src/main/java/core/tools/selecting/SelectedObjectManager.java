@@ -1,7 +1,9 @@
 package core.tools.selecting;
 
+import primitive.calculation.Counter;
 import primitive.calculation.Point;
 import primitive.Primitive;
+import primitive.calculation.faces.Polygon;
 
 import java.util.*;
 
@@ -60,5 +62,38 @@ public class SelectedObjectManager {
             }
         }
         return true;
+    }
+    public Set<Point> getOnlyPointsFromSelection(){
+        Set<Point> pointsSelected = new HashSet<>();
+        for(Primitive primitive: selected){
+            if(primitive instanceof Point){
+                pointsSelected.add((Point) primitive);
+            } else if(primitive instanceof Counter){
+                Counter counter = (Counter) primitive;
+                pointsSelected.add(counter.getPointA());
+                pointsSelected.add(counter.getPointB());
+            } else if(primitive instanceof Polygon){
+                Polygon polygon = (Polygon) primitive;
+                pointsSelected.add(polygon.getPointA());
+                pointsSelected.add(polygon.getPointB());
+                pointsSelected.add(polygon.getPointC());
+            }
+        }
+        return pointsSelected;
+    }
+    public Point getCenterOfSelectedObjects(){
+        Set<Point> pointsSelected = getOnlyPointsFromSelection();
+        int x=0;
+        int y=0;
+        int z=0;
+        for(Point point: pointsSelected){
+            x+=point.getX();
+            y+=point.getY();
+            z+=point.getZ();
+        }
+        x=x/pointsSelected.size();
+        y=y/pointsSelected.size();
+        z=z/pointsSelected.size();
+        return new Point(x,y,z);
     }
 }

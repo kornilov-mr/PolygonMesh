@@ -7,6 +7,7 @@ import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionPanel;
 import core.scene.Scene;
 import core.tools.commands.CommandManager;
+import core.tools.keys.MainKeyListener;
 import core.tools.selecting.PointMouseListener;
 import core.camera.Camera;
 import core.camera.cameraControl.CameraMouseListener;
@@ -22,10 +23,10 @@ public class MainPanel extends JLayeredPane {
 
     private final MainRenderPlane mainRenderPlane;
     private final InfoPanel infoPanel;
-    public MainPanel(RenderConfig renderConfig, Scene scene, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener, ObjectPanel objectPanel, CommandManager commandManager, InstructionPanel instructionPanel){
+    public MainPanel(RenderConfig renderConfig, Scene scene, Camera camera, CameraMouseListener cameraMouseListener, PointMouseListener pointMouseListener, ObjectPanel objectPanel, CommandManager commandManager, InstructionPanel instructionPanel, MainKeyListener mainKeyListener){
         this.renderConfig=renderConfig;
         this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],
-                cameraMouseListener,pointMouseListener, new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager));
+                cameraMouseListener,pointMouseListener, new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager, mainKeyListener));
 
         this.infoPanel = new InfoPanel(camera);
         setPreferredSize(new Dimension(renderConfig.resolution[0],renderConfig.resolution[1]));

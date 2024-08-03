@@ -11,7 +11,8 @@ public enum TypeEnum {
     DOUBLE_FIELD(DoubleField.class, Double.class),
     POINT_FIELD(PointField.class, Point.class),
     COLOR_FIELD(ColorField.class, Color.class),
-    POLYGON_FIELD(PolygonField.class, Polygon.class);
+    POLYGON_FIELD(PolygonField.class, Polygon.class),
+    ANGLE_FIELD(AngleField.class, Double.class);
 //    ENUM_FIELD(EnumField.class, );
     private final Class<? extends ArgumentField> fieldClass;
     private final Class<?> argumentClass;

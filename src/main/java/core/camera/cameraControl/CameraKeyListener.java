@@ -60,7 +60,6 @@ public class CameraKeyListener implements KeyListener, Updatable {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode());
         keyPressedSet.add(e.getKeyCode());
     }
     @Override
