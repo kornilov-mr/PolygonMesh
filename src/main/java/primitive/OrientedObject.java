@@ -57,6 +57,32 @@ public abstract class OrientedObject {
         horizontalAngle+=angle;
         setVectorsFromAngles(horizontalAngle,verticalAngle);
     }
+    public void rotateAroundTheCenter(double angle){
+        Vector3D radiosVector = center.VectorToPoint( new Point(position));
+        radiosVector =radiosVector.rotateY(angle);
+        position=new Vector3D(center).add(radiosVector);
+        horizontalAngle+=angle;
+        setVectorsFromAngles(horizontalAngle,verticalAngle);
+    }
+    public void tiltAroundTheCenter(double angle){
+        Vector3D radiosVector = center.VectorToPoint( new Point(position));
+        radiosVector =radiosVector.rotateZ(angle);
+        position=new Vector3D(center).add(radiosVector);
+        horizontalAngle+=angle;
+        setVectorsFromAngles(horizontalAngle,verticalAngle);
+    }
+    public void yawAroundTheCenter(double angle){
+        Vector3D radiosVector = center.VectorToPoint( new Point(position));
+        radiosVector =radiosVector.rotateX(angle);
+        position=new Vector3D(center).add(radiosVector);
+        horizontalAngle+=angle;
+        setVectorsFromAngles(horizontalAngle,verticalAngle);
+    }
+    public void setRotation(double rotationAngle, double tiltingAngle, double yawingAngle){
+        rotateAroundTheCenter(rotationAngle);
+        tiltAroundTheCenter(tiltingAngle);
+        yawAroundTheCenter(yawingAngle);
+    }
     private void moveAroundSphereOnVerticalAngle(double verticalAngle){
         if(verticalAngle==0){
             return;

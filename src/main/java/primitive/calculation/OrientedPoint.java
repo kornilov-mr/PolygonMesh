@@ -45,6 +45,13 @@ public class OrientedPoint extends OrientedObject {
         point.movePointToOtherPointCoordinates(new Point(position));
     }
 
+    @Override
+    public void setRotation(double rotationAngle, double tiltingAngle, double yawingAngle) {
+        super.setRotation(rotationAngle, tiltingAngle, yawingAngle);
+        point.movePointToOtherPointCoordinates(new Point(position));
+
+    }
+
     public Point getPoint() {
         return point;
     }

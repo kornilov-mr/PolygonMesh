@@ -8,11 +8,13 @@ import primitive.calculation.Point;
 import java.util.Set;
 
 public class RotatingSelectedObjects extends EditingCommand{
-    private final double verticalAngle;
-    private final double horizontalAngle;
-    public RotatingSelectedObjects(double verticalAngle, double horizontalAngle) {
-        this.verticalAngle = verticalAngle;
-        this.horizontalAngle = horizontalAngle;
+    private final double tiltingAngle;
+    private final double rotatingAngle;
+    private final double yawingAngle;
+    public RotatingSelectedObjects(double tiltingAngle, double rotatingAngle, double yawingAngle) {
+        this.tiltingAngle = tiltingAngle;
+        this.rotatingAngle = rotatingAngle;
+        this.yawingAngle = yawingAngle;
     }
 
     @Override
@@ -24,8 +26,7 @@ public class RotatingSelectedObjects extends EditingCommand{
         Set<Point> points = selectedObjectManager.getOnlyPointsFromSelection();
         for(Point point : points){
             OrientedPoint orientedPoint = new OrientedPoint(point,0,0,center);
-            orientedPoint.moveRightOnSphere(horizontalAngle);
-            orientedPoint.moveUpOnSphere(verticalAngle);
+            orientedPoint.setRotation(rotatingAngle,tiltingAngle,yawingAngle);
             addPrimitiveToChange(point);
         }
     }

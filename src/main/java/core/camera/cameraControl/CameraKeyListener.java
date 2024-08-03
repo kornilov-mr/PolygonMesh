@@ -70,7 +70,7 @@ public class CameraKeyListener implements KeyListener, Updatable {
     public void update() {
         if (keyPressedSet.contains(KeyEvent.VK_SHIFT)){
             camera.moveFront(dx);
-            camera.moveRightOnSphere(dy/5);
+            camera.rotateAroundTheCenter(dy/5);
             camera.moveUpOnSphere(dz*-1/5);
         }else {
             camera.moveFront(dx);
