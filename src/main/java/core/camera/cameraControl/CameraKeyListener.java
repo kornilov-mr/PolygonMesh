@@ -15,7 +15,6 @@ public class CameraKeyListener implements KeyListener, Updatable {
     private final Set<Integer> keyPressedSet= new HashSet<>();
     private final Camera camera;
     private final RenderConfig renderConfig;
-    private boolean cntrPressed= false;
     private double dx=0;
     private double dy=0;
     private double dz=0;
@@ -28,6 +27,7 @@ public class CameraKeyListener implements KeyListener, Updatable {
             public void actionPerformed(ActionEvent arg0) {
                     if (!keyPressedSet.isEmpty()) {
                         for (int key : keyPressedSet) {
+
                             switch (key) {
                                 case KeyEvent.VK_W:
                                     dx += 0.1;
@@ -60,23 +60,24 @@ public class CameraKeyListener implements KeyListener, Updatable {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyCode());
         keyPressedSet.add(e.getKeyCode());
-        if(e.getKeyCode()==KeyEvent.VK_CONTROL){
-            cntrPressed=true;
-        }
     }
     @Override
     public void keyReleased(KeyEvent e) {
         keyPressedSet.remove(e.getKeyCode());
-        if(e.getKeyCode()==KeyEvent.VK_CONTROL){
-            cntrPressed=false;
-        }
     }
     @Override
     public void update() {
-        camera.moveFront(dx);
-        camera.moveRight(dy);
-        camera.moveUp(dz);
+        if (keyPressedSet.contains(KeyEvent.VK_SHIFT)){
+            camera.moveFront(dx);
+            camera.moveRightOnSphere(dy/5);
+            camera.moveUpOnSphere(dz*-1/5);
+        }else {
+            camera.moveFront(dx);
+            camera.moveRight(dy);
+            camera.moveUp(dz);
+        }
         dx = 0;
         dy = 0;
         dz = 0;

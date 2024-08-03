@@ -2,7 +2,7 @@ package core.UI.visuals.elements.toolPanel.toolInterface.popup.fields;
 
 public class DoubleField extends TypeArgumentField{
     public DoubleField(String title) {
-        super(title, "[123456789-]");
+        super(title, "[1234567890.-]");
     }
 
     @Override

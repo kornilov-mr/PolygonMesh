@@ -27,12 +27,15 @@ public class InstructionToolBar extends JPanel {
         for(SectionEnum sectionEnum: SectionEnum.values()){
             JPanel wrapper = new JPanel();
             wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
-            wrapper.add(new JLabel(sectionEnum.getTitle()));
+            JLabel title = new JLabel(sectionEnum.getTitle());
+            title.setAlignmentX(Component.LEFT_ALIGNMENT);
+            wrapper.add(title);
             JSeparator separator = new JSeparator();
             separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
             wrapper.add(separator);
 
             JPanel panel = new JPanel();
+
             panel.setLayout(new WrapLayout());
 //            panel.setPreferredSize(new Dimension(200,500));
             wrapper.add(panel);

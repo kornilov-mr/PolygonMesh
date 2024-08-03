@@ -40,7 +40,7 @@ public class CameraMouseListener implements MouseMotionListener,Updatable {
 
     @Override
     public void update() {
-        camera.setVectorsFromAngles(cameraHorizontalAngle,cameraVerticalAngle);
+        camera.setVectorsFromAngles(camera.getHorizontalAngle()+ cameraHorizontalAngle ,camera.getVerticalAngle()+cameraVerticalAngle);
     }
     public Camera getCamera() {
         return camera;

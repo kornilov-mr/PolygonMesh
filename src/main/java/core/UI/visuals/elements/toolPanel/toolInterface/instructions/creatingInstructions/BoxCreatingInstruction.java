@@ -14,6 +14,6 @@ public class BoxCreatingInstruction  extends Instruction {
     }
     @Override
     protected void executeInstruction(CommandManager commandManager, Object[] values) {
-        commandManager.executeCommand(new CreateBoxCommand((Point) values[0],(Double) values[1],(Double) values[2],(Double) values[3],(Color) values[4]));
+        commandManager.executeCommand(new CreateBoxCommand((Point) values[0],(Double) values[1],((Double) values[2])/180*Math.PI,((Double) values[3])/180*Math.PI,(Color) values[4]));
     }
 }

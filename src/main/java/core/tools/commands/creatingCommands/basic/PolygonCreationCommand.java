@@ -16,7 +16,7 @@ public class PolygonCreationCommand extends ObjectCreationCommand{
 
     @Override
     public void execute(Scene scene, SelectedObjectManager selectedObjectManager) {
-        super.execute(scene,selectedObjectManager);
         scene.addPolygon(polygon);
+        super.execute(scene,selectedObjectManager);
     }
 }
