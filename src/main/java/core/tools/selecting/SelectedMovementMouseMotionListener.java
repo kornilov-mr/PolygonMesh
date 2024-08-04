@@ -43,7 +43,7 @@ public class SelectedMovementMouseMotionListener implements MouseMotionListener 
         if (!working) {
             return;
         }
-        if (selectedObjectManager.isSelectedOnlyOnePoint()&& mainKeyListener.isShiftPressed()) {
+        if (selectedObjectManager.isSelectedOnlyOnePoint()&& !mainKeyListener.isShiftPressed()) {
             if (this.mouseMotionManager != null) {
                 mouseMotionManager.stopCameraMotion();
             }

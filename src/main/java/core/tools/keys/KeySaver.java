@@ -21,7 +21,7 @@ public class KeySaver {
             writeDefaultSettings();
         }
     }
-    private void writeDefaultSettings(){
+    public void writeDefaultSettings(){
         PrintWriter printWriter = null;
         try {
             printWriter = new PrintWriter(file);

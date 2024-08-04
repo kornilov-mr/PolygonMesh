@@ -22,13 +22,14 @@ public class KeyBindData {
         for(KeyBinds keyBinds: KeyBinds.values()){
             if(Objects.equals(name,keyBinds.getNameInJson())){
                 keyBind= keyBinds;
+                break;
             }
         }
         if(keyBind==null){
             throw new RuntimeException("unknown name in keyBindJson");
         }
         Set<Integer> keys= new HashSet<>();
-        JSONArray jsonArray = new JSONArray();
+        JSONArray jsonArray = jsonObject.getJSONArray("keysRequired");
         for(int i=0;i<jsonArray.length();i++){
             keys.add(jsonArray.getInt(i));
         }

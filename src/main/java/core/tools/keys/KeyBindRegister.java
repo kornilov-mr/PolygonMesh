@@ -18,17 +18,17 @@ import java.util.Set;
 public class KeyBindRegister {
     private final Set<RadioKeyBind> radioKeyBindSet = new HashSet<>();
     private final Set<OneTimeKeyBind> oneTimeKeyBindSet = new HashSet<>();
+    private final KeySaver keySaver;
     private final File file = new File("src/main/java/core/data/keyBinds.json");
 
     public KeyBindRegister() {
-        this.radioKeyBindSet.add(new OnlyPolygonShaderBind());
-        this.oneTimeKeyBindSet.add(new CNTRZ());
-        this.oneTimeKeyBindSet.add(new CNTRSHIFTZ());
-        this.oneTimeKeyBindSet.add(new CreatePolygonBySelectedPointsKeyBind());
-        this.oneTimeKeyBindSet.add(new CreatePointKeyBind());
-        this.oneTimeKeyBindSet.add(new CreatePolygonKeyBind());
-        this.oneTimeKeyBindSet.add(new CreateBoxKeyBind());
-        this.oneTimeKeyBindSet.add(new RotateSelectedObjectsKeyBInd());
+        this.keySaver = new KeySaver();
+        try {
+            registerKeyBinds();
+        }catch (Exception e){
+            keySaver.writeDefaultSettings();
+            registerKeyBinds();
+        }
     }
 
     public void loopThroughOneTimeBinds(Set<Integer> keyPressed,SceneManipulator sceneManipulator){

@@ -8,8 +8,8 @@ public enum KeyBinds {
     CREATE_BOX(CreateBoxKeyBind.class,1,"createBox"),
     CREATE_POINT(CreatePointKeyBind.class,1,"createPoint"),
     CREATE_POLYGON(CreatePolygonKeyBind.class,1,"createPolygon"),
-    ROTATE_SELECTED_OBJECTS(RotateSelectedObjectsKeyBInd.class,1,"createPolygon"),
-    ONLY_POLYGON_SHADER(OnlyPolygonShaderBind.class,0,"createPolygon"),
+    ROTATE_SELECTED_OBJECTS(RotateSelectedObjectsKeyBInd.class,1,"rotateSelectedObjects"),
+    ONLY_POLYGON_SHADER(OnlyPolygonShaderBind.class,0,"onlyPolygonShader"),
     CREATE_POLYGON_BY_SELECTED_POINTS(CreatePolygonBySelectedPointsKeyBind.class,1,"createPolygonBySelectedPoints"),
     CNTRSHIFTZ(core.tools.keys.oneTimeKeyBind.CNTRSHIFTZ.class,1,"cntrShiftz"),
     CNTRZ(core.tools.keys.oneTimeKeyBind.CNTRZ.class,1,"cntrz");
