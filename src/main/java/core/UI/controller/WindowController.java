@@ -1,5 +1,6 @@
 package core.UI.controller;
 
+import core.UI.visuals.MainWindowListener;
 import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.visuals.elements.toolPanel.toolInterface.InstructionToolBar;
 import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionManager;
@@ -37,6 +38,7 @@ public class WindowController {
     private final InstructionToolBar instructionToolBar;
     private final KeyBindRegister keyBindRegister;
     private final SelectedMovementMouseMotionListener selectedMovement;
+    private final MainWindowListener mainWindowListener;
     public WindowController(RenderConfig renderConfig, Camera camera,Scene scene, RenderSwitcher renderSwitcher) {
         this.renderConfig = renderConfig;
         this.camera= camera;
@@ -63,6 +65,11 @@ public class WindowController {
         this.objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);
         this.selectedMovement = new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager, mainKeyListener);
+        this.mainWindowListener = new MainWindowListener(keyBindRegister);
+    }
+
+    public MainWindowListener getMainWindowListener() {
+        return mainWindowListener;
     }
 
     public KeyBindRegister getKeyBindRegister() {

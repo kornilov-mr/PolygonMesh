@@ -1,0 +1,1 @@
+[{"name":"createPolygonBySelectedPoints","keysRequired":[16,65]},{"name":"createBox","keysRequired":[16,66]},{"name":"cntrz","keysRequired":[17,90]},{"name":"rotateSelectedObjects","keysRequired":[16,82]},{"name":"createPoint","keysRequired":[80,16]},{"name":"cntrShiftz","keysRequired":[16,17,90]},{"name":"onlyPolygonShader","keysRequired":[17]}]

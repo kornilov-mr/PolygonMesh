@@ -25,6 +25,6 @@ public class RotateSelectedObjectsKeyBInd extends OneTimeKeyBind{
 
     @Override
     public KeyBinds getKeyBind() {
-        return null;
+        return KeyBinds.ROTATE_SELECTED_OBJECTS;
     }
 }

@@ -17,7 +17,7 @@ public class Window {
         this.windowController=windowController;
         JFrame windowFrame = new JFrame("3D render demo");
         windowController.getFocusTabManager().setMainWindow(windowFrame);
-
+        windowFrame.addWindowListener(windowController.getMainWindowListener());
         this.mainPanel =new MainPanel(windowController);
 
         ToolBar toolBar = new ToolBar(windowController.getObjectPanel(), windowController.getInstructionToolBar());
