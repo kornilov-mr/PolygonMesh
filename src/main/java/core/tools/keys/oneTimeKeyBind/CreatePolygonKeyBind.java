@@ -2,6 +2,7 @@ package core.tools.keys.oneTimeKeyBind;
 
 import core.UI.visuals.elements.toolPanel.toolInterface.instructions.creatingInstructions.PolygonCreatingInstruction;
 import core.scene.SceneManipulator;
+import core.tools.keys.KeyBinds;
 
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
@@ -20,5 +21,9 @@ public class CreatePolygonKeyBind extends OneTimeKeyBind{
     @Override
     protected void run(SceneManipulator sceneManipulator) {
         sceneManipulator.getInstructionManager().queueInstruction(new PolygonCreatingInstruction());
+    }
+    @Override
+    protected KeyBinds getKeyBind() {
+        return KeyBinds.CNTRSHIFTZ;
     }
 }

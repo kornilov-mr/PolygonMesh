@@ -1,6 +1,7 @@
 package core.tools.keys.oneTimeKeyBind;
 
 import core.scene.SceneManipulator;
+import core.tools.keys.KeyBinds;
 
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
@@ -19,5 +20,9 @@ public class CNTRZ extends OneTimeKeyBind {
     @Override
     protected void run(SceneManipulator sceneManipulator) {
         sceneManipulator.getChangeManager().reversePreviousChange();
+    }
+    @Override
+    protected KeyBinds getKeyBind() {
+        return KeyBinds.CNTRZ;
     }
 }

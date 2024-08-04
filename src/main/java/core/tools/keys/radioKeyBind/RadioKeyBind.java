@@ -1,13 +1,14 @@
 package core.tools.keys.radioKeyBind;
 
 import core.scene.SceneManipulator;
+import core.tools.keys.KeyBind;
+import core.tools.keys.KeyBinds;
 
 import java.util.Set;
 
-public abstract class RadioKeyBind {
-    private final Set<Integer> keysRequired;
-
+public abstract class RadioKeyBind extends KeyBind {
     public RadioKeyBind(Set<Integer> keysRequired) {
+        super(keysRequired);
         this.keysRequired = keysRequired;
     }
     protected abstract void turnOn(SceneManipulator sceneManipulator);

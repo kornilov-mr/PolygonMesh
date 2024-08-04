@@ -16,9 +16,9 @@ public class MainKeyListener implements KeyListener {
     private final KeyBindRegister keyBindRegister;
     private boolean shiftPressed = false;
 
-    public MainKeyListener(CommandManager commandManager, ChangeManager changeManager, RenderSwitcher renderSwitcher, InstructionManager instructionManager) {
+    public MainKeyListener(CommandManager commandManager, ChangeManager changeManager, RenderSwitcher renderSwitcher, InstructionManager instructionManager, KeyBindRegister keyBindRegister) {
+        this.keyBindRegister = keyBindRegister;
         this.sceneManipulator = new SceneManipulator(commandManager,changeManager,renderSwitcher, instructionManager);
-        this.keyBindRegister=new KeyBindRegister();
     }
 
     @Override

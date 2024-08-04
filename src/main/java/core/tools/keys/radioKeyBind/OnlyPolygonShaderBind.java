@@ -2,6 +2,7 @@ package core.tools.keys.radioKeyBind;
 
 import core.render.GPU.shaders.ShaderEnum;
 import core.scene.SceneManipulator;
+import core.tools.keys.KeyBinds;
 
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
@@ -20,6 +21,11 @@ public class OnlyPolygonShaderBind extends RadioKeyBind{
     @Override
     protected void turnOff(SceneManipulator sceneManipulator) {
         sceneManipulator.getRenderSwitcher().unSetShader();
+    }
+
+    @Override
+    public KeyBinds getKeyBind() {
+        return KeyBinds.ONLY_POLYGON_SHADER;
     }
 
     @Override

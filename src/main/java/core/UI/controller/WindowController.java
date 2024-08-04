@@ -12,10 +12,12 @@ import core.render.RenderSwitcher;
 import core.scene.Scene;
 import core.tools.changes.ChangeManager;
 import core.tools.commands.CommandManager;
+import core.tools.keys.KeyBindRegister;
 import core.tools.keys.MainKeyListener;
 import core.tools.managers.FocusTabManager;
 import core.tools.managers.UpdateManager;
 import core.tools.selecting.PointMouseListener;
+import core.tools.selecting.SelectedMovementMouseMotionListener;
 
 public class WindowController {
     private final RenderConfig renderConfig;
@@ -33,6 +35,8 @@ public class WindowController {
     private final InstructionPanel instructionPanel;
     private final InstructionManager instructionManager;
     private final InstructionToolBar instructionToolBar;
+    private final KeyBindRegister keyBindRegister;
+    private final SelectedMovementMouseMotionListener selectedMovement;
     public WindowController(RenderConfig renderConfig, Camera camera,Scene scene, RenderSwitcher renderSwitcher) {
         this.renderConfig = renderConfig;
         this.camera= camera;
@@ -52,11 +56,21 @@ public class WindowController {
         this.instructionToolBar= new InstructionToolBar(instructionManager);
 
 
+        this.keyBindRegister= new KeyBindRegister();
 
-        this.mainKeyListener = new MainKeyListener(commandManager, changeManager, renderSwitcher, instructionManager);
+        this.mainKeyListener = new MainKeyListener(commandManager, changeManager, renderSwitcher, instructionManager, keyBindRegister);
         this.pointMouseListener=new PointMouseListener(camera,scene,focusTabManager, mainKeyListener,commandManager);
         this.objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);
+        this.selectedMovement = new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager, mainKeyListener);
+    }
+
+    public KeyBindRegister getKeyBindRegister() {
+        return keyBindRegister;
+    }
+
+    public SelectedMovementMouseMotionListener getSelectedMovement() {
+        return selectedMovement;
     }
 
     public InstructionToolBar getInstructionToolBar() {
