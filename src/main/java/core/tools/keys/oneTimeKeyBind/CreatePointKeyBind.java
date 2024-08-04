@@ -6,9 +6,14 @@ import core.scene.SceneManipulator;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
-public class SHIFTP extends OneTimeKeyBind{
-    public SHIFTP() {
+public class CreatePointKeyBind extends OneTimeKeyBind{
+    public CreatePointKeyBind(Set<Integer> keysRequired) {
+        super(keysRequired);
+    }
+
+    public CreatePointKeyBind() {
         super(new HashSet<>(Arrays.asList(KeyEvent.VK_SHIFT,KeyEvent.VK_P)));
     }
 

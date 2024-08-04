@@ -8,8 +8,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SHIFTB extends OneTimeKeyBind{
-    public SHIFTB() {
+public class CreateBoxKeyBind extends OneTimeKeyBind{
+    public CreateBoxKeyBind(Set<Integer> keysRequired) {
+        super(keysRequired);
+    }
+
+    public CreateBoxKeyBind() {
         super(new HashSet<>(Arrays.asList(KeyEvent.VK_SHIFT,KeyEvent.VK_B)));
     }
 

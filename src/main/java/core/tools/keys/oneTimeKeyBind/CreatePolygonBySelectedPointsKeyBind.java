@@ -6,9 +6,14 @@ import core.tools.commands.creatingCommands.polygon.CreatePolygonByPointsSelecte
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
-public class SHIFTA extends OneTimeKeyBind{
-    public SHIFTA() {
+public class CreatePolygonBySelectedPointsKeyBind extends OneTimeKeyBind{
+    public CreatePolygonBySelectedPointsKeyBind(Set<Integer> keysRequired) {
+        super(keysRequired);
+    }
+
+    public CreatePolygonBySelectedPointsKeyBind() {
         super(new HashSet<>(Arrays.asList(KeyEvent.VK_SHIFT,KeyEvent.VK_A)));
     }
 
