@@ -15,32 +15,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JsonSceneLoader extends SceneLoader {
+    public JsonSceneLoader() {
+        super(new File("src/main/Scenes"));
+    }
     public JsonSceneLoader(File sceneFolder) {
         super(sceneFolder);
-    }
-
-    @Override
-    public void saveScene(Scene scene) {
-        File saveFile = getSaveFile();
-        try {
-            PrintWriter printWriter = new PrintWriter(saveFile);
-            JSONObject jsonObject = new JSONObject();
-
-            JSONArray pointsJson = new JSONArray();
-            for (Point point : scene.getPoints()) {
-                pointsJson.put(wrapPointJsonWithIndex(point, point.getId()));
-            }
-            JSONArray polygonJson = new JSONArray();
-            for(Polygon polygon : scene.getPolygons()){
-                polygonJson.put(polygon.objectInSavingFormat());
-            }
-            jsonObject.put("points",pointsJson);
-            jsonObject.put("polygons",polygonJson);
-            printWriter.println(jsonObject.toString());
-            printWriter.flush();
-        } catch (FileNotFoundException e) {
-            System.out.println("Save file isn't found");
-        }
     }
     public JSONObject wrapPointJsonWithIndex(Point point,String id){
         JSONObject wrappedPointJson = new JSONObject();
@@ -78,6 +57,29 @@ public class JsonSceneLoader extends SceneLoader {
         } catch (IOException e) {
             System.out.println("problem with reading from load file");
 
+        }
+    }
+
+    @Override
+    public void saveScene(Scene scene, File file) {
+        try {
+            PrintWriter printWriter = new PrintWriter(file);
+            JSONObject jsonObject = new JSONObject();
+
+            JSONArray pointsJson = new JSONArray();
+            for (Point point : scene.getPoints()) {
+                pointsJson.put(wrapPointJsonWithIndex(point, point.getId()));
+            }
+            JSONArray polygonJson = new JSONArray();
+            for(Polygon polygon : scene.getPolygons()){
+                polygonJson.put(polygon.objectInSavingFormat());
+            }
+            jsonObject.put("points",pointsJson);
+            jsonObject.put("polygons",polygonJson);
+            printWriter.println(jsonObject.toString());
+            printWriter.flush();
+        } catch (FileNotFoundException e) {
+            System.out.println("Save file isn't found");
         }
     }
 }

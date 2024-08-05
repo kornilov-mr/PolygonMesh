@@ -13,6 +13,10 @@ public abstract class SceneLoader {
     protected File getSaveFile() {
         return folderSceneManager.getSaveFile();
     }
-    public abstract void saveScene(Scene scene);
+    public void fastSaveScene(Scene scene){
+        File file =getSaveFile();
+        saveScene(scene,file);
+    }
     public abstract void readScene(File file,Scene scene);
+    public abstract void saveScene(Scene scene,File file);
 }

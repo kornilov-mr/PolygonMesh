@@ -76,9 +76,13 @@ public class Scene {
         polygon.getCounterB().addPolygon(polygon);
     }
 
-    public void saveScene(File file, Extensions extension) {
-        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(file,extension);
-        sceneLoader.saveScene(this);
+    public void saveScene(File file) {
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file);
+        sceneLoader.saveScene(this,file);
+    }
+    public void fastSaveScene(){
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(Extensions.JSON);
+        sceneLoader.fastSaveScene(this);
     }
     public void loadSceneFromFile(File file){
         SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file);

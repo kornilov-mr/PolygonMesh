@@ -25,7 +25,6 @@ public class Runner {
                 pointD,
                 new Color(255,255,0)));
         scene.addPoint(pointE);
-        scene.addPolygon(new Polygon(new Point(0,0,0), new Point(1,1,1), new Point(-1,2,3)));
 //        scene.loadSceneFromFile(new File("src/main/Scenes/Scene32.json"));
         AppBuilder appBuilder = new AppBuilder();
         appBuilder.setScene(scene);

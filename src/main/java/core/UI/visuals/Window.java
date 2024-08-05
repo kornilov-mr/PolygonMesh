@@ -3,6 +3,7 @@ package core.UI.visuals;
 import core.UI.controller.WindowController;
 import core.UI.visuals.compositers.MainPanel;
 import core.UI.visuals.compositers.ToolBar;
+import core.UI.visuals.menu.MenuBar;
 import core.render.Frame;
 import core.statistic.FPS.FPSTracker;
 
@@ -27,7 +28,7 @@ public class Window {
 //        sl.setResizeWeight(0.5);
         windowFrame.add(sl);
 
-        windowFrame.setJMenuBar(new MenuBar());
+        windowFrame.setJMenuBar(new MenuBar(windowController.getScene()));
         windowFrame.addKeyListener(windowController.getCameraKeyListener());
         windowFrame.addKeyListener(windowController.getMainKeyListener());
         setWindowSettings(windowFrame);
