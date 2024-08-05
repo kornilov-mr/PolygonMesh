@@ -1,22 +1,22 @@
 package core;
 
-import core.UI.visuals.Window;
+import core.UI.visuals.MainWindow;
 import core.render.Frame;
 
 import javax.swing.*;
 
 public class UIUpdateWorker extends SwingWorker<Void,Void> {
     private final Frame frame;
-    private final Window window;
+    private final MainWindow mainWindow;
 
-    public UIUpdateWorker(Frame frame, Window window) {
+    public UIUpdateWorker(Frame frame, MainWindow mainWindow) {
         this.frame = frame;
-        this.window = window;
+        this.mainWindow = mainWindow;
     }
 
     @Override
     public Void doInBackground() throws Exception {
-        window.showOneFrame(frame);
+        mainWindow.showOneFrame(frame);
         return null;
     }
 }

@@ -1,12 +1,9 @@
 package core.render;
 
 import core.UIUpdateWorker;
-import core.render.Frame;
-import core.render.Render;
-import core.render.RenderConfig;
 import core.camera.Camera;
 import core.scene.Scene;
-import core.UI.visuals.Window;
+import core.UI.visuals.MainWindow;
 import core.statistic.FPS.TrackFPS;
 import core.statistic.FPS.FPSTracker;
 
@@ -17,14 +14,14 @@ public class RenderController extends Thread {
 
     private final RenderConfig renderConfig;
     private final Render render;
-    private final Window window;
+    private final MainWindow mainWindow;
     private final Camera camera;
     private final Scene scene;
 
-    public RenderController(RenderConfig renderConfig, Render render, Window window, Camera camera, Scene scene) {
+    public RenderController(RenderConfig renderConfig, Render render, MainWindow mainWindow, Camera camera, Scene scene) {
         this.renderConfig = renderConfig;
         this.render = render;
-        this.window = window;
+        this.mainWindow = mainWindow;
         this.camera = camera;
         this.scene = scene;
     }
@@ -34,15 +31,15 @@ public class RenderController extends Thread {
     public void run() {
         while(true){
             Frame frame = getProcessedFrame();
-            UIUpdateWorker uiUpdateWorker = new UIUpdateWorker(frame, window);
+            UIUpdateWorker uiUpdateWorker = new UIUpdateWorker(frame, mainWindow);
             try {
                 uiUpdateWorker.doInBackground();
             } catch (Exception e) {
                 System.out.println("A problem accrued during UI update");
                 throw new RuntimeException(e);
             }
-            window.updateAll();
-            window.updateInfoLabels();
+            mainWindow.updateAll();
+            mainWindow.updateInfoLabels();
         }
     }
 

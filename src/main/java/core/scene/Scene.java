@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.*;
 
 public class Scene {
-
+    private String sceneName = "Scene";
     private final Set<Primitive> primitives = new HashSet<>();
     private final Set<Polygon> polygons = new HashSet<>();
     private final Set<Point> points = new HashSet<>();
@@ -75,7 +75,10 @@ public class Scene {
         polygon.getCounterA().addPolygon(polygon);
         polygon.getCounterB().addPolygon(polygon);
     }
-
+    public void saveInFileOrFolder(File file, Extensions extension){
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(extension);
+        sceneLoader.saveSceneInDirOrFile(this,file,extension);
+    }
     public void saveScene(File file) {
         SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file);
         sceneLoader.saveScene(this,file);
@@ -103,5 +106,13 @@ public class Scene {
 
     public Set<Counter> getCounters() {
         return counters;
+    }
+
+    public String getSceneName() {
+        return sceneName;
+    }
+
+    public void setSceneName(String sceneName) {
+        this.sceneName = sceneName;
     }
 }

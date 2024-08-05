@@ -28,4 +28,11 @@ public enum Extensions {
         }
         return sceneLoader;
     }
+    public static String[] extensions(){
+        String[] ex = new String[Extensions.values().length];
+        for(int i=0;i< Extensions.values().length;i++){
+            ex[i]=Extensions.values()[i].realExtension.replace(".","");
+        }
+        return ex;
+    }
 }

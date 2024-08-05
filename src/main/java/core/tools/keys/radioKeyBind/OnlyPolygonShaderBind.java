@@ -14,9 +14,9 @@ public class OnlyPolygonShaderBind extends RadioKeyBind{
         super(keysRequired);
     }
 
-    public OnlyPolygonShaderBind() {
-        super(new HashSet<>(Arrays.asList(KeyEvent.VK_CONTROL)));
-    }
+//    public OnlyPolygonShaderBind() {
+//        super(new HashSet<>(Arrays.asList(KeyEvent.VK_CONTROL)));
+//    }
 
     @Override
     protected void turnOff(SceneManipulator sceneManipulator) {

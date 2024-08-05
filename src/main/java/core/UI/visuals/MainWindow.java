@@ -11,10 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Date;
 
-public class Window {
+public class MainWindow {
     private final WindowController windowController;
     private final MainPanel mainPanel;
-    public Window(WindowController windowController) {
+    public MainWindow(WindowController windowController) {
         this.windowController=windowController;
         JFrame windowFrame = new JFrame("3D render demo");
         windowController.getFocusTabManager().setMainWindow(windowFrame);
