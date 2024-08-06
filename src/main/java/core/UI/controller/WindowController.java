@@ -11,6 +11,7 @@ import core.camera.cameraControl.CameraMouseListener;
 import core.render.RenderConfig;
 import core.render.RenderSwitcher;
 import core.scene.Scene;
+import core.scene.SceneManipulator;
 import core.tools.changes.ChangeManager;
 import core.tools.commands.CommandManager;
 import core.tools.keys.KeyBindRegister;
@@ -39,6 +40,7 @@ public class WindowController {
     private final KeyBindRegister keyBindRegister;
     private final SelectedMovementMouseMotionListener selectedMovement;
     private final MainWindowListener mainWindowListener;
+    private final SceneManipulator sceneManipulator;
     public WindowController(RenderConfig renderConfig, Camera camera,Scene scene, RenderSwitcher renderSwitcher) {
         this.renderConfig = renderConfig;
         this.camera= camera;
@@ -60,12 +62,17 @@ public class WindowController {
 
         this.keyBindRegister= new KeyBindRegister();
 
-        this.mainKeyListener = new MainKeyListener(commandManager, changeManager, renderSwitcher, instructionManager, keyBindRegister);
+        this.sceneManipulator= new SceneManipulator(commandManager,changeManager,renderSwitcher, instructionManager);
+        this.mainKeyListener = new MainKeyListener(sceneManipulator, keyBindRegister);
         this.pointMouseListener=new PointMouseListener(camera,scene,focusTabManager, mainKeyListener,commandManager);
         this.objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);
         this.selectedMovement = new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager, mainKeyListener);
         this.mainWindowListener = new MainWindowListener(keyBindRegister);
+    }
+
+    public SceneManipulator getSceneManipulator() {
+        return sceneManipulator;
     }
 
     public MainWindowListener getMainWindowListener() {

@@ -1,5 +1,6 @@
 package core.UI.visuals.menu;
 
+import core.UI.controller.WindowController;
 import core.scene.Scene;
 import core.scene.sceneLoaders.Extensions;
 
@@ -14,11 +15,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 public class MenuBar extends JMenuBar {
-    private final JMenu editMenu = new JMenu("edit");
-    public MenuBar(Scene scene) {
-        add(new FileMenu(scene));
-        add(editMenu);
-
-
+    public MenuBar(WindowController windowController) {
+        add(new FileMenu(windowController.getScene()));
+        add(new EditMenu(windowController.getKeyBindRegister(), windowController.getMainKeyListener(), windowController.getSceneManipulator(), windowController.getFocusTabManager()));
     }
 }

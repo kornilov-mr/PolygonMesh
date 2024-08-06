@@ -18,7 +18,7 @@ public class CNTRZ extends OneTimeKeyBind {
     }
 
     @Override
-    protected void run(SceneManipulator sceneManipulator) {
+    public void run(SceneManipulator sceneManipulator) {
         sceneManipulator.getChangeManager().reversePreviousChange();
     }
     @Override

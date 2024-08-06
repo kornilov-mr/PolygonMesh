@@ -65,6 +65,11 @@
             <artifactId>spring-context</artifactId>
             <version>6.0.13</version>
         </dependency>
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-swing</artifactId>
+            <version>5.0</version>
+        </dependency>
     </dependencies>
 
 </project>

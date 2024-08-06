@@ -8,18 +8,18 @@ import java.io.File;
 import java.util.Set;
 
 public class KeyBindRegister {
-    private KeyBindsPreset preset;
+    private final KeyBindsPreset preset;
     private final KeySaver keySaver;
 
     public KeyBindRegister() {
         this.keySaver = new KeySaver();
+        this.preset= new KeyBindsPreset();
         try {
-            this.preset= keySaver.loadKeyPreset();
+            keySaver.loadKeyPreset(preset);
 
         }catch (Exception e){
             keySaver.writeDefaultSettings();
-            this.preset= keySaver.loadKeyPreset();
-
+            keySaver.loadKeyPreset(preset);
         }
     }
 
@@ -45,4 +45,11 @@ public class KeyBindRegister {
         keySaver.saveKeyPreset(preset);
     }
 
+    public KeyBindsPreset getPreset() {
+        return preset;
+    }
+    public void setToDefault(){
+        keySaver.writeDefaultSettings();
+        keySaver.loadKeyPreset(preset);
+    }
 }

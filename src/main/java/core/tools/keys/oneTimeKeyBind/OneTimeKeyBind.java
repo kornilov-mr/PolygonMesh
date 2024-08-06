@@ -11,7 +11,7 @@ public abstract class OneTimeKeyBind extends KeyBind {
     public OneTimeKeyBind(Set<Integer> keysRequired) {
         super(keysRequired);
     }
-    protected abstract void run(SceneManipulator sceneManipulator);
+    public abstract void run(SceneManipulator sceneManipulator);
     public final void execute(Set<Integer> keysPressed,SceneManipulator sceneManipulator){
         if (keysPressed.size()!= keysRequired.size()){
             return;

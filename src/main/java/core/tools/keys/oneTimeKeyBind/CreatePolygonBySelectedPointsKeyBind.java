@@ -19,7 +19,7 @@ public class CreatePolygonBySelectedPointsKeyBind extends OneTimeKeyBind{
     }
 
     @Override
-    protected void run(SceneManipulator sceneManipulator) {
+    public void run(SceneManipulator sceneManipulator) {
         sceneManipulator.getCommandManager().executeCommand(new CreatePolygonByPointsSelected());
     }
     @Override

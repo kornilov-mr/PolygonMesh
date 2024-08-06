@@ -28,7 +28,7 @@ public class MainWindow {
 //        sl.setResizeWeight(0.5);
         windowFrame.add(sl);
 
-        windowFrame.setJMenuBar(new MenuBar(windowController.getScene()));
+        windowFrame.setJMenuBar(new MenuBar(windowController));
         windowFrame.addKeyListener(windowController.getCameraKeyListener());
         windowFrame.addKeyListener(windowController.getMainKeyListener());
         setWindowSettings(windowFrame);

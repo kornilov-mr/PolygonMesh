@@ -19,7 +19,7 @@ public class CreatePointKeyBind extends OneTimeKeyBind{
     }
 
     @Override
-    protected void run(SceneManipulator sceneManipulator) {
+    public void run(SceneManipulator sceneManipulator) {
         sceneManipulator.getInstructionManager().queueInstruction(new PointCreatingInstruction());
     }
     @Override

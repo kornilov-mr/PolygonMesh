@@ -60,9 +60,7 @@ public class KeySaver {
         printWriter.println(jsonArray);
         printWriter.flush();
     }
-    protected KeyBindsPreset loadKeyPreset(){
-        KeyBindsPreset preset = new KeyBindsPreset();
-
+    protected void loadKeyPreset(KeyBindsPreset preset){
         String content = null;
         try {
             content = new String(Files.readAllBytes(Paths.get(file.toURI())));
@@ -73,32 +71,7 @@ public class KeySaver {
         for(int i =0;i<jsonArray.length();i++){
             JSONObject keyData = jsonArray.getJSONObject(i);
             KeyBindData keyBindData = new KeyBindData(keyData);
-            if(keyBindData.getKeyBind().getOneTimeFlag()==1){
-                try {
-                    preset.addOneTimeKeyBind(keyBindData.getKeyBind().getNameInJson(),(OneTimeKeyBind) keyBindData.getKeyBind().getKeyBindClass().getConstructors()[0]
-                            .newInstance(keyBindData.getKeysRequired()));
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                } catch (InstantiationException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }else{
-                try {
-                    preset.addRadioKeyBind(keyBindData.getKeyBind().getNameInJson(),(RadioKeyBind) keyBindData.getKeyBind().getKeyBindClass().getConstructors()[0]
-                            .newInstance(keyBindData.getKeysRequired()));
-
-                } catch (InstantiationException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
+            preset.changeRequiredKey(keyBindData.getKeyBind().getNameInJson(),keyBindData.getKeysRequired());
         }
-        return preset;
     }
 }

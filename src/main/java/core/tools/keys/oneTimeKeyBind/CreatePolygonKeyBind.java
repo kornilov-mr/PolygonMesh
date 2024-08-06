@@ -19,7 +19,7 @@ public class CreatePolygonKeyBind extends OneTimeKeyBind{
     }
 
     @Override
-    protected void run(SceneManipulator sceneManipulator) {
+    public void run(SceneManipulator sceneManipulator) {
         sceneManipulator.getInstructionManager().queueInstruction(new PolygonCreatingInstruction());
     }
     @Override

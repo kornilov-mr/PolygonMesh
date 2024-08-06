@@ -5,6 +5,7 @@ import javax.swing.plaf.IconUIResource;
 import java.io.File;
 
 public enum Icons {
+    RADIO_WORKING_ICON(new File("src/main/java/core/UI/visuals/icons/radio_working_icon.png")),
     FOLDER_ICON(new File("src/main/java/core/UI/visuals/icons/folder_icon.png"));
 
     private final File file;
