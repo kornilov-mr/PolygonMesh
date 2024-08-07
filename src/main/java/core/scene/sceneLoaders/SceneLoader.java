@@ -1,15 +1,21 @@
 package core.scene.sceneLoaders;
 
 import core.scene.Scene;
+import core.scene.resentProjects.ResentProjectData;
+import core.scene.resentProjects.ResentProjectManager;
 
+import javax.swing.*;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Date;
 
 public abstract class SceneLoader {
     private final FolderSceneManager folderSceneManager;
+    private final ResentProjectManager resentProjectManager;
 
-    protected SceneLoader(File sceneFolder) {
+    protected SceneLoader(File sceneFolder, ResentProjectManager resentProjectManager) {
         this.folderSceneManager = new FolderSceneManager(sceneFolder);
+        this.resentProjectManager = resentProjectManager;
     }
     protected File getSaveFile(Scene scene, Extensions extension) {
         return folderSceneManager.getSaveFile(scene,extension);
@@ -32,5 +38,10 @@ public abstract class SceneLoader {
         folderSceneManager.setPathToSceneFolder(file);
     }
     public abstract void readScene(File file,Scene scene);
-    public abstract void saveScene(Scene scene,File file);
+    protected abstract void saving(File file,Scene scene);
+    public void saveScene(Scene scene,File file){
+        saving(file, scene);
+        ResentProjectData projectData = new ResentProjectData(file,scene.getCanvas(),scene.getSceneName(),new Date().getTime());
+        resentProjectManager.addNewProject(projectData);
+    }
 }

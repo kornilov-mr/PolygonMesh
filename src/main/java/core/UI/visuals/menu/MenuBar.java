@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 
 public class MenuBar extends JMenuBar {
     public MenuBar(WindowController windowController) {
-        add(new FileMenu(windowController.getScene()));
+        add(new FileMenu(windowController.getScene(), windowController.getResentProjectManager(), windowController.getFocusTabManager()));
         add(new EditMenu(windowController.getKeyBindRegister(), windowController.getMainKeyListener(), windowController.getSceneManipulator(), windowController.getFocusTabManager()));
     }
 }

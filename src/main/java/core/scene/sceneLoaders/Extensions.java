@@ -1,5 +1,7 @@
 package core.scene.sceneLoaders;
 
+import core.scene.resentProjects.ResentProjectManager;
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
@@ -15,10 +17,10 @@ public enum Extensions {
     public String getRealExtension() {
         return realExtension;
     }
-    SceneLoader createSceneLoader(){
+    SceneLoader createSceneLoader(ResentProjectManager resentProjectManager){
         SceneLoader sceneLoader=null;
         try {
-            sceneLoader = (SceneLoader) loaderClass.getConstructors()[0].newInstance();
+            sceneLoader = (SceneLoader) loaderClass.getConstructors()[0].newInstance(resentProjectManager);
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {

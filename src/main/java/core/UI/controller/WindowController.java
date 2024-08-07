@@ -1,6 +1,7 @@
 package core.UI.controller;
 
 import core.UI.visuals.MainWindowListener;
+import core.UI.visuals.elements.mainPanel.MainRenderPlane;
 import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
 import core.UI.visuals.elements.toolPanel.toolInterface.InstructionToolBar;
 import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionManager;
@@ -12,6 +13,7 @@ import core.render.RenderConfig;
 import core.render.RenderSwitcher;
 import core.scene.Scene;
 import core.scene.SceneManipulator;
+import core.scene.resentProjects.ResentProjectManager;
 import core.tools.changes.ChangeManager;
 import core.tools.commands.CommandManager;
 import core.tools.keys.KeyBindRegister;
@@ -20,6 +22,8 @@ import core.tools.managers.FocusTabManager;
 import core.tools.managers.UpdateManager;
 import core.tools.selecting.PointMouseListener;
 import core.tools.selecting.SelectedMovementMouseMotionListener;
+
+import javax.naming.ldap.PagedResultsControl;
 
 public class WindowController {
     private final RenderConfig renderConfig;
@@ -41,6 +45,8 @@ public class WindowController {
     private final SelectedMovementMouseMotionListener selectedMovement;
     private final MainWindowListener mainWindowListener;
     private final SceneManipulator sceneManipulator;
+    private final ResentProjectManager resentProjectManager;
+    private final MainRenderPlane mainRenderPlane;
     public WindowController(RenderConfig renderConfig, Camera camera,Scene scene, RenderSwitcher renderSwitcher) {
         this.renderConfig = renderConfig;
         this.camera= camera;
@@ -68,7 +74,20 @@ public class WindowController {
         this.objectPanel = new ObjectPanel();
         pointMouseListener.setObjectPanel(objectPanel);
         this.selectedMovement = new SelectedMovementMouseMotionListener(camera,scene.selectedObjectManager,objectPanel, commandManager, mainKeyListener);
-        this.mainWindowListener = new MainWindowListener(keyBindRegister);
+        this.resentProjectManager = scene.getResentProjectManager();
+        this.mainWindowListener = new MainWindowListener(keyBindRegister, resentProjectManager);
+
+        this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],
+                getCameraMouseListener(),getPointMouseListener(), getSelectedMovement());
+        scene.setMainRenderPlane(mainRenderPlane);
+    }
+
+    public MainRenderPlane getMainRenderPlane() {
+        return mainRenderPlane;
+    }
+
+    public ResentProjectManager getResentProjectManager() {
+        return resentProjectManager;
     }
 
     public SceneManipulator getSceneManipulator() {

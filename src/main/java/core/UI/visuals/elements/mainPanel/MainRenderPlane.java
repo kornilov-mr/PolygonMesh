@@ -48,4 +48,7 @@ public class MainRenderPlane extends JPanel {
         repaint();
     }
 
+    public BufferedImage getCanvas() {
+        return canvas;
+    }
 }

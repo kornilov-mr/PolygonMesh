@@ -2,18 +2,23 @@ package core.UI.visuals.windows;
 
 import core.UI.visuals.icons.Icons;
 import core.scene.Scene;
+import core.scene.resentProjects.ResentProjectData;
+import core.scene.resentProjects.ResentProjectManager;
 import core.scene.sceneLoaders.Extensions;
+import core.tools.managers.FocusTabManager;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class SaveWindow extends JFrame {
     private final JFrame thisFrame;
 
-    public SaveWindow(Scene scene){
+    public SaveWindow(Scene scene, ResentProjectManager resentProjectManager, FocusTabManager focusTabManager){
         this.thisFrame=this;
         setTitle("Saving window");
         setSize(500,500);
@@ -92,6 +97,24 @@ public class SaveWindow extends JFrame {
         setLayout(new BorderLayout());
         add(inputPanelWrapper,BorderLayout.CENTER);
         add(saveButton,BorderLayout.PAGE_END);
+        JPanel resentProjectWrapper = new JPanel();
+        resentProjectWrapper.setLayout(new BoxLayout(resentProjectWrapper,BoxLayout.Y_AXIS));
+
+        JPanel resentProjectsPanel = new JPanel(new GridLayout(2,4));
+
+        ArrayList<ResentProjectData> resentProjectDatas = resentProjectManager.getSortedResentProjects();
+        for(int i=0;i<Math.min(8,resentProjectDatas.size());i++){
+            JPanel savePanel = resentProjectDatas.get(i).savePanel(scene,focusTabManager,80,80);
+            if(i==3){
+                resentProjectsPanel.add(savePanel);
+            }else{
+                resentProjectsPanel.add(savePanel);
+            }
+        }
+        resentProjectWrapper.add(new JLabel("save in"));
+        resentProjectWrapper.add(resentProjectsPanel);
+        inputPanel.add(resentProjectWrapper);
+
     }
     public void setAsVisible(){
         setLocationByPlatform(true);

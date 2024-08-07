@@ -1,5 +1,7 @@
 package core.scene;
 
+import core.UI.visuals.elements.mainPanel.MainRenderPlane;
+import core.scene.resentProjects.ResentProjectManager;
 import core.scene.sceneLoaders.Extensions;
 import core.scene.sceneLoaders.SceneLoader;
 import core.scene.sceneLoaders.SceneLoaderFactory;
@@ -9,6 +11,7 @@ import primitive.calculation.Point;
 import primitive.Primitive;
 import primitive.calculation.faces.Polygon;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 
@@ -20,9 +23,11 @@ public class Scene {
     private final Set<Counter> counters = new HashSet<>();
     public final IDManager idManager = new IDManager(this);
     public final SelectedObjectManager selectedObjectManager;
-
+    private final ResentProjectManager resentProjectManager;
+    private MainRenderPlane mainRenderPlane;
     public Scene() {
         this.selectedObjectManager= new SelectedObjectManager();
+        this.resentProjectManager= new ResentProjectManager();
     }
 
     public void addPrimitive(Primitive primitive){
@@ -76,19 +81,19 @@ public class Scene {
         polygon.getCounterB().addPolygon(polygon);
     }
     public void saveInFileOrFolder(File file, Extensions extension){
-        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(extension);
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(extension, resentProjectManager);
         sceneLoader.saveSceneInDirOrFile(this,file,extension);
     }
     public void saveScene(File file) {
-        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file);
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file,resentProjectManager);
         sceneLoader.saveScene(this,file);
     }
     public void fastSaveScene(){
-        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(Extensions.JSON);
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromExtension(Extensions.JSON,resentProjectManager);
         sceneLoader.fastSaveScene(this);
     }
     public void loadSceneFromFile(File file){
-        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file);
+        SceneLoader sceneLoader = SceneLoaderFactory.createSceneLoaderFromFile(file,resentProjectManager);
         sceneLoader.readScene(file,this);
     }
 
@@ -114,5 +119,17 @@ public class Scene {
 
     public void setSceneName(String sceneName) {
         this.sceneName = sceneName;
+    }
+
+    public ResentProjectManager getResentProjectManager() {
+        return resentProjectManager;
+    }
+
+    public BufferedImage getCanvas() {
+        return mainRenderPlane.getCanvas();
+    }
+
+    public void setMainRenderPlane(MainRenderPlane mainRenderPlane) {
+        this.mainRenderPlane = mainRenderPlane;
     }
 }

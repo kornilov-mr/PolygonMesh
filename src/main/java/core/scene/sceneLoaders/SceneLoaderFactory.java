@@ -1,21 +1,23 @@
 package core.scene.sceneLoaders;
 
+import core.scene.resentProjects.ResentProjectManager;
+
 import java.io.File;
 import java.util.Objects;
 
 public class SceneLoaderFactory {
-    public static SceneLoader createSceneLoaderFromExtension(Extensions extensions){
+    public static SceneLoader createSceneLoaderFromExtension(Extensions extensions, ResentProjectManager resentProjectManager){
         if (extensions.equals(Extensions.JSON)){
-            return new JsonSceneLoader();
+            return new JsonSceneLoader(resentProjectManager);
         }
-        return new JsonSceneLoader();
+        return new JsonSceneLoader(resentProjectManager);
     }
-    public static SceneLoader createSceneLoaderFromFile(File file){
+    public static SceneLoader createSceneLoaderFromFile(File file,ResentProjectManager resentProjectManager){
         String extension = file.getName().substring(file.getName().lastIndexOf("."));
         SceneLoader sceneLoader = null;
         for(Extensions extensionCurr: Extensions.values()){
             if(Objects.equals(extensionCurr.getRealExtension(),extension)){
-                sceneLoader=extensionCurr.createSceneLoader();
+                sceneLoader=extensionCurr.createSceneLoader(resentProjectManager);
             }
         }
         if(sceneLoader==null){

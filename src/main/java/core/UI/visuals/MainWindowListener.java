@@ -1,5 +1,6 @@
 package core.UI.visuals;
 
+import core.scene.resentProjects.ResentProjectManager;
 import core.tools.keys.KeyBindRegister;
 
 import java.awt.event.WindowEvent;
@@ -7,9 +8,11 @@ import java.awt.event.WindowListener;
 
 public class MainWindowListener implements WindowListener {
     private final KeyBindRegister keyBindRegister;
+    private final ResentProjectManager resentProjectManager;
 
-    public MainWindowListener(KeyBindRegister keyBindRegister) {
+    public MainWindowListener(KeyBindRegister keyBindRegister, ResentProjectManager resentProjectManager) {
         this.keyBindRegister = keyBindRegister;
+        this.resentProjectManager = resentProjectManager;
     }
 
     @Override
@@ -19,6 +22,7 @@ public class MainWindowListener implements WindowListener {
     @Override
     public void windowClosing(WindowEvent e) {
         keyBindRegister.saveKeySetUp();
+        resentProjectManager.saveResentData();
     }
 
     @Override

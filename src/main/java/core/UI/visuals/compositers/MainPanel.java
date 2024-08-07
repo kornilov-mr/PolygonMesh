@@ -26,8 +26,7 @@ public class MainPanel extends JLayeredPane {
     private final InfoPanel infoPanel;
     public MainPanel(WindowController windowController){
         this.renderConfig=windowController.getRenderConfig();
-        this.mainRenderPlane =new MainRenderPlane(renderConfig.resolution[0],renderConfig.resolution[1],
-                windowController.getCameraMouseListener(),windowController.getPointMouseListener(), windowController.getSelectedMovement());
+        this.mainRenderPlane =windowController.getMainRenderPlane();
 
         this.infoPanel = new InfoPanel(windowController.getCamera());
         setPreferredSize(new Dimension(renderConfig.resolution[0],renderConfig.resolution[1]));

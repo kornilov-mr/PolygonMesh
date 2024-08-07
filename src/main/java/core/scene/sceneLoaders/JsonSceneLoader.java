@@ -1,6 +1,7 @@
 package core.scene.sceneLoaders;
 
 import core.scene.Scene;
+import core.scene.resentProjects.ResentProjectManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import primitive.PrimitiveFactory;
@@ -15,11 +16,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JsonSceneLoader extends SceneLoader {
-    public JsonSceneLoader() {
-        super(new File("src/main/Scenes"));
+    public JsonSceneLoader(ResentProjectManager resentProjectManager) {
+        this(new File("src/main/Scenes"), resentProjectManager);
     }
-    public JsonSceneLoader(File sceneFolder) {
-        super(sceneFolder);
+    public JsonSceneLoader(File sceneFolder,ResentProjectManager resentProjectManager) {
+        super(sceneFolder, resentProjectManager);
     }
     public JSONObject wrapPointJsonWithIndex(Point point,String id){
         JSONObject wrappedPointJson = new JSONObject();
@@ -61,7 +62,7 @@ public class JsonSceneLoader extends SceneLoader {
     }
 
     @Override
-    public void saveScene(Scene scene, File file) {
+    protected void saving(File file, Scene scene) {
         try {
             PrintWriter printWriter = new PrintWriter(file);
             JSONObject jsonObject = new JSONObject();
