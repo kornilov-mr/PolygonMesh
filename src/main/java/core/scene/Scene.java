@@ -132,4 +132,11 @@ public class Scene {
     public void setMainRenderPlane(MainRenderPlane mainRenderPlane) {
         this.mainRenderPlane = mainRenderPlane;
     }
+    public void clear(){
+        idManager.clear();
+        primitives.clear();
+        points.clear();
+        polygons.clear();
+        counters.clear();
+    }
 }

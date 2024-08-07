@@ -1,5 +1,6 @@
 package core.UI.visuals.menu;
 
+import core.UI.visuals.windows.LoadWindow;
 import core.UI.visuals.windows.SaveWindow;
 import core.scene.Scene;
 import core.scene.resentProjects.ResentProjectManager;
@@ -35,19 +36,8 @@ public class FileMenu extends JMenu {
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                final JFileChooser fileChooser;
-                fileChooser = new JFileChooser(new File("src/main/Scenes").getAbsolutePath());
-                fileChooser.setMultiSelectionEnabled(false);
-                fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
-                for(Extensions extension: Extensions.values()){
-                    fileChooser.setFileFilter(new FileNameExtensionFilter("Files ending in "+extension.getRealExtension(), extension.getRealExtension().replace(".","")));
-                }
-                int returnVal = fileChooser.showOpenDialog(null);
-                File file = fileChooser.getSelectedFile();
-
-                if (file!=null) {
-                    scene.loadSceneFromFile(file);
-                }
+                LoadWindow loadWindow= new LoadWindow(scene,resentProjectManager,focusTabManager);
+                loadWindow.setAsVisible();
             }
         });
         add(saveButton);

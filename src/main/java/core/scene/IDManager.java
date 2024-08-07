@@ -127,4 +127,10 @@ public class IDManager {
             scene.getCounters().remove(polygon.getCounterC());
         }
     }
+    protected void clear(){
+        indexesToPrimitive.clear();
+        indexesToPolygons.clear();
+        indexesToCounters.clear();;
+        indexesToPoints.clear();
+    }
 }

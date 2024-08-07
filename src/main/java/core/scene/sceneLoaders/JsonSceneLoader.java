@@ -29,7 +29,7 @@ public class JsonSceneLoader extends SceneLoader {
         return wrappedPointJson;
     }
     @Override
-    public void readScene(File file, Scene scene) {
+    protected void read(File file, Scene scene) {
         PrimitiveFactory primitiveFactory = new PrimitiveFactory();
         try {
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
@@ -42,10 +42,8 @@ public class JsonSceneLoader extends SceneLoader {
                 JSONObject pointData = pointJsonWithIndex.getJSONObject("point");
                 String id = pointJsonWithIndex.getString("id");
                 Point point = primitiveFactory.createPointFromJson(pointData);
-                scene.getPrimitives().add(point);
-                scene.getPoints().add(point);
-                scene.idManager.putPoint(id,point);
                 point.setId(id);
+                scene.addPoint(point);
             }
 
             JSONArray polygons = jsonObject.getJSONArray("polygons");

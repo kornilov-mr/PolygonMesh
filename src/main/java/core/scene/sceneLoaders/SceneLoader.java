@@ -37,7 +37,12 @@ public abstract class SceneLoader {
     protected void setFolder(File file){
         folderSceneManager.setPathToSceneFolder(file);
     }
-    public abstract void readScene(File file,Scene scene);
+    public final void readScene(File file,Scene scene){
+        scene.clear();
+        read(file,scene);
+    }
+    protected abstract void read(File file,Scene scene);
+
     protected abstract void saving(File file,Scene scene);
     public void saveScene(Scene scene,File file){
         saving(file, scene);
