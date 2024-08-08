@@ -1,5 +1,6 @@
 package core.UI.visuals.elements.toolPanel.toolInterface.popup.fields;
 
+import primitive.calculation.Counter;
 import primitive.calculation.Point;
 import primitive.calculation.faces.Polygon;
 
@@ -12,7 +13,8 @@ public enum TypeEnum {
     POINT_FIELD(PointField.class, Point.class),
     COLOR_FIELD(ColorField.class, Color.class),
     POLYGON_FIELD(PolygonField.class, Polygon.class),
-    ANGLE_FIELD(AngleField.class, Double.class);
+    ANGLE_FIELD(AngleField.class, Double.class),
+    COUNTER_FIELD(CounterField.class, Counter.class);
 //    ENUM_FIELD(EnumField.class, );
     private final Class<? extends ArgumentField> fieldClass;
     private final Class<?> argumentClass;

@@ -24,7 +24,7 @@ public class KeyBindsPreset {
                 }
             }else{
                 try {
-                    radioKeyBindMap.put(keyBind.getNameInJson(), (RadioKeyBind) keyBind.getKeyBindClass().getConstructors()[1].newInstance());
+                    radioKeyBindMap.put(keyBind.getNameInJson(), (RadioKeyBind) keyBind.getKeyBindClass().getConstructors()[0].newInstance());
                 } catch (InstantiationException e) {
                     throw new RuntimeException(e);
                 } catch (IllegalAccessException e) {

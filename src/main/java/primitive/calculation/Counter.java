@@ -22,7 +22,9 @@ public class Counter extends Primitive implements InfoPanelConvertible {
     private final Point pointB;
     private final Line counterLine;
     private final ArrayList<Polygon> belongToPolygon = new ArrayList<>();
-
+    public Counter(Point pointA, Point pointB, Color color) {
+        this(pointA,pointB,0.1, color);
+    }
     public Counter(Point pointA, Point pointB) {
         this(pointA,pointB,0.1, new Color(0,0,0));
     }

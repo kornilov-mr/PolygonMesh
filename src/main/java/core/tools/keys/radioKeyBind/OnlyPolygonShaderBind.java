@@ -10,9 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class OnlyPolygonShaderBind extends RadioKeyBind{
-    public OnlyPolygonShaderBind(Set<Integer> keysRequired) {
-        super(keysRequired);
-    }
 
     public OnlyPolygonShaderBind() {
         super(new HashSet<>(Arrays.asList(KeyEvent.VK_CONTROL)));

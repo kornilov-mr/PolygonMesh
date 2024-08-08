@@ -31,7 +31,7 @@ public class InstructionPopup {
                 ArgumentField argumentField = (ArgumentField) argumentClass.getConstructors()[0].newInstance(name);
                 this.argumentFields[i]=argumentField;
                 JPanel arguments = new JPanel();
-                arguments.add(new JLabel(name+":"));
+//                arguments.add(new JLabel(name+":"));
                 arguments.add(argumentField.createPanel(focusTabManager));
                 panel.add(arguments);
             } catch (InstantiationException e) {

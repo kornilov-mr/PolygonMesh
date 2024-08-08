@@ -1,21 +1,20 @@
 package core.UI.visuals.elements.toolPanel.toolInterface.popup.fields;
 
 import core.tools.managers.FocusTabManager;
+import primitive.calculation.Counter;
 import primitive.calculation.Point;
-import primitive.calculation.faces.Polygon;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PolygonField implements ArgumentField{
+public class CounterField implements ArgumentField {
     private final PointField pointAField;
     private final PointField pointBField;
-    private final PointField pointCField;
     private final ColorField colorField;
-    public PolygonField(String title) {
-        this.pointAField = new PointField("pointA");
-        this.pointBField = new PointField("pointB");
-        this.pointCField = new PointField("pointC");
+
+    public CounterField(String title) {
+        this.pointAField = new PointField("PointA");
+        this.pointBField = new PointField("PointB");
         this.colorField = new ColorField("Color");
     }
 
@@ -23,18 +22,16 @@ public class PolygonField implements ArgumentField{
     public Object Field() {
         Point pointA = (Point) pointAField.Field();
         Point pointB = (Point) pointBField.Field();
-        Point pointC = (Point) pointCField.Field();
         Color color = (Color) colorField.Field();
-        return new Polygon(pointA,pointB,pointC,color);
+        return new Counter(pointA, pointB, color);
     }
 
     @Override
     public JPanel createPanel(FocusTabManager focusTabManager) {
         JPanel jPanel = new JPanel();
-        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
+        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
         jPanel.add(pointAField.createPanel(focusTabManager));
         jPanel.add(pointBField.createPanel(focusTabManager));
-        jPanel.add(pointCField.createPanel(focusTabManager));
         jPanel.add(colorField.createPanel(focusTabManager));
         return jPanel;
     }

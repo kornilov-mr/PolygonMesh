@@ -14,12 +14,14 @@ public abstract class TypeArgumentField implements ArgumentField{
     protected JTextField textArea;
 
     protected TypeArgumentField(String title, String regexString) {
+
         this.title = title;
         this.regexString = regexString;
     }
     @Override
     public JPanel createPanel(FocusTabManager focusTabManager){
         JPanel jPanel = new JPanel();
+        jPanel.add( new JLabel(title));
 //        jPanel.add(new JLabel(title+":"));
         this.textArea = new JTextField("0");
         textArea.addKeyListener(new KeyAdapter() {
