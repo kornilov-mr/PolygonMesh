@@ -9,6 +9,8 @@ public class SceneLoaderFactory {
     public static SceneLoader createSceneLoaderFromExtension(Extensions extensions, ResentProjectManager resentProjectManager){
         if (extensions.equals(Extensions.JSON)){
             return new JsonSceneLoader(resentProjectManager);
+        }else if(extensions.equals(Extensions.OBJ)){
+            return new OBJSceneLoader(resentProjectManager);
         }
         return new JsonSceneLoader(resentProjectManager);
     }

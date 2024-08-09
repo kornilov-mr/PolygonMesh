@@ -3,7 +3,7 @@ double square_root(double x)
 {
     return sqrt(x);
 }
-double abs(const double a){
+double __attribute__((overloadable)) abs(const double a){
     if(a<0){
         return -1*a;
     }

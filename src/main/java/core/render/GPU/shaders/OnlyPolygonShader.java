@@ -32,7 +32,9 @@ public class OnlyPolygonShader extends ShaderRunner{
                 (long) Sizeof.cl_int * renderConfig.pixelCount, null, null);
     }
     public int[] run(Scene scene){
-
+        if (scene.getPrimitives().isEmpty()){
+            return RGBColors;
+        }
         int polygonCount = scene.getPolygons().size();
 
         double[] ACoordinateFrom = new double[polygonCount];

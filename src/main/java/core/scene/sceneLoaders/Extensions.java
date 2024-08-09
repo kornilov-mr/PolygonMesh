@@ -6,7 +6,8 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 public enum Extensions {
-    JSON(".json",JsonSceneLoader.class);
+    JSON(".json",JsonSceneLoader.class),
+    OBJ(".obj",OBJSceneLoader.class);
 
     Extensions(String realExtension, Class<? extends SceneLoader> loaderClass){
         this.realExtension =realExtension;

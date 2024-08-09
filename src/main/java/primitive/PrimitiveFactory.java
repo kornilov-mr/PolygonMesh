@@ -62,5 +62,22 @@ public class PrimitiveFactory {
         Color color = new Color(rgb);
         return color;
     }
+    public Point createPointFromOBJString(String string){
+        String[] values = string.split(" ");
+        if(!Objects.equals(values[0],"v")){
+            throw  new RuntimeException("invalid flag in .obj file");
+        }
+        double[] valuesInt = new double[3];
+        for (int i=0;i<3;i++){
+            double temp=0;
+            try {
+                temp = Double.parseDouble(values[i+1]);
+            }catch (NumberFormatException e){
+                throw  new RuntimeException("invalid value in .obj file");
+            }
+            valuesInt[i]=temp;
+        }
+        return new Point(valuesInt[0],valuesInt[1],valuesInt[2]);
+    }
 
 }
