@@ -22,7 +22,7 @@ public final class ResentProjectData {
     private final File imageFile;
     private final String name;
     protected final long lastTime;
-    private final LastImagesFolderManager lastImagesFolderManager = new LastImagesFolderManager(new File("src/main/java/core/data/lastScreens"));
+    private final LastImagesFolderManager lastImagesFolderManager = new LastImagesFolderManager(new File("src/main/java/core/data"));
 
     public ResentProjectData(JSONObject jsonObject){
         this.imageFile = new File(jsonObject.getString("imagePath"));

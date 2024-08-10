@@ -4,6 +4,7 @@ import core.scene.Scene;
 import core.scene.sceneLoaders.Extensions;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 public class LastImagesFolderManager {
     private File pathToSceneFolder;
@@ -15,11 +16,15 @@ public class LastImagesFolderManager {
         if (!pathToSceneFolder.exists()) {
             pathToSceneFolder.mkdir();
         }
+        File screensFolder= new File(String.valueOf(Paths.get(pathToSceneFolder.getAbsolutePath()).resolve("lastScreens")));
+        if(!screensFolder.exists()){
+            screensFolder.exists();
+        }
         int copyCount = 0;
-        File saveFile = pathToSceneFolder.toPath().resolve(name + copyCount+".png").toFile();
+        File saveFile = screensFolder.toPath().resolve(name + copyCount+".png").toFile();
         while (saveFile.exists()) {
             copyCount += 1;
-            saveFile = pathToSceneFolder.toPath().resolve(name + copyCount+".png").toFile();
+            saveFile = screensFolder.toPath().resolve(name + copyCount+".png").toFile();
         }
         return saveFile;
     }
