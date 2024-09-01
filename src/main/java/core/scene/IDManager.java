@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IDManager {
+    //Class, which contains all of ids and references by id
 
     private final Map<String, Point> indexesToPoints = new HashMap<>();
     private final Map<String, Counter> indexesToCounters = new HashMap<>();

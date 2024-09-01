@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class ChangeTree {
-
+    //Tree with ChangeNodes with ability to go up or down on the tree
     private ChangeNode currentNode;
 
     public ChangeTree(Scene scene){

@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Objects;
 
 public class SceneLoaderFactory {
+    //factory, which creates Loader based on Extension or just file name
     public static SceneLoader createSceneLoaderFromExtension(Extensions extensions, ResentProjectManager resentProjectManager){
         if (extensions.equals(Extensions.JSON)){
             return new JsonSceneLoader(resentProjectManager);

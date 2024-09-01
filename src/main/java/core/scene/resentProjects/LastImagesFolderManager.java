@@ -1,12 +1,10 @@
 package core.scene.resentProjects;
 
-import core.scene.Scene;
-import core.scene.sceneLoaders.Extensions;
-
 import java.io.File;
 import java.nio.file.Paths;
 
 public class LastImagesFolderManager {
+    //Class which ensures, that the folder for saving date exists and to
     private File pathToSceneFolder;
 
     protected LastImagesFolderManager(File pathToSceneFolder) {

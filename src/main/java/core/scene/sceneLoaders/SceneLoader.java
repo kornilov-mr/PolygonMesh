@@ -4,12 +4,12 @@ import core.scene.Scene;
 import core.scene.resentProjects.ResentProjectData;
 import core.scene.resentProjects.ResentProjectManager;
 
-import javax.swing.*;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Date;
 
 public abstract class SceneLoader {
+    //Abstract class, which contains logic for saving
     private final FolderSceneManager folderSceneManager;
     private final ResentProjectManager resentProjectManager;
 

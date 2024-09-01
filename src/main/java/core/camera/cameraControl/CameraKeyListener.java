@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CameraKeyListener implements KeyListener, Updatable {
+    //KeyListener to control camera movement on xyz
     private final Set<Integer> keyPressedSet= new HashSet<>();
     private final Camera camera;
     private final RenderConfig renderConfig;

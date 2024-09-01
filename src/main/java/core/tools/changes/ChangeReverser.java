@@ -5,6 +5,7 @@ import core.scene.Scene;
 import primitive.Primitive;
 
 public class ChangeReverser {
+    //Class, which can reverse change
     private final IDManager idManager;
     private final Scene scene;
 

@@ -5,6 +5,7 @@ import primitive.calculation.Counter;
 import java.awt.*;
 
 public class CounterSave implements Saves<Counter> {
+    //Class, which saves Counter of Polygon and with ability to reapply with params
     private final double size;
     private final Color color;
 

@@ -4,22 +4,14 @@ import core.UI.controller.WindowController;
 import core.UI.visuals.elements.mainPanel.InfoPanel;
 import core.UI.visuals.elements.mainPanel.MainRenderPlane;
 import core.UI.visuals.elements.mainPanel.PaletteLayer;
-import core.UI.visuals.elements.toolPanel.pointer.ObjectPanel;
-import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionPanel;
-import core.scene.Scene;
-import core.tools.commands.CommandManager;
-import core.tools.keys.MainKeyListener;
-import core.tools.selecting.PointMouseListener;
-import core.camera.Camera;
-import core.camera.cameraControl.CameraMouseListener;
 import core.render.Frame;
 import core.render.RenderConfig;
-import core.tools.selecting.SelectedMovementMouseMotionListener;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainPanel extends JLayeredPane {
+    //Panel with main render Frame and all info about the render
     private final RenderConfig renderConfig;
 
     private final MainRenderPlane mainRenderPlane;

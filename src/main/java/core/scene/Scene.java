@@ -16,6 +16,7 @@ import java.io.*;
 import java.util.*;
 
 public class Scene {
+    //Class, which contains all of Primitive, with ability to add all Primitives and registrate their id
     private String sceneName = "Scene";
     private final Set<Primitive> primitives = new HashSet<>();
     private final Set<Polygon> polygons = new HashSet<>();

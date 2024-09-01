@@ -2,21 +2,18 @@ package core.scene.sceneLoaders;
 
 import core.scene.Scene;
 import core.scene.resentProjects.ResentProjectManager;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import primitive.PrimitiveFactory;
 import primitive.calculation.Point;
 import primitive.calculation.faces.Polygon;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class OBJSceneLoader extends SceneLoader{
+    //Class, witch loads Scene from .obj save and saves Scene in .obj
     public OBJSceneLoader( ResentProjectManager resentProjectManager) {
         super(new File("src/main/Scenes"), resentProjectManager);
     }

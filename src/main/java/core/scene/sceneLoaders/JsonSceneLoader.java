@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JsonSceneLoader extends SceneLoader {
+    //Class, witch loads Scene from Json save and saves Scene in Json
     public JsonSceneLoader(ResentProjectManager resentProjectManager) {
         this(new File("src/main/Scenes"), resentProjectManager);
     }

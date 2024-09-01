@@ -1,16 +1,13 @@
 package core.tools.keys;
 
-import core.UI.visuals.elements.toolPanel.toolInterface.instructions.InstructionManager;
-import core.render.RenderSwitcher;
 import core.scene.SceneManipulator;
-import core.tools.changes.ChangeManager;
-import core.tools.commands.CommandManager;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
 
 public class MainKeyListener implements KeyListener {
+    //KeyListener, which detects all keyPressed and executes keyBinds
     private final SceneManipulator sceneManipulator;
     private final HashSet<Integer> keyPressed = new HashSet<>();
     private final KeyBindRegister keyBindRegister;

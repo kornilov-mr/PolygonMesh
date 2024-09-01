@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 
 public class InstructionPopup {
+    //Popup based on Types of arguments and their names
     private final String title;
     private final String[] argumentNames;
     private final TypeEnum[] typeEnums;

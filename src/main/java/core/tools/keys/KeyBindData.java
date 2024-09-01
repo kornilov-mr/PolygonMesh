@@ -8,9 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 public class KeyBindData {
+    //Class which saves KeyBind in json
     private final KeyBinds keyBind;
     private final Set<Integer> keysRequired;
-
 
     public KeyBindData(KeyBinds keyBind, Set<Integer> keysRequired) {
         this.keyBind = keyBind;

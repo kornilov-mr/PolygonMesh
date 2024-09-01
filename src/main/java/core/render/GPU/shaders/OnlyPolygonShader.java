@@ -16,6 +16,8 @@ import java.util.Iterator;
 import static org.jocl.CL.*;
 
 public class OnlyPolygonShader extends ShaderRunner{
+    //additional shader, which renders only Polygon
+
     private final RenderConfig renderConfig;
     private final Camera camera;
     private final int[] RGBColors;

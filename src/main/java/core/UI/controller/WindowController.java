@@ -23,9 +23,9 @@ import core.tools.managers.UpdateManager;
 import core.tools.selecting.PointMouseListener;
 import core.tools.selecting.SelectedMovementMouseMotionListener;
 
-import javax.naming.ldap.PagedResultsControl;
 
 public class WindowController {
+    //class, which encapsulates all initializing
     private final RenderConfig renderConfig;
     private final UpdateManager updateManager = new UpdateManager();
     private final ChangeManager changeManager;

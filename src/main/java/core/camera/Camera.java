@@ -5,14 +5,12 @@ import core.scene.Scene;
 import primitive.OrientedObject;
 import primitive.calculation.Point;
 import primitive.Primitive;
-import utils.Calculation;
 import utils.line.Line;
 import utils.vectors.Vector3D;
 
 import java.util.Iterator;
 
 public class Camera extends OrientedObject {
-
 
     private Scene scene;
     private final RenderConfig renderConfig;
@@ -26,6 +24,7 @@ public class Camera extends OrientedObject {
         this.renderConfig=renderConfig;
         this.scene=scene;
     }
+    //function to calculate Ray line from camera from pixel i on width and j on height.
     public Line getRayLine(int i, int j) {
         Vector3D vu = new Vector3D(position);
         Vector3D ray= new Vector3D(frontVector);
@@ -43,7 +42,9 @@ public class Camera extends OrientedObject {
         this.scene=scene;
     }
 
+    //function to get first primitive shown on pixel i on width, j on heigth
     public Primitive getPrimitiveOnPixel(int i, int j){
+
         if(scene==null){
             return null;
         }

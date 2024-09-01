@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum KeyBinds {
+    //Enum with all keyBind and their types and names
     CREATE_BOX(new CreateBoxKeyBind(),1,"createBox","Create Box"),
     CREATE_POINT(new CreatePointKeyBind(),1,"createPoint", "Create Point"),
     CREATE_POLYGON(new CreatePolygonKeyBind(),1,"createPolygon", "Create Polygon"),

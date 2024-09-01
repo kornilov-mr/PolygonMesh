@@ -6,6 +6,7 @@ import core.tools.changes.ChangeManager;
 import core.tools.commands.CommandManager;
 
 public class SceneManipulator {
+    //Class, which contains all Classes, that can edit Scene indirectly
     private final CommandManager commandManager;
     private final ChangeManager changeManager;
     private final RenderSwitcher renderSwitcher;

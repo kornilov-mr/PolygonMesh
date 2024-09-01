@@ -11,11 +11,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InstructionToolBar extends JPanel {
+    //tool bar with icons, which executes instruction on click
     private final InstructionManager instructionManager;
     public InstructionToolBar(InstructionManager instructionManager) {
         setAlignmentY(Component.TOP_ALIGNMENT);

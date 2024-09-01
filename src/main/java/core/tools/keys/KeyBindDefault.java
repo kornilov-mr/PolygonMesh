@@ -3,9 +3,9 @@ package core.tools.keys;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 public enum KeyBindDefault {
+    //Enum with keyBind and default keys
     CREATE_BOX(new KeyBindData(KeyBinds.CREATE_BOX,new HashSet<>(Arrays.asList(KeyEvent.VK_B, KeyEvent.VK_SHIFT)))),
     CREATE_POINT(new KeyBindData(KeyBinds.CREATE_POINT,new HashSet<>(Arrays.asList(KeyEvent.VK_P, KeyEvent.VK_SHIFT)))),
     CREATE_POLYGON(new KeyBindData(KeyBinds.CREATE_POLYGON,new HashSet<>(Arrays.asList(KeyEvent.VK_OPEN_BRACKET, KeyEvent.VK_SHIFT)))),

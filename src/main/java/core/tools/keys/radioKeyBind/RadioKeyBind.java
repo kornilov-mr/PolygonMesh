@@ -3,12 +3,12 @@ package core.tools.keys.radioKeyBind;
 import core.UI.visuals.icons.Icons;
 import core.scene.SceneManipulator;
 import core.tools.keys.KeyBind;
-import core.tools.keys.KeyBinds;
 
 import javax.swing.*;
 import java.util.Set;
 
 public abstract class RadioKeyBind extends KeyBind {
+    //Abstract class, which trigger while required keys are pressed and deactivates after releasing them
     private final JLabel workingLabel = new JLabel();
     private boolean working = false;
     public RadioKeyBind(Set<Integer> keysRequired) {

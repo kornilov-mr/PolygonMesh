@@ -4,10 +4,10 @@ import core.scene.SceneManipulator;
 import core.tools.keys.oneTimeKeyBind.*;
 import core.tools.keys.radioKeyBind.RadioKeyBind;
 
-import java.io.File;
 import java.util.Set;
 
 public class KeyBindRegister {
+    //class, which loads and save keys and loop through all of them when some key combination is pressed
     private final KeyBindsPreset preset;
     private final KeySaver keySaver;
 

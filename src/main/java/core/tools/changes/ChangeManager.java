@@ -6,6 +6,7 @@ import core.tools.changes.changeTree.ChangeTree;
 
 
 public class ChangeManager {
+    //Class, which has the ability to add Change to the Tree
 
     private final ChangeReverser changeReverser;
     private final ChangeTree changeTree;

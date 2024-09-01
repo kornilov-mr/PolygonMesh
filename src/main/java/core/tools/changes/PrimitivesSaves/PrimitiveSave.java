@@ -6,6 +6,7 @@ import primitive.calculation.Point;
 import primitive.calculation.faces.Polygon;
 
 public class PrimitiveSave implements Saves<Primitive>{
+    //Class, which saves parameters of Primitive and with ability to reapply with params
     private final Saves<? extends Primitive> save;
 
     public PrimitiveSave(Primitive primitive) {

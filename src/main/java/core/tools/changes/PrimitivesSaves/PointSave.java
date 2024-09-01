@@ -5,6 +5,8 @@ import primitive.calculation.Point;
 import java.awt.*;
 
 public class PointSave implements Saves<Point> {
+    //Class, which saves parameters of Point and with ability to reapply with params
+
     private final double x;
     private final double y;
     private final double z;

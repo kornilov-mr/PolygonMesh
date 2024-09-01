@@ -9,7 +9,7 @@ import static org.jocl.CL.*;
 import static org.jocl.CL.clCreateCommandQueueWithProperties;
 
 public abstract class ShaderRunner {
-
+    //Abstract class, witch sets up kernel and context from openCl
     private void setUpKernel(File shaderFile){
         String source =
                 readFile(shaderFile.getAbsolutePath());

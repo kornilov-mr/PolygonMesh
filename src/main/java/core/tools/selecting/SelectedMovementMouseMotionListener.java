@@ -16,6 +16,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 
 public class SelectedMovementMouseMotionListener implements MouseMotionListener {
+    //MouseListener, which allows to move points with mouse
     private final Camera camera;
     private final SelectedObjectManager selectedObjectManager;
     private final ObjectPanel objectPanel;

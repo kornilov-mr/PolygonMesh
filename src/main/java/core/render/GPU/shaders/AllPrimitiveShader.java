@@ -20,6 +20,7 @@ import java.util.Iterator;
 import static org.jocl.CL.*;
 
 public class AllPrimitiveShader extends ShaderRunner{
+    //Main shader, which renders all Primitive (Polygon, Point, Counter)
     private final RenderConfig renderConfig;
     private final Camera camera;
     private final int[] RGBColors;

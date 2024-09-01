@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class CameraMouseListener implements MouseMotionListener,Updatable {
-
+    //CameraMouseListener to control camera rotation
     private Vector2D lastMousePosition = new Vector2D(0,0);
     private double cameraHorizontalAngle;
     private double cameraVerticalAngle;

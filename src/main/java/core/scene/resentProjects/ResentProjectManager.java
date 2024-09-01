@@ -10,9 +10,9 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class ResentProjectManager {
+    //class to store ResentProjectData and saving it in Json file
     private final File jsonFile = new File("src/main/java/core/data/resentProjects.json");
     private final ArrayList<ResentProjectData> projects = new ArrayList<>();
 

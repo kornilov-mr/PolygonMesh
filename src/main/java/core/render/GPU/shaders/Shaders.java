@@ -9,6 +9,7 @@ import java.util.Map;
 
 
 public class Shaders {
+    //class to change shaders on fly
     private final ShaderRunner mainShader;
     private final Map<ShaderEnum, ShaderRunner> shaderRunners = new HashMap<>();
 

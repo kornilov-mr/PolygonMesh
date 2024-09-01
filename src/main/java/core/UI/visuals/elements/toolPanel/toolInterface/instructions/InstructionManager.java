@@ -5,6 +5,7 @@ import core.tools.managers.FocusTabManager;
 
 
 public class InstructionManager {
+    //Class which executes instructions
     private final FocusTabManager focusTabManager;
     private final CommandManager commandManager;
     private final InstructionQueue instructionQueue;

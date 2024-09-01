@@ -5,6 +5,7 @@ import core.scene.Scene;
 import java.io.File;
 
 public class FolderSceneManager {
+    //class, which ensures, that the folder for saving Scene exesits
     private File pathToSceneFolder;
 
     protected FolderSceneManager(File pathToSceneFolder) {

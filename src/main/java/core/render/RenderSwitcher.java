@@ -6,6 +6,7 @@ import core.render.GPU.shaders.ShaderRunner;
 import core.render.GPU.shaders.Shaders;
 
 public abstract class RenderSwitcher {
+    //Abstract class, which switches shaders for rendering
     protected ShaderRunner currentShader;
     private final Shaders shaders;
 

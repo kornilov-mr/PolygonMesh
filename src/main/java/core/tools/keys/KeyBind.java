@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.Set;
 
 public abstract class KeyBind {
+    //abstract class, which encapsulates required keys and creates label with them
     private final JPanel keyLabel = new JPanel();
     protected final Set<Integer> keysRequired;
 

@@ -6,10 +6,10 @@ import core.tools.changes.Change;
 import java.util.ArrayList;
 
 public class NullNode extends ChangeNode{
+    //Root node of ChangeTree
     public NullNode(Scene scene) {
         super(new Change(new ArrayList<>(scene.getPrimitives()), new ArrayList<>()), null);
     }
-
     @Override
     public ChangeNode getUpNode() {
         return this;

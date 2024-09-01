@@ -4,7 +4,6 @@ import core.UIUpdateWorker;
 import core.camera.Camera;
 import core.scene.Scene;
 import core.UI.visuals.MainWindow;
-import core.statistic.FPS.TrackFPS;
 import core.statistic.FPS.FPSTracker;
 
 import java.util.Date;
@@ -31,6 +30,7 @@ public class RenderController extends Thread {
     public void run() {
         while(true){
             Frame frame = getProcessedFrame();
+            //Painting main panel in background
             UIUpdateWorker uiUpdateWorker = new UIUpdateWorker(frame, mainWindow);
             try {
                 uiUpdateWorker.doInBackground();
@@ -42,8 +42,7 @@ public class RenderController extends Thread {
             mainWindow.updateInfoLabels();
         }
     }
-
-    @TrackFPS
+    //Returns rendered frame
     public Frame getProcessedFrame(){
         long deltaTime = new Date().getTime();
         Frame frame = render.ProcessFrame(scene);

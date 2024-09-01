@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PointMouseListener implements MouseListener {
+    //MouseListener, which selects object clicked
 
     private final Camera camera;
     private final FocusTabManager focusTabManager;

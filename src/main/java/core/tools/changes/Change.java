@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Change {
+    //Class, which contains changedPrimitive and addedPrimitive of some action
     private boolean isEmpty;
     final Map<String, PrimitiveSave> changedPrimitives;
     final Map<String, Primitive> addedPrimitives;

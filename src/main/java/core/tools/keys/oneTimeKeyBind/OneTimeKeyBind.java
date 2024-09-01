@@ -2,11 +2,11 @@ package core.tools.keys.oneTimeKeyBind;
 
 import core.scene.SceneManipulator;
 import core.tools.keys.KeyBind;
-import core.tools.keys.KeyBinds;
 
 import java.util.Set;
 
 public abstract class OneTimeKeyBind extends KeyBind {
+    //Abstract class, which triggers only one time after pressing keys required
 
     public OneTimeKeyBind(Set<Integer> keysRequired) {
         super(keysRequired);

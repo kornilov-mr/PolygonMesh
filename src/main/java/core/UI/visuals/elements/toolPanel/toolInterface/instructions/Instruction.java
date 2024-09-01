@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class Instruction {
+    //Instruction is a class, which creates a popup on the screen with field to enter data
+    //After pressing "create" will execute command with parameters specified
     private final InstructionPopup instructionPopup;
     public Instruction(String title, String[] argumentsNames, TypeEnum[] typeEnums) {
         this.instructionPopup= new InstructionPopup(title,argumentsNames,typeEnums);

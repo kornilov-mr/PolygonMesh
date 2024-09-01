@@ -1,8 +1,6 @@
 package core.scene.resentProjects;
 
 import core.scene.Scene;
-import core.scene.sceneLoaders.SceneLoader;
-import core.scene.sceneLoaders.SceneLoaderFactory;
 import core.tools.managers.FocusTabManager;
 import org.json.JSONObject;
 
@@ -51,6 +49,7 @@ public final class ResentProjectData {
         }
         return file;
     }
+    //return displayPanel with ability to load on click
     public JPanel loadPanel(Scene scene, FocusTabManager focusTabManager, int width, int height){
         JPanel panel = displayPanel(width,height,scene);
         panel.addMouseListener(new MouseAdapter() {
@@ -62,6 +61,7 @@ public final class ResentProjectData {
         });
         return panel;
     }
+    //return Ui for ResentProjectDate with all information for user
     private JPanel displayPanel(int width, int height, Scene scene){
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
@@ -71,6 +71,7 @@ public final class ResentProjectData {
         panel.add(new JLabel(scene.getSceneName()));
         return panel;
     }
+    //return displayPanel with ability to save on click
     public JPanel savePanel(Scene scene, FocusTabManager focusTabManager, int width, int height){
         JPanel panel = displayPanel(width,height,scene);
         panel.addMouseListener(new MouseAdapter() {

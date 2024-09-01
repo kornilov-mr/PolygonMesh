@@ -1,12 +1,11 @@
 package core.tools.commands;
 
-import core.UI.visuals.elements.toolPanel.toolInterface.instructions.Instruction;
 import core.scene.Scene;
 import core.tools.changes.ChangeManager;
-import core.tools.managers.FocusTabManager;
 import core.tools.selecting.SelectedObjectManager;
 
 public class CommandManager {
+    //Class, which executes Commands and adds Change to the Change tree
     private final Scene scene;
     private final SelectedObjectManager selectedObjectManager;
     private final ChangeManager changeManager;
