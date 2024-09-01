@@ -13,26 +13,9 @@ public class KeyBindsPreset {
     protected KeyBindsPreset() {
         for(KeyBinds keyBind : KeyBinds.values()){
             if(keyBind.getOneTimeFlag()==1){
-                try {
-                    oneTimeKeyBindMap.put(keyBind.getNameInJson(), (OneTimeKeyBind) keyBind.getKeyBindClass().getConstructors()[1].newInstance());
-                } catch (InstantiationException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
+                oneTimeKeyBindMap.put(keyBind.getNameInJson(), (OneTimeKeyBind) keyBind.getKeyBind());
             }else{
-                try {
-                    radioKeyBindMap.put(keyBind.getNameInJson(), (RadioKeyBind) keyBind.getKeyBindClass().getConstructors()[0].newInstance());
-                } catch (InstantiationException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
-
+                radioKeyBindMap.put(keyBind.getNameInJson(), (RadioKeyBind) keyBind.getKeyBind());
             }
         }
     }
