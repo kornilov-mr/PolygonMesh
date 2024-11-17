@@ -40,4 +40,5 @@ build/
 
 /src/main/Scenes/
 /src/main/java/core/data/keyBinds.json
-/src/main/java/core/data/
+/.idea/
+/src/main/java/core/data/resentProjects.json
