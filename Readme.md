@@ -8,7 +8,7 @@ This project is a little Ui application, an editor for polygon 3d models written
 To run a project simply clone it.
 
 ```bash
-git clone https://github.com/kornilov-mr/MSBuildSupportWPF.git
+git clone https://github.com/kornilov-mr/PolygonMesh.git
 ```
 There are 4 example of MSbuild in *./examples* folder (default folder for file chooser in the app)
 
@@ -17,21 +17,25 @@ There are 4 example of MSbuild in *./examples* folder (default folder for file c
 
 3D movement based on direction vectors and sphere orientation.
 
-![Alt Text](https://github.com/kornilov-mr/WordBoundRewrite/blob/master/photo1.png).
+![Alt Text](https://github.com/kornilov-mr/VideoAndGifContainer/blob/main/vid0_1.gif)
 
 ### Primitive editing
 
 Ability to Select Primitives and then edit their parameters (for example color and point's position)
 
-![Alt Text](https://github.com/kornilov-mr/WordBoundRewrite/blob/master/gif2.gif)
+![Alt Text](https://github.com/kornilov-mr/VideoAndGifContainer/blob/main/vid1_1.gif)
 
 ### Change stack
 
 Ability to reverse Changes, which have been created recently. Achieved through making all actions a command, tracking all created and edited Primitive by the command
 
+![Alt Text](https://github.com/kornilov-mr/VideoAndGifContainer/blob/main/vid2_1.gif)
+
 ### Instructions
 
 Whenever User tries to execute operation, which need addition information, where will be a popup requesting user to specify additional parameters. All requests are in a stuck.
+
+![Alt Text](https://github.com/kornilov-mr/VideoAndGifContainer/blob/main/vid3_1.gif)
 
 ### Hot Keys
 
