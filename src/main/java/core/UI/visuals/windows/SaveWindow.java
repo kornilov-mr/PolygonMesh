@@ -6,7 +6,6 @@ import core.scene.resentProjects.ResentProjectData;
 import core.scene.resentProjects.ResentProjectManager;
 import core.scene.sceneLoaders.Extensions;
 import core.tools.managers.FocusTabManager;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
