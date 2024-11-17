@@ -10,7 +10,6 @@ To run a project simply clone it.
 ```bash
 git clone https://github.com/kornilov-mr/PolygonMesh.git
 ```
-There are 4 example of MSbuild in *./examples* folder (default folder for file chooser in the app)
 
 ## Features:
 ### 3D orientation
